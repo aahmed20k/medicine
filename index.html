@@ -146,6 +146,79 @@ li strong{font-weight:650}
 .tdo strong{color:var(--ink);font-weight:600}
 .strat-table + .strat-table{margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
 .wu-sub h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;font-weight:600}
+
+/* --- jump nav --- */
+.jump{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none;position:sticky;top:0;background:var(--bg);z-index:15}
+.jump::-webkit-scrollbar{display:none}
+.jchip{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);cursor:pointer}
+.jchip:hover{border-color:var(--blue);color:var(--blue)}
+.chip-alt{border-style:dashed}
+
+/* --- first five --- */
+.sec-first{border-left:4px solid var(--ink);background:var(--surface)}
+.sec-first > h3{color:var(--ink)}
+.firstlist{margin:0;padding-left:20px}
+.firstlist li{font-size:15px;line-height:1.45;margin-bottom:8px;font-weight:550}
+.firstlist li:last-child{margin-bottom:0}
+.flagbox{margin-top:13px;padding:10px 12px;background:var(--red-soft);border-radius:7px}
+.flagbox h4{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin:0 0 6px;font-weight:600}
+.flagbox li{font-size:13.5px}
+
+/* --- collapsible sections --- */
+details.fold{padding:0}
+details.fold > summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:12px 15px}
+details.fold > summary::-webkit-details-marker{display:none}
+details.fold > summary h3{margin:0}
+details.fold[open] > summary{border-bottom:1px solid var(--line)}
+.chev{width:8px;height:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);margin-bottom:3px}
+details.fold[open] .chev{transform:rotate(225deg);margin-bottom:-3px}
+.foldbody{padding:12px 15px 14px}
+
+/* --- lead sentence emphasis --- */
+.lead{display:block;color:var(--ink);font-weight:550}
+.rest{display:block;color:var(--muted);font-size:13.5px;margin-top:2px;line-height:1.45}
+
+/* --- line-level results --- */
+.rgroup{background:var(--surface);border:1px solid var(--line);border-radius:9px;margin-bottom:8px;overflow:hidden}
+.rhead{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;
+  border-bottom:1px solid var(--line);padding:10px 13px;cursor:pointer;font:inherit;color:var(--ink);font-weight:650;text-align:left}
+.rcount{font-family:var(--mono);font-size:10px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}
+.rline{display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid var(--line);
+  padding:9px 13px;cursor:pointer;font:inherit}
+.rline:last-child{border-bottom:none}
+.rline:hover{background:var(--blue-soft)}
+.rsec{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
+.rtext{display:block;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.rtext .in{color:var(--muted)}
+mark{background:#FDF0BF;color:inherit;padding:0 1px;border-radius:2px}
+.rmore{width:100%;background:none;border:none;padding:9px;font:inherit;font-size:12.5px;color:var(--blue);cursor:pointer}
+
+/* --- drug index --- */
+details.drug{background:var(--surface);border:1px solid var(--line);border-radius:9px;margin-bottom:6px;overflow:hidden}
+details.drug > summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:11px 13px}
+details.drug > summary::-webkit-details-marker{display:none}
+.dname{font-weight:650;font-size:15px}
+.dcount{font-family:var(--mono);font-size:10px;color:var(--muted)}
+details.drug[open] > summary{border-bottom:1px solid var(--line)}
+
+/* --- calculators --- */
+.calc{border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:14px;background:#FBFCFD}
+.calc-title{margin:0 0 10px;font-weight:650;font-size:14px}
+.calc-sub{font-weight:400;color:var(--muted);font-size:12.5px}
+.calc-item{margin-bottom:9px}
+.calc-q{display:block;font-size:13px;margin-bottom:4px}
+.calc-opts{display:flex;flex-wrap:wrap;gap:5px}
+.opt{font:inherit;font-size:12.5px;padding:5px 9px;border:1px solid var(--line);border-radius:6px;
+  background:var(--surface);color:var(--muted);cursor:pointer}
+.opt.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.calc-out{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);display:flex;gap:11px;align-items:flex-start}
+.calc-num{font-size:27px;font-weight:700;line-height:1;min-width:36px}
+.calc-band{font-size:13.5px;line-height:1.45;color:var(--muted)}
+.calc-band strong{display:block;font-size:13px}
+.calc-band.s-ok strong{color:var(--green)}
+.calc-band.s-mod strong{color:var(--amber)}
+.calc-band.s-sev strong{color:var(--red)}
 .disclaimer{
   font-size:12.5px;color:var(--muted);line-height:1.5;
   border-top:1px solid var(--line);margin-top:22px;padding-top:12px;
@@ -184,17 +257,17 @@ const DATA = [
 id:"chest-pain", tag:"Cardiopulmonary", name:"Chest pain",
 one:"Sort by whether it can kill in the next hour, then by whether it's ischemic.",
 strat:[
- {t:"HEART score — 6-week MACE risk", n:"History, ECG, Age, Risk factors, Troponin; 0–2 points each.",
+ {t:"HEART score — 6-week MACE risk", n:"Five items, 0–2 points each. <strong>History:</strong> slightly (0), moderately (1), highly suspicious (2). <strong>ECG:</strong> normal (0), nonspecific repolarization change or LBBB or paced (1), significant ST deviation (2). <strong>Age:</strong> under 45 (0), 45–64 (1), 65 or over (2). <strong>Risk factors</strong> (hypertension, hyperlipidemia, diabetes, smoking, obesity, family history): none (0), one or two (1), three or more or known atherosclerotic disease (2). <strong>Troponin:</strong> at or below the upper reference limit (0), one to three times it (1), above three times it (2).",
   rows:[
-   ["ok","Low, 0–3","Roughly 1.7% MACE at 6 weeks with a nonischemic ECG and normal serial troponin.","Discharge or short observation with outpatient follow-up. Routine stress testing adds little."],
+   ["ok","Low, 0–3","0.9–1.7% MACE at 6 weeks with a nonischemic ECG and normal serial troponin. Validation cohorts vary, and a score of exactly 3 has been reported above the 2% threshold.","Discharge or short observation with outpatient follow-up. Routine stress testing adds little. Be more cautious with a 3 than with a 0."],
    ["mod","Moderate, 4–6","Roughly 12–17% MACE.","Admit to observation, serial troponin, non-invasive testing or CT coronary angiography before discharge."],
    ["sev","High, 7–10","Roughly 50–65% MACE.","Admit, cardiology consult, early invasive evaluation."]
   ]},
- {t:"High-sensitivity troponin patterns", n:"Interpret the delta, not the single value.",
+ {t:"High-sensitivity troponin patterns", n:"Interpret the delta, not the single value. Values below are ng/L. Roche hs-cTnT and Abbott hs-cTnI are the two common assays and their numbers differ — confirm which one your lab reports.",
   rows:[
    ["ok","Undetectable at 0 h, >3 h from onset","Rules out myocardial injury with very high negative predictive value.","No further troponins needed if the ECG is nonischemic."],
-   ["ok","Delta below the assay threshold at 1–3 h","Rule-out pathway complete.","Move to risk stratification for stable angina instead."],
-   ["sev","Rising delta above the assay threshold","Acute myocardial injury.","Decide ACS vs non-ACS (myocarditis, PE, sepsis, tachyarrhythmia) and treat accordingly."],
+   ["ok","Rule-out zone","0 h below the assay rule-out value (Roche hs-cTnT &lt;5 ng/L, Abbott hs-cTnI &lt;4 ng/L), or 1 h delta below the assay delta threshold (Roche &lt;3, Abbott &lt;2).","Rule-out pathway complete. Move to risk stratification for stable angina instead. No further troponins."],
+   ["sev","Rule-in zone","0 h above the assay rule-in value (Roche hs-cTnT ≥52 ng/L, Abbott hs-cTnI ≥64 ng/L), or a 1 h delta above threshold (Roche ≥5, Abbott ≥6).","Acute myocardial injury. Decide ACS vs non-ACS (myocarditis, PE, sepsis, tachyarrhythmia, heart failure) and treat accordingly."],
    ["mod","Elevated but flat across serial draws","Chronic myocardial injury.","Usually CKD, heart failure, or structural disease. Do not reflexively anticoagulate."]
   ]},
  {t:"NSTEMI invasive timing (GRACE-based)", n:"",
@@ -227,16 +300,16 @@ hx:[
  "Exam: bilateral BP, JVD, murmurs and rubs, unilateral breath sounds, calf asymmetry, chest wall reproducibility (reproducible tenderness lowers but does not exclude ACS)."
 ],
 wu:{
- labs:["ECG within 10 minutes of the complaint, then repeat at 15–30 min if pain persists or the first is nondiagnostic — serial ECGs catch evolving occlusion.","High-sensitivity troponin at 0 and 1–3 h (per your assay's protocol). A single undetectable hs-troponin at >3 h from onset with a nonischemic ECG has very high negative predictive value.","CBC, BMP, magnesium, coags.","D-dimer only if PE is being considered and the patient is PERC-positive but low/intermediate probability — age-adjusted cutoff (age × 10 ng/mL in patients >50) if you use it.","BNP if the picture is mixed with dyspnea; lipase if epigastric."],
+ labs:["ECG within 10 minutes of the complaint, then repeat at 15–30 min if pain persists or the first is nondiagnostic — serial ECGs catch evolving occlusion.","High-sensitivity troponin at 0 and 1–3 h. <strong>Cutoffs are assay-specific and reported in ng/L — they are not interchangeable, so know which assay your lab runs.</strong> Roche hs-cTnT: rule out at 0 h &lt;5 (if &gt;3 h from onset) or 0 h &lt;12 with a 1 h delta &lt;3; rule in at 0 h ≥52 or 1 h delta ≥5. Abbott hs-cTnI: rule out at 0 h &lt;4, or 0 h &lt;5 with a 1 h delta &lt;2; rule in at 0 h ≥64 or 1 h delta ≥6. Anything between rule-out and rule-in is the observe zone — repeat at 3 h.","CBC, BMP, magnesium, coags.","D-dimer only if PE is being considered and the patient is PERC-positive but low/intermediate probability — age-adjusted cutoff (age × 10 ng/mL in patients >50) if you use it.","BNP if the picture is mixed with dyspnea; lipase if epigastric."],
  img:["Chest x-ray on nearly everyone — widened mediastinum, pneumothorax, pneumonia, effusion.","CT pulmonary angiogram if Wells/YEARS or a positive D-dimer supports PE.","CT angiogram chest (dissection protocol) if the story or exam suggests dissection — this is a different order than a PE study at many centers.","Bedside echo/POCUS: pericardial effusion, RV strain, regional wall motion, IVC.","Formal TTE if troponin is up without a clear ACS pattern (myocarditis, Takotsubo, wall motion)."],
  other:["Risk-stratify with HEART score: history, ECG, age, risk factors, troponin. HEART 0–3 is low risk (<2% MACE at 6 weeks); ≥7 warrants early invasive discussion.","TIMI or GRACE if NSTEMI is confirmed — GRACE >140 supports an early invasive strategy within 24 h."]
 },
 mgmt:[
- "<strong>STEMI:</strong> activate cath lab. Aspirin 325 mg chewed, high-intensity statin, anticoagulation per cath lab, P2Y12 timing per interventionalist. Avoid nitrates in inferior MI with RV involvement, or with recent PDE5 inhibitor.",
- "<strong>NSTEMI/UA:</strong> aspirin, anticoagulation (heparin drip or enoxaparin), high-intensity statin, beta-blocker within 24 h if not in heart failure, hypotensive, or bradycardic. Cardiology consult and risk-stratify for timing of cath.",
+ "<strong>STEMI:</strong> activate the cath lab — target door-to-balloon under 90 minutes, or thrombolysis within 30 minutes if PCI is more than 120 minutes away. Aspirin 325 mg chewed. Unfractionated heparin 60 units/kg IV bolus (max 4000) then 12 units/kg/h (max 1000/h), titrated to an aPTT of 1.5–2× control, or enoxaparin 1 mg/kg SC every 12 h (every 24 h if CrCl under 30). High-intensity statin: atorvastatin 80 mg or rosuvastatin 20–40 mg. P2Y12 loading (ticagrelor 180 mg, clopidogrel 600 mg, or prasugrel 60 mg) and its timing per the interventionalist. Nitroglycerin 0.4 mg sublingual every 5 min up to 3 doses, then 5–10 mcg/min IV titrated — but avoid nitrates entirely in inferior MI with RV involvement or with a PDE5 inhibitor in the last 24–48 h.",
+ "<strong>NSTEMI/UA:</strong> aspirin 325 mg chewed then 81 mg daily. Anticoagulation with unfractionated heparin (60 units/kg bolus, then 12 units/kg/h) or enoxaparin 1 mg/kg SC every 12 h. Atorvastatin 80 mg or rosuvastatin 20–40 mg. Oral beta-blocker within 24 h — metoprolol tartrate 25 mg every 6 h, titrated — unless the patient is in heart failure, hypotensive, bradycardic, or has signs of low output. Cardiology consult and risk-stratify for cath timing.",
  "<strong>PE:</strong> anticoagulate as soon as suspicion is high and bleeding risk is acceptable, before imaging if imaging will be delayed. Assess for RV strain and hemodynamic instability — that decides thrombolysis vs anticoagulation alone.",
- "<strong>Dissection:</strong> rate first, then pressure. IV esmolol or labetalol to HR <60, then vasodilator (nicardipine/nitroprusside) to SBP 100–120. Emergent surgery for type A.",
- "<strong>Pericarditis:</strong> high-dose NSAID or aspirin plus colchicine 0.5 mg once or twice daily for 3 months (colchicine reduces recurrence). Avoid steroids first-line. Hold anticoagulation decisions until effusion is assessed.",
+ "<strong>Dissection:</strong> rate first, then pressure. Esmolol 500 mcg/kg IV bolus then 50–200 mcg/kg/min, or labetalol 20 mg IV then 20–80 mg every 10 min (max about 300 mg), to a heart rate under 60. <strong>Only then</strong> add a vasodilator — nicardipine 5 mg/h, increased by 2.5 mg/h every 5–15 min to a max of 15 mg/h — targeting SBP 100–120. Vasodilating first causes reflex tachycardia and raises shear stress. Emergent surgery for type A; medical management for uncomplicated type B.",
+ "<strong>Pericarditis:</strong> ibuprofen 600–800 mg every 8 h, or aspirin 750–1000 mg every 8 h (aspirin preferred post-MI), tapered over 2–4 weeks once symptom-free, <strong>plus</strong> colchicine 0.5 mg twice daily (once daily if under 70 kg) for 3 months — colchicine roughly halves recurrence. Add a proton pump inhibitor. Avoid steroids first-line; they increase recurrence. Hold anticoagulation decisions until the effusion is assessed.",
  "Analgesia, oxygen only if SpO2 <90% — routine oxygen in normoxic ACS does not help and may harm."
 ],
 pearls:[
@@ -302,9 +375,9 @@ mgmt:[
  "Oxygen to a target — SpO2 88–92% in COPD or chronic CO2 retention, 92–96% for most others. Do not chase 100%.",
  "<strong>Escalation ladder:</strong> nasal cannula → high-flow nasal cannula → NIV → intubation. NIV is strongly supported in COPD exacerbation with respiratory acidosis and in cardiogenic pulmonary edema; it is a poor choice in altered mental status, vomiting, or shock.",
  "<strong>Pulmonary edema:</strong> IV loop diuretic (roughly 1–2.5× the home oral dose IV), nitroglycerin if hypertensive, NIV early. Diuresis without a nitrate rarely fixes flash edema.",
- "<strong>COPD/asthma:</strong> short-acting bronchodilators, systemic steroids (prednisone 40 mg daily ×5 days is as good as longer courses in COPD), antibiotics in COPD if increased sputum purulence plus volume or dyspnea.",
- "<strong>Pneumonia:</strong> antibiotics within the first hours, guided by CAP vs HAP and local antibiogram. Add steroids in severe CAP requiring ICU-level care — this now has mortality benefit data.",
- "<strong>PE:</strong> anticoagulate; escalate to catheter-directed or systemic lysis for hemodynamic instability.",
+ "<strong>COPD/asthma:</strong> albuterol 2.5 mg plus ipratropium 0.5 mg nebulized every 20 min for 3 doses, then every 4–6 h. Prednisone 40 mg daily for 5 days (equal to longer courses in COPD) or methylprednisolone 125 mg IV once if not tolerating oral. In COPD, add antibiotics if sputum purulence has increased plus either volume or dyspnea: azithromycin 500 mg daily for 3 days, doxycycline 100 mg twice daily for 5 days, or amoxicillin-clavulanate 875 mg twice daily for 5 days. In severe asthma add magnesium sulfate 2 g IV over 20 min.",
+ "<strong>Pneumonia — empiric regimens</strong> (adjust to your local antibiogram, but these are the standard starting points). Inpatient non-severe CAP: ceftriaxone 1–2 g IV daily plus azithromycin 500 mg IV or PO daily, or doxycycline 100 mg twice daily; levofloxacin 750 mg daily is the monotherapy alternative. Severe CAP: the same beta-lactam plus a macrolide, and add vancomycin 15–20 mg/kg every 8–12 h (trough or AUC-guided) or linezolid 600 mg every 12 h if MRSA risk, and cefepime 2 g every 8 h or piperacillin-tazobactam 4.5 g every 6 h in place of ceftriaxone if pseudomonal risk. HAP/VAP: cefepime 2 g every 8 h or piperacillin-tazobactam 4.5 g every 6 h, plus vancomycin if MRSA risk. Aspiration: ceftriaxone, or ampicillin-sulbactam 3 g every 6 h if a periodontal or obstructive source. Add hydrocortisone 200 mg daily for 4–7 days in severe CAP requiring ICU-level care — this carries a mortality benefit.",
+ "<strong>PE:</strong> anticoagulate — apixaban 10 mg twice daily for 7 days then 5 mg twice daily, rivaroxaban 15 mg twice daily for 21 days then 20 mg daily with food, or enoxaparin 1 mg/kg every 12 h. Use a heparin infusion instead if the patient is unstable, has CrCl under 30, or may need a procedure. For hemodynamic instability, systemic alteplase 100 mg IV over 2 h, or catheter-directed therapy where available.",
  "Sit the patient up, suction, incentive spirometry, and mobilize — the most common ward hypoxia is atelectasis and it responds to positioning."
 ],
 pearls:[
@@ -429,10 +502,10 @@ mgmt:[
  "Treat the cause. Delirium is a syndrome, not a diagnosis, and antipsychotics do not shorten it.",
  "<strong>Non-pharmacologic first, and they work:</strong> reorient, restore glasses and hearing aids, mobilize, daylight and normal sleep-wake cycle, family at bedside, remove tethers (Foley, telemetry, restraints), treat pain and constipation.",
  "Deprescribe aggressively — anticholinergics, benzodiazepines, sedating antihistamines, and opioids where possible.",
- "Antipsychotics only for severe agitation threatening the patient or staff, at the lowest effective dose and for the shortest time: haloperidol 0.25–0.5 mg or quetiapine 12.5–25 mg. Check the QTc. Avoid in Parkinson's and Lewy body dementia (use quetiapine or pimavanserin if unavoidable).",
- "Benzodiazepines make delirium worse — the exception is alcohol or benzodiazepine withdrawal, where they are the treatment (symptom-triggered CIWA protocol).",
- "Thiamine 100 mg IV (500 mg TID for suspected Wernicke) before glucose in anyone with alcohol use or malnutrition.",
- "Suspected meningitis: ceftriaxone + vancomycin (+ ampicillin if >50 or immunocompromised) + dexamethasone before or with the first dose. Add acyclovir for encephalitis features."
+ "Antipsychotics only for severe agitation threatening the patient or staff, at the lowest effective dose and for the shortest time: haloperidol 0.25–0.5 mg IV or PO, repeatable every 4–6 h, or quetiapine 12.5–25 mg PO at night. Check the QTc before and after — hold if it exceeds about 500 ms, and check potassium and magnesium. Avoid in Parkinson's and Lewy body dementia (use quetiapine or pimavanserin if unavoidable).",
+ "Benzodiazepines make delirium worse — the exception is alcohol or benzodiazepine withdrawal, where they are the treatment. Symptom-triggered dosing: lorazepam 1–2 mg or diazepam 5–10 mg when CIWA-Ar is 8 or above, reassessed hourly. Lorazepam is preferred in liver disease and the elderly. Phenobarbital or a lorazepam infusion for benzodiazepine-refractory delirium tremens, in an ICU.",
+ "Thiamine before glucose in anyone with alcohol use or malnutrition: 100 mg IV daily for prophylaxis, or 500 mg IV every 8 h for 2–3 days for suspected Wernicke encephalopathy, then taper. Add folate 1 mg and a multivitamin, and replete magnesium — thiamine will not work without it.",
+ "<strong>Suspected meningitis — give within 1 hour, before the LP if the LP will be delayed:</strong> dexamethasone 0.15 mg/kg IV (about 10 mg) first or with the first antibiotic dose, then ceftriaxone 2 g IV every 12 h plus vancomycin 15–20 mg/kg IV every 8–12 h. Add ampicillin 2 g IV every 4 h if over 50, pregnant, or immunocompromised (Listeria). Add acyclovir 10 mg/kg IV every 8 h for encephalitis features."
 ],
 pearls:[
  "Delirium is an independent predictor of mortality, prolonged stay, and future dementia — document it as a diagnosis.",
@@ -497,7 +570,7 @@ wu:{
 },
 mgmt:[
  "<strong>Antibiotics within 1 hour</strong> for septic shock and for neutropenic fever; within 3 hours for sepsis without shock while you refine the source. Broad-spectrum, then narrow on culture data.",
- "Empiric choice by source and local antibiogram. Add MRSA coverage (vancomycin) for line infection, severe SSTI, known colonization, or recent hospitalization. Add antipseudomonal coverage (cefepime, pip-tazo, meropenem) for neutropenia, healthcare-associated, or structural lung disease.",
+ "<strong>Empiric regimens by source</strong> (adjust to your antibiogram). Unknown source, sick: cefepime 2 g IV every 8 h or piperacillin-tazobactam 4.5 g every 6 h, plus vancomycin 15–20 mg/kg every 8–12 h. Urinary: ceftriaxone 1 g daily, or cefepime if prior resistant organisms; add ampicillin for enterococcal risk. Intra-abdominal: piperacillin-tazobactam 4.5 g every 6 h, or ceftriaxone plus metronidazole 500 mg every 8 h. Skin/soft tissue: vancomycin, plus piperacillin-tazobactam if diabetic foot or necrotizing concern, plus clindamycin 900 mg every 8 h for toxin suppression in necrotizing infection. Line infection: vancomycin plus gram-negative coverage, and pull the line. Neutropenic fever: cefepime 2 g every 8 h or meropenem 1 g every 8 h within 1 hour, adding vancomycin only for line infection, skin infection, hypotension, or known MRSA.",
  "Fluids: 30 mL/kg crystalloid for sepsis-induced hypoperfusion or lactate ≥4, given thoughtfully in heart failure and ESRD — reassess with passive leg raise, POCUS IVC, or stroke volume rather than giving it blindly. Balanced crystalloid over normal saline.",
  "Norepinephrine is first-line vasopressor if MAP <65 after fluids. Start it through a peripheral line if needed rather than waiting for central access.",
  "Source control within 6–12 hours where possible: drain the abscess, remove the infected line, decompress the obstructed biliary or urinary tract.",
@@ -559,11 +632,11 @@ wu:{
 },
 mgmt:[
  "MAP target ≥65 mmHg for most; higher (80–85) in chronic severe hypertension or acute renal impairment, individualized.",
- "<strong>Distributive:</strong> balanced crystalloid, then norepinephrine. Add vasopressin as a second agent. Hydrocortisone for refractory shock.",
- "<strong>Hypovolemic/hemorrhagic:</strong> blood products, not crystalloid, for bleeding. Activate massive transfusion if needed, add TXA within 3 hours of trauma, reverse anticoagulation, and get the bleeding source controlled.",
- "<strong>Cardiogenic:</strong> minimize fluid. Norepinephrine for pressure, dobutamine or milrinone for output. Urgent cardiology; consider mechanical support and revascularization.",
+ "<strong>Distributive:</strong> balanced crystalloid, then norepinephrine starting at 0.05 mcg/kg/min (roughly 5 mcg/min) and titrated every 5–10 min to MAP ≥65; usual range 0.05–0.5 mcg/kg/min. Add vasopressin at a fixed 0.03 units/min (not titrated) when norepinephrine passes roughly 0.25–0.5 mcg/kg/min. Add epinephrine or angiotensin II as a third agent. Hydrocortisone 50 mg IV every 6 h (200 mg/day) for shock still requiring vasopressors after fluids.",
+ "<strong>Hypovolemic/hemorrhagic:</strong> blood products, not crystalloid, for bleeding. Activate massive transfusion (1:1:1 red cells, plasma, platelets), give tranexamic acid 1 g IV over 10 min then 1 g over 8 h if within 3 hours of trauma, reverse anticoagulation, and get the source controlled. Give calcium — 1 g calcium gluconate per few units of product — since citrate chelates it and hypocalcemia worsens coagulopathy.",
+ "<strong>Cardiogenic:</strong> minimize fluid. Norepinephrine for pressure (as above); dobutamine 2.5–5 mcg/kg/min titrated to 20 for output, or milrinone 0.125–0.375 mcg/kg/min (accumulates in renal failure and drops the pressure more). Urgent cardiology; consider mechanical support and revascularization.",
  "<strong>Obstructive:</strong> the treatment is mechanical — needle/chest tube, pericardiocentesis, thrombolysis or embolectomy. Fluids and pressors are a bridge only.",
- "<strong>Anaphylaxis:</strong> IM epinephrine 0.3–0.5 mg in the anterolateral thigh, repeat every 5–15 min, plus fluids. Antihistamines and steroids are adjuncts and never first.",
+ "<strong>Anaphylaxis:</strong> IM epinephrine 0.3–0.5 mg (0.3–0.5 mL of 1 mg/mL) in the anterolateral thigh, repeated every 5–15 min; start an infusion at 0.05–0.1 mcg/kg/min if two doses fail. Aggressive fluids. Adjuncts only after epinephrine: diphenhydramine 25–50 mg IV, famotidine 20 mg IV, methylprednisolone 125 mg IV. Observe 4–6 hours for a biphasic reaction, and prescribe an epinephrine autoinjector at discharge.",
  "<strong>Adrenal crisis:</strong> hydrocortisone 100 mg IV then 50 mg q6h, aggressive fluids with dextrose, and treat the precipitant.",
  "Stop the offending drug, hold the next antihypertensive dose, and write the hold parameters explicitly."
 ],
@@ -579,11 +652,11 @@ pearls:[
 id:"tachycardia", tag:"Cardiopulmonary", name:"Tachycardia / AF with RVR",
 one:"Stable or unstable first, then narrow or wide, then regular or irregular.",
 strat:[
- {t:"CHA2DS2-VASc — annual stroke risk in AF", n:"CHF, Hypertension, Age ≥75 (2), Diabetes, Stroke/TIA (2), Vascular disease, Age 65–74, Sex category (female).",
+ {t:"CHA2DS2-VASc — annual stroke risk in AF", n:"One point each for congestive heart failure, hypertension, diabetes, vascular disease (prior MI, peripheral arterial disease, aortic plaque), age 65–74, and female sex. <strong>Two points each</strong> for age 75 or over and for prior stroke, TIA, or thromboembolism. Maximum 9.",
   rows:[
    ["ok","0 in men, 1 in women","Roughly 0.2–0.6% per year.","No anticoagulation."],
    ["mod","1 in men, 2 in women","Roughly 0.6–2% per year.","Anticoagulation is reasonable — a shared decision."],
-   ["sev","2 or more in men, 3 or more in women","2% per year and rising steeply with score.","Anticoagulate with a DOAC unless there is a mechanical valve or moderate-to-severe mitral stenosis, where warfarin is required."]
+   ["sev","2 or more in men, 3 or more in women","2% per year and rising steeply with score.","Anticoagulate. Apixaban 5 mg twice daily — reduce to 2.5 mg twice daily if two of: age 80 or over, weight 60 kg or under, creatinine 1.5 mg/dL or higher. Rivaroxaban 20 mg daily with the evening meal (15 mg if CrCl 15–50). Warfarin to INR 2–3 is <strong>required</strong>, not optional, for mechanical valves and moderate-to-severe mitral stenosis."]
   ]},
  {t:"HAS-BLED — modify risk, don't withhold therapy", n:"Hypertension, Abnormal renal/liver function, Stroke, Bleeding history, Labile INR, Elderly >65, Drugs or alcohol.",
   rows:[
@@ -625,11 +698,11 @@ wu:{
 mgmt:[
  "<strong>Unstable:</strong> synchronized cardioversion (start ~120–200 J biphasic for AF, 50–100 J for flutter and SVT), with sedation if time permits.",
  "<strong>Stable SVT:</strong> vagal maneuvers (modified Valsalva with leg raise has the best evidence), then adenosine 6 mg rapid IV push with a flush, then 12 mg. Warn the patient it will feel awful for a few seconds.",
- "<strong>Stable AF with RVR:</strong> rate control with IV metoprolol or diltiazem. Choose beta-blocker in ischemia or thyrotoxicosis; avoid diltiazem in reduced EF. Amiodarone is a reasonable choice when hypotensive or in critical illness, but recognize it is a rhythm-control drug and may convert.",
+ "<strong>Stable AF with RVR:</strong> metoprolol tartrate 2.5–5 mg IV over 2 min, repeated every 5 min up to 3 doses, then 25–100 mg PO every 6–12 h; or diltiazem 0.25 mg/kg IV (about 20 mg) over 2 min, a second dose of 0.35 mg/kg at 15 min if needed, then an infusion at 5–15 mg/h. Beta-blocker in ischemia or thyrotoxicosis; <strong>avoid diltiazem in reduced EF</strong>. Amiodarone 150 mg IV over 10 min then 1 mg/min for 6 h then 0.5 mg/min is the choice when hypotensive or critically ill — but it is a rhythm-control drug and may convert, so treat it as cardioversion for anticoagulation purposes. Digoxin 0.25 mg IV every 6 h up to 1.5 mg is an adjunct in heart failure but is slow.",
  "Correct potassium (>4.0) and magnesium (>2.0) — this alone often settles the rhythm.",
  "<strong>Anticoagulation:</strong> calculate CHA2DS2-VASc. Anticoagulate for ≥2 in men, ≥3 in women, and assess bleeding risk with HAS-BLED to modify risk factors, not to withhold therapy. DOAC preferred over warfarin except in mechanical valves and moderate-to-severe mitral stenosis.",
- "<strong>Stable VT:</strong> amiodarone, procainamide (better evidence in the PROCAMIO trial), or lidocaine, with cardiology involved and pads on the patient.",
- "<strong>Torsades:</strong> magnesium 2 g IV, correct K, stop the offending drug, overdrive pacing or isoproterenol if recurrent.",
+ "<strong>Stable VT:</strong> procainamide 10–17 mg/kg IV at 20–50 mg/min until the arrhythmia stops, hypotension develops, or the QRS widens by more than 50% (best evidence, PROCAMIO), then 1–4 mg/min; or amiodarone 150 mg IV over 10 min, repeatable; or lidocaine 1–1.5 mg/kg IV. Cardiology involved and pads on the patient before you start.",
+ "<strong>Torsades:</strong> magnesium sulfate 2 g IV over 1–2 min, repeatable, even when the magnesium level is normal. Replete potassium to above 4.5, stop every QT-prolonging drug, and use overdrive pacing at 90–110 bpm or isoproterenol if it recurs. Defibrillate (unsynchronized) if it degenerates or the patient loses a pulse.",
  "Treat sinus tachycardia by treating the cause. Rate-controlling a compensatory tachycardia can cause decompensation."
 ],
 pearls:[
@@ -656,7 +729,7 @@ strat:[
    ["mod","Acute ischemic stroke, not thrombolysed","Penumbral perfusion is pressure-dependent.","Permissive hypertension. Treat only above 220/120, and then lower by no more than about 15%."],
    ["mod","Acute ischemic stroke, thrombolysis planned","Bleeding risk with lysis.","Must be under 185/110 before and under 180/105 for 24 hours after."],
    ["sev","Acute pulmonary edema","Afterload is the driver.","IV nitroglycerin plus a loop diuretic, and NIV early. Avoid beta-blockade in acute decompensation."],
-   ["sev","Preeclampsia with severe features / eclampsia","Seizure prevention is separate from pressure control.","Magnesium sulfate plus labetalol, hydralazine, or oral nifedipine. Target under 160/110. Obstetrics immediately."],
+   ["sev","Preeclampsia with severe features / eclampsia","Seizure prevention is separate from pressure control.","Magnesium sulfate 4–6 g IV over 15–20 min then 1–2 g/h for seizure prophylaxis (this is the treatment for eclampsia, not a benzodiazepine), plus labetalol 20 mg IV escalating, hydralazine 5–10 mg IV every 20 min, or nifedipine 10 mg orally. Target under 160/110. Obstetrics immediately — delivery is the definitive treatment."],
    ["sev","Sympathetic crisis \u2014 cocaine, stimulants, pheochromocytoma","Unopposed alpha stimulation.","Benzodiazepine first, then phentolamine or nicardipine. <strong>No beta-blocker before alpha blockade.</strong>"],
    ["mod","All other emergencies","Watershed ischemia with rapid drops.","Reduce MAP by no more than 20\u201325% in the first hour, then to about 160/100 over 2\u20136 hours, then normalize over 24\u201348 hours."]
   ]},
@@ -696,7 +769,7 @@ wu:{
 mgmt:[
  "<strong>Asymptomatic severe hypertension on the wards:</strong> treat the trigger (pain, retention, withdrawal, hypoxia), restart or uptitrate the patient's ORAL regimen, and recheck. The target is gradual reduction over days to weeks, not hours.",
  "<strong>Hypertensive emergency:</strong> IV titratable agent in a monitored setting. Lower the mean arterial pressure by no more than 20–25% in the first hour, then to about 160/100 over the next 2–6 hours, then normalize over 24–48 hours. Overshooting causes watershed infarction.",
- "<strong>Agent by cause:</strong> nicardipine or clevidipine for most; esmolol or labetalol plus a vasodilator for dissection (rate first, then pressure); nitroglycerin plus a loop diuretic for pulmonary edema; labetalol or hydralazine plus magnesium for preeclampsia; phentolamine for pheochromocytoma or cocaine (avoid unopposed beta-blockade).",
+ "<strong>Agent by cause, with doses:</strong> nicardipine 5 mg/h IV, increased by 2.5 mg/h every 5–15 min to a maximum of 15 mg/h, or clevidipine, for most; esmolol 500 mcg/kg bolus then 50–200 mcg/kg/min, or labetalol 20 mg IV then 20–80 mg every 10 min, plus a vasodilator for dissection (rate first, then pressure); nitroglycerin 5–10 mcg/min titrated up plus a loop diuretic for pulmonary edema; labetalol or hydralazine plus magnesium for preeclampsia; phentolamine for pheochromocytoma or cocaine (avoid unopposed beta-blockade).",
  "<strong>Exceptions to the gradual rule:</strong> aortic dissection needs SBP 100–120 and HR <60 immediately. ICH needs SBP 140 within hours. Ischemic stroke needs permissive hypertension (treat only above 220/120, or 185/110 if thrombolysing).",
  "<strong>Chronic management:</strong> thiazide-like diuretic, ACE inhibitor or ARB, and a dihydropyridine calcium channel blocker are the first-line classes. Start two agents when the pressure is more than 20/10 above goal. Do not combine an ACE inhibitor with an ARB.",
  "Target <130/80 for most adults, which is supported by SPRINT for high-risk patients. Individualize upward in frailty, orthostasis, and limited life expectancy.",
@@ -782,7 +855,7 @@ pearls:[
 id:"gib", tag:"GI", name:"GI bleeding",
 one:"Resuscitate, localize, risk-stratify, and get the scope on the calendar.",
 strat:[
- {t:"Glasgow-Blatchford score — need for intervention", n:"BUN, hemoglobin, SBP, pulse, melena, syncope, liver disease, heart failure.",
+ {t:"Glasgow-Blatchford score — need for intervention", n:"Points for: BUN (2–6 points as it rises above 18 mg/dL), hemoglobin (1–6 points as it falls below 13 in men or 12 in women), SBP (1–3 points as it falls below 110), pulse 100 or more (1), melena (1), syncope (2), liver disease (2), and heart failure (2). Range 0–23.",
   rows:[
    ["ok","0–1","Very low risk of needing transfusion, endoscopic therapy, or dying.","Can be managed as an outpatient with early endoscopy follow-up."],
    ["mod","2–7","Intermediate risk.","Admit, endoscopy within 24 hours."],
@@ -829,8 +902,8 @@ wu:{
 mgmt:[
  "Two large-bore IVs (18 gauge or larger), or a cordis if massive. Crystalloid as a bridge; blood is the resuscitation fluid.",
  "<strong>Restrictive transfusion:</strong> transfuse to a hemoglobin threshold of 7 g/dL (8 g/dL in active coronary disease). Liberal transfusion increases mortality in variceal bleeding by raising portal pressure.",
- "Correct coagulopathy: hold the anticoagulant; 4-factor PCC plus vitamin K for warfarin, andexanet or PCC for factor Xa inhibitors, idarucizumab for dabigatran. Platelets if <50 with active bleeding.",
- "<strong>Upper GI bleed:</strong> IV pantoprazole 80 mg bolus then 8 mg/h infusion (or 40 mg BID), NPO, GI consult.",
+ "<strong>Correct coagulopathy — hold the anticoagulant, then reverse by agent.</strong> Warfarin: 4-factor PCC dosed by INR (25 units/kg for INR 2–4, 35 for 4–6, 50 for above 6; max 5000 units) <strong>plus</strong> vitamin K 10 mg IV over 30 min — PCC wears off in hours and vitamin K sustains the reversal. Dabigatran: idarucizumab 5 g IV. Apixaban or rivaroxaban: andexanet alfa by dose and timing, or 4-factor PCC 50 units/kg if andexanet is unavailable. Heparin: protamine 1 mg per 100 units given in the last 2–3 h. Platelets if under 50,000 with active bleeding; cryoprecipitate if fibrinogen is under 100–150.",
+ "<strong>Upper GI bleed:</strong> pantoprazole 80 mg IV bolus then 8 mg/h infusion for 72 h after endoscopic therapy of a high-risk lesion; 40 mg IV twice daily is adequate otherwise. NPO, GI consult, and two large-bore IVs already in.",
  "<strong>Suspected variceal:</strong> add octreotide 50 mcg bolus then 50 mcg/h, plus prophylactic ceftriaxone 1 g daily for 7 days (this reduces mortality, not just infection). Consider TIPS early in high-risk Child-Pugh C.",
  "Erythromycin 250 mg IV 30–120 minutes before endoscopy improves visualization.",
  "Restart anticoagulation once hemostasis is achieved — the thrombotic risk of prolonged interruption is real and usually underweighted. Discuss timing with the prescribing service.",
@@ -968,9 +1041,9 @@ wu:{
 mgmt:[
  "<strong>Severe symptoms (seizure, coma):</strong> 3% hypertonic saline 100–150 mL IV over 10–20 minutes, repeat up to 2–3 times until symptoms improve or the sodium rises 4–6 mEq/L. This initial rapid rise is safe and is what stops the herniation.",
  "<strong>Correction limits:</strong> no more than 8 mEq/L in any 24 hours (6 mEq/L if high risk for osmotic demyelination). Recheck sodium every 2–4 hours.",
- "If overcorrection happens, it can be reversed: free water (D5W) and/or DDAVP to re-lower the sodium. Some centers use a proactive DDAVP clamp strategy.",
+ "If overcorrection happens it is reversible: D5W 3 mL/kg per hour as free water and desmopressin 2 mcg IV every 8 h to stop the water diuresis, re-lowering the sodium to the intended trajectory. Some centers use a proactive DDAVP clamp — desmopressin 2 mcg every 6–8 h from the start, with sodium raised in a controlled way using hypertonic saline.",
  "<strong>Hypovolemic:</strong> isotonic saline and stop the diuretic. Anticipate rapid auto-correction.",
- "<strong>SIADH:</strong> fluid restriction (usually 800–1000 mL/day), salt tablets, and loop diuretic if urine osm is high. Urea or tolvaptan for refractory cases — tolvaptan requires close monitoring and is contraindicated in liver disease.",
+ "<strong>SIADH:</strong> fluid restriction to 800–1000 mL/day, sodium chloride tablets 1–2 g three times daily, and furosemide 20–40 mg if the urine osmolality is high. For refractory cases, urea 15–60 g daily or tolvaptan 15 mg daily — tolvaptan requires inpatient initiation with sodium checks every 6–8 h because it can overcorrect, and it is contraindicated in liver disease.",
  "<strong>Hypervolemic:</strong> treat the underlying heart or liver disease, restrict fluid and sodium, use loop diuretics. Saline makes it worse.",
  "Correct hypokalemia deliberately — potassium repletion raises sodium too and is a common cause of unintended overcorrection."
 ],
@@ -1032,7 +1105,7 @@ wu:{
 mgmt:[
  "<strong>1. Stabilize the membrane:</strong> calcium gluconate 1–2 g IV over 2–3 min (or calcium chloride via central line). Onset in minutes, lasts 30–60 min, and can be repeated. It does not lower potassium. Use it for any ECG change or K >6.5.",
  "<strong>2. Shift potassium into cells:</strong> regular insulin 10 units IV with 25 g dextrose (D50). Use 5 units, or insulin with a dextrose infusion, in CKD/ESRD to avoid hypoglycemia — check glucose at 30, 60, and 120 minutes; hypoglycemia after this is common and preventable. Add nebulized albuterol 10–20 mg (four to eight times a bronchodilator dose). Sodium bicarbonate only if there is a significant metabolic acidosis; it is a weak agent alone.",
- "<strong>3. Remove potassium — this is the definitive step:</strong> IV loop diuretic if the patient makes urine and is not volume depleted; potassium binders (patiromer or sodium zirconium cyclosilicate, both better tolerated and better evidenced than sodium polystyrene, which carries a rare risk of colonic necrosis); hemodialysis for refractory hyperkalemia, ESRD, or severe AKI.",
+ "<strong>3. Remove potassium — this is the definitive step:</strong> IV loop diuretic if the patient makes urine and is not volume depleted; potassium binders — sodium zirconium cyclosilicate 10 g three times daily for up to 48 h then daily (onset within 1–2 h), or patiromer 8.4 g daily (onset 7 h, so not an acute agent); both are better tolerated and better evidenced than sodium polystyrene, which has essentially no acute effect and carries a rare risk of colonic necrosis; hemodialysis for refractory hyperkalemia, ESRD, or severe AKI.",
  "Stop every contributing drug and write it in the note so the next team doesn't restart it reflexively.",
  "Correct the cause: fluids for volume depletion, insulin for DKA, steroids for adrenal insufficiency, dialysis for the missed session.",
  "Set a potassium-restricted diet and involve the dietitian; give the patient the list."
@@ -1092,9 +1165,9 @@ wu:{
  other:["ECG for QT shortening.","Endocrinology or oncology involvement depending on the branch."]
 },
 mgmt:[
- "<strong>Volume first:</strong> isotonic saline at 200–300 mL/h (adjusted for cardiac and renal function) targeting urine output of 100–150 mL/h. Nearly all of these patients are profoundly volume depleted from calcium-driven diuresis, and rehydration alone often drops the calcium meaningfully.",
+ "<strong>Volume first:</strong> normal saline at 200–300 mL/h (adjusted for cardiac and renal function), targeting urine output of 100–150 mL/h, typically 3–6 L over the first 24 h. Nearly all of these patients are profoundly volume depleted from calcium-driven diuresis, and rehydration alone often drops the calcium meaningfully.",
  "Loop diuretics are <strong>not</strong> routine — use only for volume overload after rehydration. Older teaching that recommended forced diuresis has been abandoned.",
- "<strong>Calcitonin</strong> 4 units/kg SC or IM q12h for rapid effect (within hours) but tachyphylaxis develops in 48 hours. It's the bridge, not the treatment.",
+ "<strong>Calcitonin</strong> 4 units/kg SC or IM every 12 h (may increase to 8 units/kg every 6–12 h) — it lowers calcium by 1–2 mg/dL within 4–6 h, but tachyphylaxis develops by 48 h. It is the bridge to the bisphosphonate, not the treatment.",
  "<strong>Bisphosphonate</strong> is the definitive agent for malignancy-associated hypercalcemia: zoledronic acid 4 mg IV over 15 min (dose-adjust for renal function), onset 24–72 h, lasts weeks. Denosumab is the alternative in renal failure or bisphosphonate failure.",
  "Glucocorticoids for vitamin D–mediated causes: lymphoma, granulomatous disease, vitamin D toxicity.",
  "Hemodialysis with low-calcium bath for severe hypercalcemia with renal failure or heart failure limiting fluids.",
@@ -1230,9 +1303,9 @@ wu:{
 },
 mgmt:[
  "<strong>Transfusion thresholds:</strong> <10,000 prophylactically in stable patients; <20,000 with fever or minor bleeding; <50,000 before most invasive procedures; <100,000 for neurosurgery or ocular surgery. These are guidelines and the mechanism matters more than the number.",
- "<strong>ITP:</strong> treat if platelets <30,000 or bleeding. Prednisone 1 mg/kg or dexamethasone 40 mg daily for 4 days; IVIG 1 g/kg for a faster rise or if bleeding. Rituximab, TPO agonists, and splenectomy for refractory disease.",
- "<strong>HIT:</strong> stop all heparin including flushes and heparin-coated catheters. Start argatroban, bivalirudin, or fondaparinux. Do not start warfarin until platelets recover above 150,000 — it causes venous limb gangrene.",
- "<strong>TTP:</strong> urgent plasma exchange, steroids, and caplacizumab where available. This is the diagnosis you cannot afford to sit on overnight.",
+ "<strong>ITP:</strong> treat if platelets are under 30,000 or there is bleeding. Prednisone 1 mg/kg daily for 1–2 weeks then taper, or dexamethasone 40 mg daily for 4 days. Add IVIG 1 g/kg daily for 1–2 days when you need a rise within 24–48 h or there is bleeding. Rituximab, TPO agonists, and splenectomy for refractory disease.",
+ "<strong>HIT:</strong> stop all heparin including flushes and heparin-coated catheters. Start a non-heparin anticoagulant: argatroban 0.5–2 mcg/kg/min (start at 0.5 or lower in hepatic impairment or critical illness), bivalirudin, or fondaparinux 7.5 mg SC daily by weight. Do not start warfarin until the platelet count recovers above 150,000 — it causes venous limb gangrene — and overlap for at least 5 days when you do.",
+ "<strong>TTP:</strong> urgent plasma exchange (1–1.5 plasma volumes daily until the platelet count is above 150,000 for 2 days), methylprednisolone 1 g IV daily for 3 days or prednisone 1 mg/kg, and caplacizumab where available. If plasma exchange will be delayed, give plasma infusion as a bridge. This is the diagnosis you cannot afford to sit on overnight.",
  "<strong>DIC:</strong> treat the underlying cause. Support with products only if bleeding: FFP for prolonged INR, cryoprecipitate for fibrinogen <100, platelets for bleeding.",
  "Stop the likely offending drug — often the whole treatment. Recovery within 5–7 days supports the diagnosis.",
  "Hold anticoagulants and antiplatelets, avoid IM injections and rectal manipulation, and use a soft toothbrush. Write these as nursing orders."
@@ -1277,7 +1350,7 @@ strat:[
 flags:[
  "Jaundice with encephalopathy and an INR >1.5 in a patient without known cirrhosis — acute liver failure. This is a transplant center call, today.",
  "Fever, RUQ pain, jaundice, hypotension, and confusion — ascending cholangitis needs urgent biliary drainage.",
- "AST and ALT in the thousands — ischemic hepatitis, acetaminophen, viral, or autoimmune. Check acetaminophen level and start NAC if there is any suspicion.",
+ "AST and ALT in the thousands — ischemic hepatitis, acetaminophen, viral, or autoimmune. Check the acetaminophen level and start N-acetylcysteine on suspicion — IV loading 150 mg/kg over 1 h, then 50 mg/kg over 4 h, then 100 mg/kg over 16 h.",
  "AST:ALT ratio >2 with values usually under 300 — alcoholic hepatitis.",
  "New ascites plus abnormal LFTs plus fever — tap it."
 ],
@@ -1297,15 +1370,15 @@ hx:[
 wu:{
  labs:["CMP with fractionated bilirubin, GGT, albumin, INR — the INR and albumin measure function; the transaminases only measure injury.","Acetaminophen level in anyone with a hepatocellular pattern, regardless of history.","Hepatitis A IgM, hepatitis B surface antigen/core IgM/surface antibody, hepatitis C antibody with reflex RNA, hepatitis E if travel or immunosuppression.","Autoimmune panel: ANA, anti-smooth muscle, IgG levels; AMA for PBC.","Ferritin and transferrin saturation, ceruloplasmin (in patients under 40), alpha-1 antitrypsin.","CBC, CK, LDH, haptoglobin if hemolysis is possible.","Blood cultures if febrile."],
  img:["Right upper quadrant ultrasound with Doppler — first-line for ducts, gallbladder, liver texture, portal and hepatic vein flow.","MRCP for suspected choledocholithiasis or biliary pathology not seen on ultrasound.","CT abdomen for malignancy and vascular assessment.","ERCP when intervention is likely, not for diagnosis alone.","Liver biopsy if the workup is negative and the diagnosis changes management."],
- other:["Calculate MELD 3.0 for prognosis and transplant listing.","Maddrey discriminant function for alcoholic hepatitis steroid decisions.","Hepatology involvement early for acute liver failure, alcoholic hepatitis, or unclear etiology."]
+ other:["Calculate MELD 3.0 for prognosis and transplant listing — it uses bilirubin, INR, creatinine, sodium, albumin, sex, and age. A score of 15 or above is generally the threshold at which transplant benefit exceeds risk.","Maddrey discriminant function = 4.6 × (patient PT − control PT in seconds) + total bilirubin in mg/dL. A value of 32 or above defines severe alcohol-associated hepatitis and is the threshold for steroids.","Hepatology involvement early for acute liver failure, alcoholic hepatitis, or unclear etiology."]
 },
 mgmt:[
  "Stop every potentially hepatotoxic drug and re-check dosing on everything else with pharmacy.",
- "<strong>Acetaminophen toxicity:</strong> N-acetylcysteine — start it if there is any plausibility. There is essentially no downside and the benefit falls with delay. Use the Rumack-Matthew nomogram only for single acute ingestions with a known time.",
+ "<strong>Acetaminophen toxicity:</strong> N-acetylcysteine IV — 150 mg/kg over 1 h, then 50 mg/kg over 4 h, then 100 mg/kg over 16 h (300 mg/kg total over 21 h), continued beyond that if the INR, transaminases, or encephalopathy are still worsening. Start on plausibility; there is essentially no downside and the benefit falls with delay. The Rumack-Matthew nomogram applies only to single acute ingestions with a known time — it does not apply to staggered ingestion or chronic supratherapeutic use.",
  "<strong>Cholangitis:</strong> antibiotics plus ERCP within 24 hours (sooner if septic). Antibiotics without drainage will fail.",
- "<strong>Alcoholic hepatitis:</strong> abstinence, nutrition (this matters as much as any drug), thiamine and folate, and prednisolone 40 mg daily for 28 days if the Maddrey score is ≥32 and there is no active infection or GI bleed. Assess response with the Lille score at day 7.",
+ "<strong>Alcoholic hepatitis:</strong> abstinence, nutrition (this matters as much as any drug), thiamine and folate, and prednisolone 40 mg daily for 28 days if the Maddrey discriminant function is 32 or above and there is no active infection, GI bleed, or renal failure. Use prednisolone rather than prednisone (no hepatic conversion needed). Assess response with the Lille score at day 7 — above 0.45 means non-response, so stop the steroid rather than continue exposing the patient to infection risk.",
  "<strong>Acute liver failure:</strong> ICU, transplant center contact, NAC even for non-acetaminophen causes, monitor glucose and ICP, avoid sedatives, treat cerebral edema. Do not correct the INR with FFP unless bleeding — you lose your prognostic marker.",
- "<strong>Cirrhosis decompensation:</strong> tap for SBP, lactulose for encephalopathy titrated to 2–3 stools daily, diuretics for ascites (spironolactone-to-furosemide ratio 100:40), sodium restriction, and screen for varices and HCC.",
+ "<strong>Cirrhosis decompensation:</strong> diagnostic paracentesis for SBP. Lactulose 30 mL PO every 1–2 h until a bowel movement, then titrated to 2–3 soft stools daily; add rifaximin 550 mg twice daily for recurrence. Ascites: spironolactone 100 mg with furosemide 40 mg daily, increased together in that 100:40 ratio to a maximum of 400/160, plus sodium restriction to under 2 g daily. Screen for varices and for HCC with 6-monthly ultrasound.",
  "Vaccinate against hepatitis A and B if non-immune. Counsel on alcohol cessation with a referral, not just advice."
 ],
 pearls:[
@@ -1452,12 +1525,12 @@ wu:{
  other:["Continuous telemetry for at least 24 hours to detect paroxysmal AF; consider extended ambulatory monitoring for cryptogenic stroke.","Formal swallow screen before any oral intake, including medications — aspiration pneumonia is the most common early complication."]
 },
 mgmt:[
- "<strong>Thrombolysis:</strong> IV alteplase or tenecteplase within 4.5 hours of last known well if there are no contraindications. Tenecteplase as a single bolus is now widely preferred. BP must be <185/110 before and <180/105 after.",
+ "<strong>Thrombolysis:</strong> within 4.5 hours of last known well, with no contraindication. Tenecteplase 0.25 mg/kg IV as a single bolus, maximum 25 mg — now widely preferred for its simplicity. Alteplase 0.9 mg/kg, maximum 90 mg, with 10% as a bolus over 1 min and the rest over 60 min. BP must be under 185/110 before and kept under 180/105 for 24 h after. No antiplatelet or anticoagulant for 24 h, and repeat imaging before starting either.",
  "<strong>Thrombectomy:</strong> for large vessel occlusion within 24 hours using perfusion imaging selection. Call the neurointerventional team early — this is the highest-impact intervention in stroke care and is time-dependent even in the late window.",
  "<strong>Blood pressure:</strong> permissive hypertension in ischemic stroke (treat only above 220/120, or 185/110 if thrombolysing). In intracerebral hemorrhage, lower to a systolic of 140 in the first hours.",
  "<strong>ICH:</strong> reverse anticoagulation immediately (4-factor PCC and vitamin K for warfarin, andexanet or PCC for Xa inhibitors, idarucizumab for dabigatran), neurosurgery consult, control BP, and manage ICP.",
- "Antiplatelet therapy starting at 24 hours post-thrombolysis or immediately if not thrombolysed. Dual antiplatelet (aspirin plus clopidogrel) for 21 days in minor stroke or high-risk TIA, then single agent — this reduces recurrence.",
- "High-intensity statin, glycemic control, normothermia, head of bed positioning per the pathway, DVT prophylaxis with intermittent compression initially.",
+ "Antiplatelet at 24 h post-thrombolysis (after repeat imaging), or immediately if not thrombolysed: aspirin 325 mg then 81 mg daily. For minor stroke (NIHSS 3 or less) or high-risk TIA (ABCD2 4 or more), dual antiplatelet reduces recurrence — clopidogrel 300–600 mg load then 75 mg daily plus aspirin, for 21 days only, then single agent. Beyond 21 days the bleeding risk outweighs the benefit.",
+ "High-intensity statin (atorvastatin 80 mg or rosuvastatin 20–40 mg). Keep glucose 140–180, treat fever with acetaminophen, and keep the head of bed flat in the first 24 h if tolerated for large vessel disease, upright if aspiration risk. DVT prophylaxis with intermittent pneumatic compression from admission; add pharmacologic prophylaxis at 24–48 h in ischemic stroke once bleeding is excluded.",
  "Anticoagulate for AF-related stroke, with timing based on infarct size (typically 3–14 days) to balance hemorrhagic transformation risk.",
  "Get physical, occupational, and speech therapy in on day one. Early mobilization and rehabilitation drive functional outcome more than anything else you order after the first day."
 ],
@@ -1520,9 +1593,9 @@ wu:{
  other:["EEG: urgent if the patient doesn't return to baseline, routine within 24–48 hours for a first seizure. Continuous EEG if status is treated but the mental status stays impaired.","Neurology consult for a first unprovoked seizure, status, or an epilepsy patient with a change in pattern."]
 },
 mgmt:[
- "<strong>Status epilepticus, step 1 (0–5 min):</strong> benzodiazepine at an adequate dose — lorazepam 4 mg IV (may repeat once), or midazolam 10 mg IM if no IV. Underdosing benzodiazepines is the most common error in status.",
+ "<strong>Status epilepticus, step 1 (0–5 min):</strong> a benzodiazepine at full dose — lorazepam 0.1 mg/kg IV (4 mg in most adults) at 2 mg/min, repeatable once at 5 min; or midazolam 10 mg IM if there is no IV (5 mg if under 40 kg); or diazepam 0.15–0.2 mg/kg IV, max 10 mg. Underdosing is the most common error in status — the failure rate of a half dose is high and the second-line drugs will not rescue it.",
  "<strong>Step 2 (5–20 min):</strong> a second-line agent — levetiracetam 60 mg/kg (max 4500 mg), fosphenytoin 20 mg PE/kg, or valproate 40 mg/kg. The ESETT trial found all three roughly equivalent; levetiracetam is usually easiest.",
- "<strong>Step 3 (>20 min, refractory):</strong> intubation and continuous infusion of midazolam, propofol, or ketamine with continuous EEG monitoring. Get anesthesia and neurology.",
+ "<strong>Step 3 (beyond 20–40 min, refractory):</strong> intubate and start a continuous infusion with continuous EEG — midazolam 0.2 mg/kg load then 0.05–2 mg/kg/h, propofol 1–2 mg/kg load then 20–200 mcg/kg/min (watch for propofol infusion syndrome), or ketamine. Titrate to seizure suppression or burst suppression on EEG. Get anesthesia and neurology at the bedside.",
  "Protect the airway, position laterally, oxygen, IV access, and do not put anything in the mouth.",
  "Correct the provocation: dextrose (with thiamine first in alcohol use), hypertonic saline for symptomatic hyponatremia, calcium, magnesium, pyridoxine for isoniazid toxicity, magnesium for eclampsia.",
  "Do not start a long-term antiepileptic for a clearly provoked seizure with a corrected cause — treat the cause instead.",
@@ -1594,7 +1667,7 @@ wu:{
 mgmt:[
  "<strong>Migraine (inpatient cocktail):</strong> IV fluids, metoclopramide 10 mg IV or prochlorperazine 10 mg IV (with diphenhydramine to prevent akathisia), ketorolac 15–30 mg IV, and consider dexamethasone 10 mg IV to reduce recurrence. This combination outperforms opioids.",
  "<strong>Avoid opioids and butalbital</strong> for headache. They worsen outcomes, cause medication overuse headache, and reduce the effectiveness of everything else.",
- "<strong>Cluster:</strong> high-flow oxygen 12–15 L/min via non-rebreather plus subcutaneous sumatriptan. The oxygen works remarkably well and is underused.",
+ "<strong>Cluster:</strong> 100% oxygen at 12–15 L/min via non-rebreather for 15–20 minutes, plus sumatriptan 6 mg subcutaneously. The oxygen aborts most attacks within 15 minutes and is badly underused. Verapamil is the preventive, started with cardiology input and an ECG.",
  "<strong>Giant cell arteritis:</strong> prednisone 40–60 mg daily immediately (IV methylprednisolone if vision is threatened), then biopsy within 1–2 weeks. Waiting risks permanent blindness.",
  "<strong>SAH:</strong> neurosurgery, blood pressure control, nimodipine 60 mg every 4 hours for vasospasm prophylaxis, and aneurysm securing.",
  "<strong>Venous sinus thrombosis:</strong> anticoagulate, even with hemorrhagic infarction.",
@@ -1667,12 +1740,12 @@ wu:{
  other:["Wells score for DVT probability. Note that in bilateral cellulitis, the diagnosis is almost always wrong — true bilateral cellulitis is rare."]
 },
 mgmt:[
- "<strong>DVT:</strong> anticoagulate. DOACs (apixaban or rivaroxaban) are first-line for most; low molecular weight heparin is preferred in cancer-associated thrombosis and pregnancy. Duration is 3 months for provoked, indefinite for unprovoked or ongoing risk factors, decided with the patient.",
+ "<strong>DVT:</strong> anticoagulate. Apixaban 10 mg twice daily for 7 days then 5 mg twice daily; or rivaroxaban 15 mg twice daily for 21 days then 20 mg daily with food; or enoxaparin 1 mg/kg SC every 12 h (the preferred agent in cancer-associated thrombosis and in pregnancy, where DOACs are contraindicated). Duration: 3 months for a provoked event, indefinite for unprovoked or a persistent risk factor, with extended-phase apixaban 2.5 mg twice daily or rivaroxaban 10 mg daily as reduced-dose options.",
  "Isolated distal calf DVT in a low-risk patient can be surveilled with serial ultrasound rather than anticoagulated — a reasonable option worth knowing.",
- "<strong>Cellulitis:</strong> non-purulent cellulitis is usually streptococcal — cephalexin or cefazolin. Purulent cellulitis or abscess implies Staph aureus including MRSA — add trimethoprim-sulfamethoxazole or doxycycline, and drain the abscess (incision and drainage is the treatment; antibiotics are adjunctive). 5 days is adequate for uncomplicated cellulitis that is improving.",
+ "<strong>Cellulitis:</strong> non-purulent disease is almost always streptococcal — cephalexin 500 mg four times daily orally, or cefazolin 1–2 g IV every 8 h. Purulent cellulitis or abscess implies Staph aureus including MRSA — incision and drainage is the treatment, with trimethoprim-sulfamethoxazole one to two double-strength tablets twice daily or doxycycline 100 mg twice daily as the adjunct; vancomycin 15–20 mg/kg IV every 8–12 h if systemically unwell. Five days is adequate for uncomplicated cellulitis that is improving.",
  "Elevate the limb — this is genuinely therapeutic in cellulitis and is skipped constantly.",
  "Treat the portal of entry: tinea pedis, ulcers, and interdigital maceration cause recurrent cellulitis and treating them prevents recurrence.",
- "<strong>Necrotizing infection:</strong> immediate surgical debridement, broad antibiotics including clindamycin for toxin suppression, and resuscitation.",
+ "<strong>Necrotizing infection:</strong> immediate surgical debridement — the operating room is the diagnostic test and the treatment. Piperacillin-tazobactam 4.5 g IV every 6 h or meropenem 1 g every 8 h, plus vancomycin 15–20 mg/kg every 8–12 h, plus clindamycin 900 mg every 8 h for toxin suppression. Aggressive resuscitation. Do not let imaging delay surgery.",
  "<strong>Bilateral edema:</strong> treat the systemic cause. Diuretics for heart failure and cirrhosis; compression stockings (30–40 mmHg) for venous insufficiency once arterial supply is confirmed adequate; stop the amlodipine or gabapentinoid if that's the cause.",
  "Search for occult malignancy only if the history or exam suggests it — routine extensive cancer screening after unprovoked VTE has not shown benefit, though age-appropriate screening should be up to date."
 ],
@@ -1809,8 +1882,8 @@ wu:{
 mgmt:[
  "Treat the cause, not the number. Bicarbonate does not fix lactic acidosis and can worsen intracellular acidosis.",
  "Bicarbonate is reasonable for severe normal-gap acidosis from GI or renal bicarbonate loss, and considered at pH <7.1 in acute kidney injury (the BICAR-ICU trial suggested benefit in AKI with severe acidemia).",
- "<strong>Toxic alcohols:</strong> fomepizole plus hemodialysis. Do not wait for the level to come back to start fomepizole if the osmolar gap and story support it.",
- "<strong>Salicylate:</strong> alkalinize the urine with a bicarbonate infusion, replete potassium (you cannot alkalinize the urine without it), and dialyze for severe toxicity or altered mentation. Avoid intubation — losing the compensatory hyperventilation can be fatal.",
+ "<strong>Toxic alcohols:</strong> fomepizole 15 mg/kg IV load, then 10 mg/kg every 12 h for 4 doses, then 15 mg/kg every 12 h (dose every 4 h during dialysis, which clears it). Add hemodialysis for a level above 50 mg/dL, significant acidosis, renal failure, or visual symptoms in methanol poisoning. Do not wait for the level — start fomepizole if the osmolar gap and story support it. Cofactors: folate for methanol, thiamine and pyridoxine for ethylene glycol.",
+ "<strong>Salicylate:</strong> alkalinize with sodium bicarbonate 1–2 mEq/kg IV bolus, then 150 mEq in 1 L of D5W at 1.5–2× maintenance, targeting a urine pH of 7.5–8. Replete potassium aggressively — you cannot alkalinize the urine while hypokalemic. Hemodialysis for a level above about 90 mg/dL acutely (or above 80 with renal impairment), altered mentation, pulmonary edema, or refractory acidosis. Avoid intubation if at all possible — losing the compensatory hyperventilation can be fatal; if unavoidable, match their minute ventilation and bolus bicarbonate around the procedure.",
  "<strong>Metabolic alkalosis:</strong> most are chloride-responsive — give normal saline and potassium, stop the nasogastric suction or add a PPI. Acetazolamide for chloride-resistant or volume-overloaded cases.",
  "<strong>Respiratory acidosis:</strong> improve ventilation. NIV for COPD, reverse sedation, treat the obstruction.",
  "If a patient with severe metabolic acidosis needs intubation, match their pre-intubation minute ventilation on the vent and be ready for a crash in pH during apnea."
@@ -1825,48 +1898,221 @@ pearls:[
 }
 ];
 
+
+/* ---------- first five minutes ---------- */
+const FIRST = {
+"chest-pain":["ECG within 10 minutes. Repeat at 15–30 min if pain persists.","hs-troponin now and at 1–3 h. Aspirin 325 mg chewed unless dissection is suspected.","Check BP in both arms. A differential or tearing pain means CT angiogram before any anticoagulation.","STEMI or new LBBB with concordance: activate the cath lab, do not wait for troponin.","Two IVs, monitor, pads if unstable. Nitroglycerin only after you have excluded RV infarct."],
+"dyspnea":["Sit the patient up. Oxygen to 92–96%, or 88–92% if a CO2 retainer.","Look at work of breathing and breath sound symmetry before anything else. Absent sounds plus hypotension means needle decompression now.","VBG if the CO2 could matter — the sat tells you nothing about ventilation.","Lung POCUS at the bedside: B-lines, sliding, consolidation, effusion.","Escalate early: HFNC, then NIV for COPD with acidosis or cardiogenic edema. Do not wait for the sat to fall."],
+"syncope":["ECG on everyone — it is the highest-yield test and it drives disposition.","Fingerstick glucose. Orthostatic vitals done properly.","Rectal exam and hemoglobin if there is any suspicion of bleeding.","Exertional, supine, or palpitation-preceded syncope means telemetry and admission.","Skip the routine CT head unless there is trauma, a focal deficit, or anticoagulation."],
+"ams":["Fingerstick glucose first, always.","Check the pupils and the respiratory rate. Pinpoint plus hypoventilation: naloxone 0.04–0.4 mg IV, titrated.","Thiamine 100 mg IV before glucose in anyone with alcohol use or malnutrition.","Review the MAR for the last 48 hours — the cause is usually a drug that was given.","Focal deficit, fever with neck stiffness, or anticoagulation: CT head now, and antibiotics plus dexamethasone if meningitis is possible."],
+"sepsis":["Two sets of blood cultures, then antibiotics within 1 hour if shock or neutropenia, within 3 hours otherwise.","Lactate now, repeat at 2–4 h if elevated.","Balanced crystalloid 30 mL/kg for hypoperfusion, reassessed every 250–500 mL in heart failure or ESRD.","Norepinephrine at 0.05 mcg/kg/min if MAP stays under 65 — peripherally is fine rather than waiting for central access.","Name the source out loud and ask what needs draining, removing, or debriding."],
+"hypotension":["Recycle the pressure manually with the right cuff before acting on the number.","Name the shock category from skin temperature, JVP, and POCUS. The wrong fluid is the harm.","Two large-bore IVs. Type and screen. Lactate.","Bleeding: blood, not crystalloid. Obstructive: the fix is mechanical, not pharmacologic.","Stop the infusion, hold the antihypertensive, and check what was given in the last 4 hours."],
+"tachycardia":["12-lead, not the telemetry strip. Print a rhythm strip during any intervention.","Unstable — hypotension, ischemia, edema, or altered mentation from the rate: synchronized cardioversion now.","Wide and irregular: no AV nodal blockers. Procainamide or cardioversion.","Replete potassium above 4.0 and magnesium above 2.0.","Ask what is driving it. Most inpatient tachycardia is compensatory and rate-controlling it causes harm."],
+"hypertension":["Repeat it yourself with a correctly sized cuff, arm at heart level, after a few minutes of rest.","Ask the one question that matters: chest pain, dyspnea, headache, visual change, weakness, or reduced urine output?","No symptoms and no end-organ signs: this is not an emergency. Do not give IV hydralazine or labetalol.","Look for the ward cause — pain, retention, anxiety, withdrawal, hypoxia, or a held home dose.","Emergency: IV titratable infusion in a monitored bed, and the target depends on which organ."],
+"abd-pain":["Analgesia now. Opioids do not obscure the diagnosis.","Peritoneal signs mean a surgical call before the CT is read.","Lipase, lactate, CBC, CMP, type and screen, pregnancy test.","Check the hernia orifices and do the rectal exam.","Older patient with vascular disease and pain out of proportion: CT angiography for mesenteric ischemia."],
+"gib":["Two large-bore IVs, type and cross 2 units, CBC and coags.","Transfuse at hemoglobin 7 — resuscitate to the picture, not the number, if actively bleeding.","Pantoprazole 80 mg IV then 8 mg/h. Add octreotide and ceftriaxone if cirrhotic.","Hold and reverse the anticoagulant: PCC by INR band plus vitamin K, idarucizumab, or andexanet.","Call GI for endoscopy within 24 h, or 12 h if variceal or unstable."],
+"aki":["Bladder scan, and flush the Foley if there is one. Obstruction is fast to exclude and fast to fix.","Stop the nephrotoxins: NSAIDs, ACEi/ARB, aminoglycosides. Check every dose against the creatinine.","Urinalysis with microscopy — look at the sediment yourself.","Assess volume honestly. Fluid for hypovolemia, decongestion for overload. Reflexive fluid harms the cardiorenal patient.","Check potassium and bicarbonate now, and screen for the dialysis indications."],
+"hyponatremia":["Seizure or obtundation: 3% saline 100–150 mL over 10–20 min, repeated until symptoms improve or sodium rises 4–6.","Check the glucose and correct for it before you interpret anything.","Send serum osmolality, urine osmolality, and urine sodium together — that triad answers most of it.","Write the correction limit in the orders: no more than 8 mEq/L in 24 h, 6 if high risk.","Recheck sodium every 2–4 h, and watch for auto-correction once you stop the diuretic or give volume."],
+"hyperkalemia":["ECG immediately and put the patient on a monitor.","Any ECG change or K 6.5 or above: calcium gluconate 1–2 g IV over 2–3 min, first.","Then shift: insulin 10 units IV with 25 g dextrose (5 units in CKD or ESRD), plus albuterol 10–20 mg nebulized.","Then remove — this is the step that gets skipped. Loop diuretic, sodium zirconium cyclosilicate, or dialysis.","Glucose checks at 30, 60, and 120 minutes. Stop every contributing drug."],
+"hypercalcemia":["Corrected calcium or ionized calcium, and send the intact PTH before you treat.","Normal saline 200–300 mL/h targeting 100–150 mL/h of urine. They are always dry.","Calcium above 14, or confusion or arrhythmia: add calcitonin 4 units/kg every 12 h as the bridge.","Zoledronic acid 4 mg IV is the definitive agent — check creatinine and dental status first.","No loop diuretic until they are volume replete. Stop calcium, vitamin D, thiazides, and lithium."],
+"anemia":["Is this acute or chronic? Compare against every prior CBC before doing anything else.","A drop of more than 2 g/dL over hours is bleeding until proven otherwise. Find the source.","Order the smear and the reticulocyte count — they split the differential in half.","Transfuse at 7 (8 with active coronary disease). One unit, then reassess.","Schistocytes with thrombocytopenia: stop, this is a microangiopathy. Call heme and do not transfuse platelets."],
+"thrombocytopenia":["Repeat in a citrate tube to exclude clumping, and get a smear.","Schistocytes plus anemia plus any neuro or renal finding: TTP. Plasma exchange, do not wait for ADAMTS13.","Any heparin exposure in the last 5–10 days: calculate the 4T score and stop all heparin if intermediate or high.","Hold anticoagulants and antiplatelets, no IM injections, soft toothbrush.","Transfuse under 10,000, or under 50,000 with bleeding or before a procedure — but never in TTP or HIT."],
+"lfts":["Fractionate the pattern with the R factor before you order anything else.","Acetaminophen level in every hepatocellular pattern, regardless of the history. Start NAC on suspicion.","INR and albumin measure function; transaminases only measure injury. The INR is the number that matters.","Fever with RUQ pain and jaundice: antibiotics plus urgent ERCP. Antibiotics alone will fail.","Encephalopathy with INR above 1.5 and no known liver disease: call a transplant center today."],
+"hyperglycemia":["Glucose, BMP with anion gap, VBG, and beta-hydroxybutyrate.","Potassium before insulin. Under 3.3 means replete first and hold the insulin.","Fluids first: 15–20 mL/kg of balanced crystalloid in the first hour.","Insulin infusion at 0.1 units/kg/h. Add dextrose when glucose reaches 200–250 and keep the insulin running.","Find the precipitant, and hold the SGLT2 inhibitor. Check for euglycemic DKA if they are on one."],
+"stroke":["Establish last known well. That number determines every option you have.","Fingerstick glucose — hypoglycemia is the great mimic.","Non-contrast CT head immediately, with CT angiography head and neck at the same time.","Score the NIHSS and call the stroke team. Thrombectomy is beneficial out to 24 h with imaging selection.","Do not lower the blood pressure unless it is above 220/120 or you are thrombolysing. Nothing by mouth until the swallow screen."],
+"seizure":["Time it. Beyond 5 minutes is status and needs treatment now.","Glucose and sodium in every seizure.","Full-dose benzodiazepine: lorazepam 0.1 mg/kg IV (4 mg), repeatable once. Underdosing is the common error.","Second line at 5–20 min: levetiracetam 60 mg/kg, fosphenytoin 20 mg PE/kg, or valproate 40 mg/kg.","Still not back to baseline at 20–30 minutes: get an EEG for non-convulsive status."],
+"headache":["Time to peak intensity. Seconds to a minute means immediate CT head.","Fundoscopy — papilledema converts a number into an emergency and no lab does that for you.","Fever with neck stiffness: antibiotics and dexamethasone before the LP.","Over 50 with jaw claudication, scalp tenderness, or visual change: ESR and CRP, and start prednisone 40–60 mg now.","Treat primary headache with the cocktail, not opioids: metoclopramide 10 mg, ketorolac 15–30 mg, dexamethasone 10 mg."],
+"leg-swelling":["Unilateral or bilateral? That single question splits the differential.","Pain out of proportion, crepitus, or bullae: surgical emergency, call now, do not wait for imaging.","Wells score, then D-dimer or straight to compression ultrasound if high probability.","Mark the border of the erythema with a pen and write the time on it.","Elevate the limb. Anticoagulate empirically if imaging will be delayed and suspicion is high."],
+"diarrhea":["When did it start relative to admission? After 72 hours in hospital it is C. difficile or a drug.","Stop the laxatives, stool softeners, and unnecessary antibiotics. Check the MAR for what nursing actually gave.","Rectal exam to exclude impaction with overflow.","Test for C. difficile only with 3 or more unformed stools in 24 h and no laxative in the last 48 h.","Replace potassium and magnesium. No loperamide in bloody diarrhea, fever, or suspected C. difficile."],
+"acid-base":["Get a VBG and a BMP together — you need both to do the math.","Anion gap = Na − (Cl + HCO3), corrected for albumin.","Winter's formula: expected pCO2 = 1.5 × HCO3 + 8 ± 2. A mismatch means a second disorder.","Wide gap with normal lactate and ketones: check the osmolar gap and consider a toxic alcohol.","Treat the cause, not the bicarbonate number."]
+};
+
+/* ---------- score calculators ---------- */
+const SCORES = {
+"chest-pain":[{
+  id:"heart", name:"HEART score", sub:"6-week major adverse cardiac events",
+  items:[
+   {q:"History", o:[["Slightly suspicious",0],["Moderately suspicious",1],["Highly suspicious",2]]},
+   {q:"ECG", o:[["Normal",0],["Nonspecific repolarization, LBBB, or paced",1],["Significant ST deviation",2]]},
+   {q:"Age", o:[["Under 45",0],["45–64",1],["65 or over",2]]},
+   {q:"Risk factors", o:[["None",0],["One or two",1],["Three or more, or known atherosclerosis",2]]},
+   {q:"Troponin", o:[["At or below the upper limit",0],["1–3× the upper limit",1],["Above 3× the upper limit",2]]}],
+  bands:[[3,"ok","Low risk (0–3)","0.9–1.7% MACE in the derivation cohort. Discharge or short observation with outpatient follow-up. <strong>Caveat:</strong> a score of exactly 3 sits at the top of this band and validation cohorts have found MACE rates above the 2% low-risk threshold there — treat a 3 with more caution than a 0."],
+         [6,"mod","Moderate risk (4–6)","12–17% MACE. Admit to observation, serial troponin, non-invasive testing or CTCA."],
+         [10,"sev","High risk (7–10)","50–65% MACE. Admit, cardiology consult, early invasive evaluation."]]}],
+"tachycardia":[{
+  id:"chadsvasc", name:"CHA2DS2-VASc", sub:"annual stroke risk in atrial fibrillation",
+  items:[
+   {q:"Congestive heart failure", o:[["No",0],["Yes",1]]},
+   {q:"Hypertension", o:[["No",0],["Yes",1]]},
+   {q:"Age", o:[["Under 65",0],["65–74",1],["75 or over",2]]},
+   {q:"Diabetes", o:[["No",0],["Yes",1]]},
+   {q:"Prior stroke, TIA, or thromboembolism", o:[["No",0],["Yes",2]]},
+   {q:"Vascular disease (MI, PAD, aortic plaque)", o:[["No",0],["Yes",1]]},
+   {q:"Sex", o:[["Male",0],["Female",1]]}],
+  bands:[[0,"ok","Score 0","No anticoagulation in men. Reassess annually."],
+         [1,"mod","Score 1","Reasonable in men as a shared decision; score 1 in a woman is low risk."],
+         [9,"sev","Score 2 or more","Anticoagulate. Apixaban 5 mg twice daily (2.5 mg if two of: age 80+, weight 60 kg or less, creatinine 1.5+), or rivaroxaban 20 mg daily. Warfarin required for mechanical valves and moderate-to-severe mitral stenosis."]]}],
+"dyspnea":[{
+  id:"curb65", name:"CURB-65", sub:"pneumonia severity and disposition",
+  items:[
+   {q:"Confusion (new)", o:[["No",0],["Yes",1]]},
+   {q:"BUN above 19 mg/dL", o:[["No",0],["Yes",1]]},
+   {q:"Respiratory rate 30 or more", o:[["No",0],["Yes",1]]},
+   {q:"SBP under 90 or DBP 60 or less", o:[["No",0],["Yes",1]]},
+   {q:"Age 65 or over", o:[["No",0],["Yes",1]]}],
+  bands:[[1,"ok","0–1","30-day mortality under 3%. Outpatient management if oxygenation and social situation allow."],
+         [2,"mod","2","Mortality about 9%. Admit to a general ward."],
+         [5,"sev","3–5","Mortality 15–40%. Admit and assess for ICU-level care."]]}],
+"leg-swelling":[{
+  id:"wells", name:"Wells score for DVT", sub:"pretest probability",
+  items:[
+   {q:"Active cancer", o:[["No",0],["Yes",1]]},
+   {q:"Paralysis, paresis, or recent cast", o:[["No",0],["Yes",1]]},
+   {q:"Bedrest over 3 days or surgery within 12 weeks", o:[["No",0],["Yes",1]]},
+   {q:"Localized tenderness along the deep veins", o:[["No",0],["Yes",1]]},
+   {q:"Entire leg swollen", o:[["No",0],["Yes",1]]},
+   {q:"Calf more than 3 cm larger than the other side", o:[["No",0],["Yes",1]]},
+   {q:"Pitting edema confined to the symptomatic leg", o:[["No",0],["Yes",1]]},
+   {q:"Collateral superficial veins", o:[["No",0],["Yes",1]]},
+   {q:"Previously documented DVT", o:[["No",0],["Yes",1]]},
+   {q:"Alternative diagnosis at least as likely", o:[["No",0],["Yes",-2]]}],
+  bands:[[0,"ok","Low probability (0 or below)","About 5% prevalence. A negative D-dimer excludes DVT — no imaging needed. Note the ‘alternative diagnosis’ item (−2 points) is subjective and is usually what moves a patient into this band — be sure you can name the alternative."],
+         [2,"mod","Moderate (1–2)","About 17%. D-dimer; if positive, compression ultrasound."],
+         [9,"sev","High (3 or above)","50% or more. Straight to compression ultrasound. A negative D-dimer does not exclude DVT here — anticoagulate empirically if imaging is delayed."]]}],
+"ams":[{
+  id:"fourat", name:"4AT", sub:"rapid delirium screen",
+  items:[
+   {q:"Alertness", o:[["Normal",0],["Clearly abnormal — drowsy or agitated",4]]},
+   {q:"AMT4 (age, date of birth, place, current year)", o:[["No mistakes",0],["One mistake",1],["Two or more mistakes, or untestable",2]]},
+   {q:"Attention — months of the year backward", o:[["7 or more correct",0],["Starts but fewer than 7",1],["Untestable",2]]},
+   {q:"Acute change or fluctuating course", o:[["No",0],["Yes",4]]}],
+  bands:[[0,"ok","0","Delirium and significant cognitive impairment both unlikely."],
+         [3,"mod","1–3","Possible cognitive impairment without delirium. Look for chronic impairment and recheck for fluctuation."],
+         [12,"sev","4 or above","Possible delirium. Full workup, non-pharmacologic bundle, deprescribe, and document delirium as a diagnosis."]]}],
+"gib":[{
+  id:"gbs", name:"Glasgow-Blatchford", sub:"need for intervention",
+  items:[
+   {q:"BUN (mg/dL)", o:[["Under 18.2",0],["18.2–22.3",2],["22.4–27.9",3],["28–69.9",4],["70 or more",6]]},
+   {q:"Hemoglobin (g/dL) — if male (leave on ‘n/a’ if female)", o:[["n/a — patient is female",0],["13 or above",0],["12–12.9",1],["10–11.9",3],["Under 10",6]]},
+   {q:"Hemoglobin (g/dL) — if female (leave on ‘n/a’ if male)", o:[["n/a — patient is male",0],["12 or above",0],["10–11.9",1],["Under 10",6]]},
+   {q:"Systolic BP", o:[["110 or above",0],["100–109",1],["90–99",2],["Under 90",3]]},
+   {q:"Pulse 100 or more", o:[["No",0],["Yes",1]]},
+   {q:"Melena", o:[["No",0],["Yes",1]]},
+   {q:"Syncope", o:[["No",0],["Yes",2]]},
+   {q:"Liver disease", o:[["No",0],["Yes",2]]},
+   {q:"Heart failure", o:[["No",0],["Yes",2]]}],
+  bands:[[1,"ok","0–1","Very low risk. Can be managed as an outpatient with early endoscopy follow-up."],
+         [7,"mod","2–7","Intermediate. Admit, endoscopy within 24 hours."],
+         [23,"sev","8 or above","High risk of intervention and rebleeding. Admit with close monitoring, transfuse to threshold, endoscopy within 24 hours or sooner if unstable."]]}]
+};
+
+/* ---------- drug vocabulary for the index ---------- */
+const DRUG_TERMS = ["acetylcysteine","adenosine","albuterol","albumin","alteplase","amiodarone","amoxicillin-clavulanate","ampicillin","ampicillin-sulbactam","andexanet","apixaban","argatroban","aspirin","atorvastatin","azithromycin","bicarbonate","bivalirudin","caplacizumab","calcitonin","calcium gluconate","cefazolin","cefepime","cefotaxime","ceftriaxone","cephalexin","clevidipine","clindamycin","clopidogrel","colchicine","dabigatran","denosumab","desmopressin","dexamethasone","dextrose","diazepam","digoxin","diltiazem","diphenhydramine","dobutamine","doxycycline","enoxaparin","epinephrine","erythromycin","esmolol","famotidine","fidaxomicin","fludrocortisone","fomepizole","fosphenytoin","furosemide","glucagon","haloperidol","heparin","hydralazine","hydrocortisone","ibuprofen","idarucizumab","insulin","ipratropium","isoproterenol","ketorolac","labetalol","lactulose","levetiracetam","levofloxacin","lidocaine","linezolid","lorazepam","magnesium","meropenem","methylprednisolone","metoclopramide","metoprolol","metronidazole","midazolam","midodrine","milrinone","naloxone","nicardipine","nifedipine","nimodipine","nitroglycerin","nitroprusside","norepinephrine","octreotide","pantoprazole","patiromer","phenobarbital","phentolamine","piperacillin-tazobactam","prasugrel","prednisolone","prednisone","procainamide","prochlorperazine","propofol","protamine","quetiapine","rifaximin","rivaroxaban","rosuvastatin","sodium zirconium cyclosilicate","spironolactone","sumatriptan","thiamine","ticagrelor","tolvaptan","tranexamic acid","trimethoprim-sulfamethoxazole","valproate","vancomycin","vasopressin","verapamil","vitamin k","warfarin","zoledronic acid"];
+
 /* ---------- render ---------- */
-const listEl = document.getElementById('list');
+const listEl   = document.getElementById('list');
 const detailEl = document.getElementById('detail');
 const searchEl = document.getElementById('search');
-const chipsEl = document.getElementById('chips');
-const discEl = document.getElementById('disc');
+const chipsEl  = document.getElementById('chips');
+const discEl   = document.getElementById('disc');
 let activeTag = 'All';
 
-const tags = ['All', ...Array.from(new Set(DATA.map(d => d.tag)))];
-chipsEl.innerHTML = tags.map(t =>
-  `<button class="chip" data-tag="${t}" aria-pressed="${t === 'All'}">${t}</button>`
-).join('');
+const SECTIONS = [
+  {key:'first',  label:'First 5 min'},
+  {key:'ddx',    label:'Differential'},
+  {key:'hx',     label:'History & exam'},
+  {key:'wu',     label:'Workup'},
+  {key:'strat',  label:'Stratify'},
+  {key:'mgmt',   label:'Management'},
+  {key:'pearls', label:'Pearls'}
+];
 
+const esc = t => String(t).replace(/&(?!#?\w+;)/g,'&amp;');
+
+/* split a bullet into its answer sentence and the rest */
+function splitLead(text){
+  const t = String(text).trim();
+  const m = t.match(/^([\s\S]*?[.!?])\s+([\s\S]+)$/);
+  if (!m) return [t, ''];
+  if (m[1].replace(/<[^>]+>/g,'').length < 45){
+    const m2 = m[2].match(/^([\s\S]*?[.!?])\s+([\s\S]+)$/);
+    if (m2) return [m[1] + ' ' + m2[1], m2[2]];
+  }
+  return [m[1], m[2]];
+}
+function bullets(items){
+  return `<ul>${items.map(i => {
+    const [lead, rest] = splitLead(i);
+    return `<li><span class="lead">${lead}</span>${rest ? `<span class="rest">${rest}</span>` : ''}</li>`;
+  }).join('')}</ul>`;
+}
+
+/* ---------- search index ---------- */
+const INDEX = [];
+for (const d of DATA){
+  const add = (section, text) => INDEX.push({id:d.id, name:d.name, section, text, hay:String(text).toLowerCase()});
+  (FIRST[d.id]||[]).forEach(x => add('first', x));
+  d.flags.forEach(x => add('first', x));
+  d.ddx.forEach(g => g.i.forEach(x => add('ddx', `${x} <span class="in">(${g.g})</span>`)));
+  d.hx.forEach(x => add('hx', x));
+  ['labs','img','other'].forEach(k => (d.wu[k]||[]).forEach(x => add('wu', x)));
+  (d.strat||[]).forEach(t => t.rows.forEach(r => add('strat', `<strong>${r[1]}</strong> \u2014 ${r[2]} ${r[3]}`)));
+  d.mgmt.forEach(x => add('mgmt', x));
+  d.pearls.forEach(x => add('pearls', x));
+}
+
+/* ---------- drug index ---------- */
+const DRUGS = [];
+for (const term of DRUG_TERMS){
+  const hits = INDEX.filter(r => r.hay.includes(term));
+  if (hits.length) DRUGS.push({term, hits});
+}
+DRUGS.sort((a,b) => a.term.localeCompare(b.term));
+
+function highlight(html, terms){
+  if (!terms.length) return html;
+  let out = html;
+  for (const t of terms){
+    if (t.length < 2) continue;
+    const re = new RegExp('(?![^<]*>)(' + t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'ig');
+    out = out.replace(re, '<mark>$1</mark>');
+  }
+  return out;
+}
+
+/* ---------- top-level views ---------- */
+const tags = ['All', ...Array.from(new Set(DATA.map(d => d.tag))), 'Drugs'];
+chipsEl.innerHTML = tags.map(t =>
+  `<button class="chip${t==='Drugs'?' chip-alt':''}" data-tag="${t}" aria-pressed="${t === 'All'}">${t}</button>`
+).join('');
 chipsEl.addEventListener('click', e => {
   const b = e.target.closest('.chip');
   if (!b) return;
   activeTag = b.dataset.tag;
   [...chipsEl.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.tag === activeTag));
-  renderList();
+  closeDetail(true);
+  render();
 });
 
 function haystack(d){
-  return [d.name, d.tag, d.one, ...d.flags, ...d.pearls, ...d.mgmt,
-    ...d.ddx.flatMap(g => [g.g, ...g.i]),
-    ...d.hx, ...(d.wu.labs||[]), ...(d.wu.img||[]), ...(d.wu.other||[]),
+  return [d.name, d.tag, d.one, ...(FIRST[d.id]||[]), ...d.flags, ...d.pearls, ...d.mgmt,
+    ...d.ddx.flatMap(g => [g.g, ...g.i]), ...d.hx,
+    ...(d.wu.labs||[]), ...(d.wu.img||[]), ...(d.wu.other||[]),
     ...((d.strat||[]).flatMap(tb => [tb.t, tb.n||'', ...tb.rows.flatMap(r => r)]))
   ].join(' ').toLowerCase();
 }
 
-function renderList(){
+function render(){
   const q = searchEl.value.trim().toLowerCase();
   const terms = q.split(/\s+/).filter(Boolean);
-  const hits = DATA.filter(d => {
-    if (activeTag !== 'All' && d.tag !== activeTag) return false;
-    if (!terms.length) return true;
-    const h = haystack(d);
-    return terms.every(t => h.includes(t));
-  });
-  if (!hits.length){
-    listEl.innerHTML = `<div class="empty">Nothing matches that. Try a broader term — a single symptom, a lab name, or a drug.</div>`;
-    return;
-  }
+  if (activeTag === 'Drugs') return renderDrugs(terms);
+  if (terms.length) return renderLineResults(terms);
+  renderCards();
+}
+
+function renderCards(){
+  const hits = DATA.filter(d => activeTag === 'All' || d.tag === activeTag);
   listEl.innerHTML =
     `<p class="count">${hits.length} presentation${hits.length === 1 ? '' : 's'}</p>` +
     hits.map(d => `<button class="card" data-id="${d.id}">
@@ -1876,12 +2122,87 @@ function renderList(){
     </button>`).join('');
 }
 
-function ul(items){ return `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`; }
+/* line-level results: the matching bullet, not just the script */
+function renderLineResults(terms){
+  const pool = INDEX.filter(r => {
+    if (activeTag !== 'All' && activeTag !== 'Drugs'){
+      const d = DATA.find(x => x.id === r.id);
+      if (!d || d.tag !== activeTag) return false;
+    }
+    return terms.every(t => r.hay.includes(t));
+  });
+  const scripts = DATA.filter(d => terms.every(t => haystack(d).includes(t)));
 
-function stratBlock(d){
-  const tables = d.strat;
-  if (!tables || !tables.length) return '';
-  const body = tables.map(tb => `<div class="strat-table">
+  if (!pool.length && !scripts.length){
+    listEl.innerHTML = `<div class="empty">Nothing matches that. Try a single symptom, a lab name, or a drug.</div>`;
+    return;
+  }
+  const byScript = {};
+  for (const r of pool) (byScript[r.id] = byScript[r.id] || []).push(r);
+
+  const groups = Object.keys(byScript).map(id => {
+    const rows = byScript[id];
+    const d = DATA.find(x => x.id === id);
+    const shown = rows.slice(0, 6);
+    return `<div class="rgroup">
+      <button class="rhead" data-id="${id}"><span>${d.name}</span><span class="rcount">${rows.length} line${rows.length===1?'':'s'}</span></button>
+      ${shown.map(r => `<button class="rline" data-id="${id}" data-sec="${r.section}">
+          <span class="rsec">${(SECTIONS.find(s=>s.key===r.section)||{}).label}</span>
+          <span class="rtext">${highlight(r.text, terms)}</span>
+        </button>`).join('')}
+      ${rows.length > shown.length ? `<button class="rmore" data-id="${id}">Open script for ${rows.length - shown.length} more</button>` : ''}
+    </div>`;
+  }).join('');
+
+  const nameOnly = scripts.filter(d => !byScript[d.id]);
+  listEl.innerHTML =
+    `<p class="count">${pool.length} matching line${pool.length===1?'':'s'} in ${Object.keys(byScript).length} script${Object.keys(byScript).length===1?'':'s'}</p>` +
+    groups +
+    (nameOnly.length ? `<p class="count">Also matching by title</p>` + nameOnly.map(d =>
+      `<button class="card" data-id="${d.id}"><span class="tag">${d.tag}</span><h2>${d.name}</h2><p>${d.one}</p></button>`).join('') : '');
+}
+
+/* drug index */
+function renderDrugs(terms){
+  const hits = DRUGS.filter(x => !terms.length || terms.every(t => x.term.includes(t)));
+  if (!hits.length){
+    listEl.innerHTML = `<div class="empty">No drug by that name in these scripts.</div>`;
+    return;
+  }
+  listEl.innerHTML =
+    `<p class="count">${hits.length} drug${hits.length===1?'':'s'} \u2014 every mention, pulled from the scripts themselves</p>` +
+    hits.map(x => `<details class="drug">
+      <summary><span class="dname">${x.term}</span><span class="dcount">${x.hits.length}</span></summary>
+      ${x.hits.map(h => `<button class="rline" data-id="${h.id}" data-sec="${h.section}">
+          <span class="rsec">${h.name} \u00b7 ${(SECTIONS.find(s=>s.key===h.section)||{}).label}</span>
+          <span class="rtext">${highlight(h.text, [x.term])}</span>
+        </button>`).join('')}
+    </details>`).join('');
+}
+
+/* ---------- detail ---------- */
+function sectionHTML(d){
+  const out = [];
+  const first = FIRST[d.id] || [];
+  out.push(`<section class="blk sec-first" id="sec-first">
+    <h3>First 5 minutes</h3>
+    <ol class="firstlist">${first.map(x => `<li>${x}</li>`).join('')}</ol>
+    <div class="flagbox"><h4>Red flags</h4>${bullets(d.flags)}</div>
+  </section>`);
+
+  const ddx = d.ddx.map(g => `<div class="grp${g.crit ? ' critical' : ''}"><h4>${g.g}</h4><ul>${g.i.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');
+  out.push(fold('ddx','Differential', ddx));
+  out.push(fold('hx','Focused history &amp; exam', bullets(d.hx)));
+
+  const wu = [
+    d.wu.labs && d.wu.labs.length ? `<div class="wu-sub"><h4>Labs</h4>${bullets(d.wu.labs)}</div>` : '',
+    d.wu.img && d.wu.img.length ? `<div class="wu-sub"><h4>Imaging</h4>${bullets(d.wu.img)}</div>` : '',
+    d.wu.other && d.wu.other.length ? `<div class="wu-sub"><h4>Scores &amp; next steps</h4>${bullets(d.wu.other)}</div>` : ''
+  ].join('');
+  out.push(fold('wu','Workup', wu));
+
+  const calc = (SCORES[d.id]||[]).map(sc => calcHTML(sc)).join('');
+  const tables = (d.strat||[]).map(tb => `<div class="strat-table">
       <p class="strat-label">${tb.t}${tb.n ? ` <span class="strat-note">${tb.n}</span>` : ''}</p>
       ${tb.rows.map(r => `<div class="tier s-${r[0]}">
         <div class="tname">${r[1]}</div>
@@ -1889,36 +2210,66 @@ function stratBlock(d){
         <div class="tdo">${r[3]}</div>
       </div>`).join('')}
     </div>`).join('');
-  return `<section class="blk strat"><h3>Stratification &mdash; definition and what it changes</h3>${body}</section>`;
+  out.push(fold('strat','Stratification', calc + tables));
+
+  out.push(fold('mgmt','Initial management', bullets(d.mgmt), true));
+  out.push(fold('pearls','Pearls &amp; pitfalls', bullets(d.pearls)));
+  return out.join('');
+}
+
+function fold(key, title, body, open){
+  return `<details class="blk fold sec-${key}" id="sec-${key}"${open?' open':''}>
+    <summary><h3>${title}</h3><span class="chev" aria-hidden="true"></span></summary>
+    <div class="foldbody">${body}</div>
+  </details>`;
+}
+
+function calcHTML(sc){
+  return `<div class="calc" data-score="${sc.id}">
+    <p class="calc-title">${sc.name} <span class="calc-sub">${sc.sub}</span></p>
+    ${sc.items.map((it,i) => `<div class="calc-item">
+      <span class="calc-q">${it.q}</span>
+      <span class="calc-opts">${it.o.map(([label,val],j) =>
+        `<button class="opt${j===0?' on':''}" data-i="${i}" data-v="${val}">${label}</button>`).join('')}</span>
+    </div>`).join('')}
+    <div class="calc-out"><span class="calc-num">0</span><span class="calc-band"></span></div>
+  </div>`;
+}
+
+function scoreFor(id){
+  for (const k in SCORES) { const f = SCORES[k].find(s => s.id === id); if (f) return f; }
+}
+
+function updateCalc(box){
+  const sc = scoreFor(box.dataset.score);
+  let total = 0;
+  box.querySelectorAll('.opt.on').forEach(b => total += Number(b.dataset.v));
+  const band = sc.bands.find(b => total <= b[0]) || sc.bands[sc.bands.length-1];
+  box.querySelector('.calc-num').textContent = total;
+  const out = box.querySelector('.calc-band');
+  out.className = 'calc-band s-' + band[1];
+  out.innerHTML = `<strong>${band[2]}</strong> ${band[3]}`;
 }
 
 function renderDetail(d){
-  const ddx = d.ddx.map(g =>
-    `<div class="grp${g.crit ? ' critical' : ''}"><h4>${g.g}</h4>${ul(g.i)}</div>`).join('');
-
-
-  const wu = [
-    d.wu.labs && d.wu.labs.length ? `<div class="wu-sub"><h4>Labs</h4>${ul(d.wu.labs)}</div>` : '',
-    d.wu.img && d.wu.img.length ? `<div class="wu-sub"><h4>Imaging</h4>${ul(d.wu.img)}</div>` : '',
-    d.wu.other && d.wu.other.length ? `<div class="wu-sub"><h4>Scores &amp; next steps</h4>${ul(d.wu.other)}</div>` : ''
-  ].join('');
-
   detailEl.innerHTML = `
     <button class="back" id="back">&larr; All presentations</button>
     <h2 class="dtitle">${d.name}</h2>
     <p class="dsub">${d.one}</p>
-    <section class="blk flags"><h3>Red flags — check these first</h3>${ul(d.flags)}</section>
-    ${stratBlock(d)}
-    <section class="blk"><h3>Differential</h3>${ddx}</section>
-    <section class="blk"><h3>Focused history &amp; exam</h3>${ul(d.hx)}</section>
-    <section class="blk wu"><h3>Workup</h3>${wu}</section>
-    <section class="blk mgmt"><h3>Initial management</h3>${ul(d.mgmt)}</section>
-    <section class="blk pearls"><h3>Pearls &amp; pitfalls</h3>${ul(d.pearls)}</section>
-  `;
-  document.getElementById('back').addEventListener('click', closeDetail);
+    <nav class="jump">${SECTIONS.map(s => `<button class="jchip" data-sec="${s.key}">${s.label}</button>`).join('')}</nav>
+    ${sectionHTML(d)}`;
+  document.getElementById('back').addEventListener('click', () => closeDetail());
+  detailEl.querySelectorAll('.calc').forEach(updateCalc);
 }
 
-function openDetail(id){
+function goSection(key){
+  const el = document.getElementById('sec-' + key);
+  if (!el) return;
+  if (el.tagName === 'DETAILS') el.open = true;
+  el.scrollIntoView({block:'start'});
+}
+
+function openDetail(id, section){
   const d = DATA.find(x => x.id === id);
   if (!d) return;
   renderDetail(d);
@@ -1927,34 +2278,47 @@ function openDetail(id){
   detailEl.classList.add('open');
   window.scrollTo(0, 0);
   detailEl.focus();
+  if (section) goSection(section);
 }
 
-function closeDetail(){
+function closeDetail(quiet){
   detailEl.classList.remove('open');
   detailEl.innerHTML = '';
   listEl.style.display = '';
   discEl.style.display = '';
-  window.scrollTo(0, 0);
+  if (!quiet) window.scrollTo(0, 0);
 }
 
-listEl.addEventListener('click', e => {
-  const c = e.target.closest('.card');
-  if (c) openDetail(c.dataset.id);
+document.addEventListener('click', e => {
+  const line = e.target.closest('.rline');
+  if (line) return openDetail(line.dataset.id, line.dataset.sec);
+  const head = e.target.closest('.rhead, .rmore');
+  if (head) return openDetail(head.dataset.id);
+  const card = e.target.closest('.card');
+  if (card) return openDetail(card.dataset.id);
+  const jump = e.target.closest('.jchip');
+  if (jump) return goSection(jump.dataset.sec);
+  const opt = e.target.closest('.opt');
+  if (opt){
+    const box = opt.closest('.calc');
+    box.querySelectorAll(`.opt[data-i="${opt.dataset.i}"]`).forEach(b => b.classList.remove('on'));
+    opt.classList.add('on');
+    updateCalc(box);
+  }
 });
 
 searchEl.addEventListener('input', () => {
-  if (detailEl.classList.contains('open')) closeDetail();
-  renderList();
+  if (detailEl.classList.contains('open')) closeDetail(true);
+  render();
 });
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && detailEl.classList.contains('open')) closeDetail();
-  if (e.key === '/' && document.activeElement !== searchEl){
-    e.preventDefault(); searchEl.focus();
-  }
+  if (e.key === '/' && document.activeElement !== searchEl){ e.preventDefault(); searchEl.focus(); }
 });
 
-renderList();
+render();
+
 </script>
 </body>
 </html>
