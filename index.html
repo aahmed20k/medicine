@@ -125,8 +125,27 @@ li strong{font-weight:650}
 .grp.critical h4{color:var(--red)}
 .wu-sub{margin-bottom:10px}
 .wu-sub:last-child{margin-bottom:0}
+.blk.strat{border-left:4px solid var(--ink)}
+.blk.strat > h3{color:var(--ink)}
+.strat-label{font-size:13px;font-weight:600;color:var(--ink);margin:0 0 9px;line-height:1.45}
+.strat-note{font-weight:400;color:var(--muted)}
+.tier{border-left:3px solid var(--line);padding:0 0 0 11px;margin-bottom:12px}
+.tier:last-child{margin-bottom:0}
+.tier.s-ok{border-left-color:var(--green)}
+.tier.s-mod{border-left-color:var(--amber)}
+.tier.s-sev{border-left-color:var(--red)}
+.tname{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  font-weight:600;margin-bottom:3px;
+}
+.s-ok .tname{color:var(--green)}
+.s-mod .tname{color:var(--amber)}
+.s-sev .tname{color:var(--red)}
+.tdef{font-size:13.5px;font-weight:600;line-height:1.42;margin-bottom:3px}
+.tdo{font-size:13.5px;color:var(--muted);line-height:1.45}
+.tdo strong{color:var(--ink);font-weight:600}
+.strat-table + .strat-table{margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
 .wu-sub h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;font-weight:600}
-
 .disclaimer{
   font-size:12.5px;color:var(--muted);line-height:1.5;
   border-top:1px solid var(--line);margin-top:22px;padding-top:12px;
@@ -164,6 +183,28 @@ const DATA = [
 {
 id:"chest-pain", tag:"Cardiopulmonary", name:"Chest pain",
 one:"Sort by whether it can kill in the next hour, then by whether it's ischemic.",
+strat:[
+ {t:"HEART score — 6-week MACE risk", n:"History, ECG, Age, Risk factors, Troponin; 0–2 points each.",
+  rows:[
+   ["ok","Low, 0–3","Roughly 1.7% MACE at 6 weeks with a nonischemic ECG and normal serial troponin.","Discharge or short observation with outpatient follow-up. Routine stress testing adds little."],
+   ["mod","Moderate, 4–6","Roughly 12–17% MACE.","Admit to observation, serial troponin, non-invasive testing or CT coronary angiography before discharge."],
+   ["sev","High, 7–10","Roughly 50–65% MACE.","Admit, cardiology consult, early invasive evaluation."]
+  ]},
+ {t:"High-sensitivity troponin patterns", n:"Interpret the delta, not the single value.",
+  rows:[
+   ["ok","Undetectable at 0 h, >3 h from onset","Rules out myocardial injury with very high negative predictive value.","No further troponins needed if the ECG is nonischemic."],
+   ["ok","Delta below the assay threshold at 1–3 h","Rule-out pathway complete.","Move to risk stratification for stable angina instead."],
+   ["sev","Rising delta above the assay threshold","Acute myocardial injury.","Decide ACS vs non-ACS (myocarditis, PE, sepsis, tachyarrhythmia) and treat accordingly."],
+   ["mod","Elevated but flat across serial draws","Chronic myocardial injury.","Usually CKD, heart failure, or structural disease. Do not reflexively anticoagulate."]
+  ]},
+ {t:"NSTEMI invasive timing (GRACE-based)", n:"",
+  rows:[
+   ["sev","Very high risk","Hemodynamic instability, cardiogenic shock, refractory pain, life-threatening arrhythmia, mechanical complication.","Immediate invasive strategy, within 2 hours."],
+   ["sev","High risk","Confirmed NSTEMI, dynamic ST/T changes, GRACE >140, transient ST elevation.","Early invasive strategy, within 24 hours."],
+   ["mod","Intermediate risk","Diabetes, eGFR <60, LVEF <40%, prior PCI or CABG, GRACE 109–140.","Invasive strategy within 72 hours."],
+   ["ok","Low risk","None of the above.","Non-invasive testing first."]
+  ]}
+],
 flags:[
  "Tearing/ripping pain to the back, pulse or BP differential between arms, new AR murmur, or focal neuro deficit — think aortic dissection. CT angiogram, do not anticoagulate first.",
  "Hypotension + hypoxia + clear lungs — PE or RV infarct. A right-sided ECG (V4R) changes nitrate safety.",
@@ -210,6 +251,27 @@ pearls:[
 {
 id:"dyspnea", tag:"Cardiopulmonary", name:"Dyspnea / new hypoxemia",
 one:"Decide the compartment first: airway, lung parenchyma, pleura, vasculature, pump, or blood.",
+strat:[
+ {t:"CURB-65 — pneumonia severity", n:"Confusion, Urea (BUN >19 mg/dL), RR ≥30, BP (SBP <90 or DBP ≤60), age ≥65. One point each.",
+  rows:[
+   ["ok","0–1","30-day mortality under 3%.","Outpatient management is usually appropriate if oxygenation and social situation allow."],
+   ["mod","2","Mortality roughly 9%.","Admit to a general ward."],
+   ["sev","3–5","Mortality 15–40%.","Admit; assess for ICU-level care."]
+  ]},
+ {t:"Severe CAP (IDSA/ATS)", n:"",
+  rows:[
+   ["sev","Major criteria — either one","Septic shock requiring vasopressors, or respiratory failure requiring mechanical ventilation.","ICU. Add adjunctive corticosteroids, which now carry mortality benefit in severe CAP."],
+   ["sev","Minor criteria — three or more","RR ≥30, PaO2/FiO2 ≤250, multilobar infiltrates, confusion, BUN ≥20, WBC <4000, platelets <100k, hypothermia, hypotension needing aggressive fluids.","ICU-level monitoring."]
+  ]},
+ {t:"Oxygen and support escalation", n:"Target SpO2 92–96%, or 88–92% in chronic CO2 retention.",
+  rows:[
+   ["ok","SpO2 at target on room air","No hypoxemia.","Incentive spirometry, mobilization, sit upright. Treat the cause."],
+   ["mod","Nasal cannula 1–6 L/min","Mild hypoxemia.","Trend the requirement every few hours. A rising FiO2 need is the early warning, before the sat drops."],
+   ["mod","High-flow nasal cannula","Requirement above 6 L or increasing work of breathing.","Reduces intubation in hypoxemic respiratory failure. Reassess at 1–2 h with the ROX index."],
+   ["sev","NIV (BiPAP)","Hypercapnic respiratory acidosis (COPD with pH <7.35) or cardiogenic pulmonary edema.","Strong evidence in both. Contraindicated with altered mental status, vomiting, or shock. Reassess pH and CO2 at 1 h."],
+   ["sev","Intubation","Failing NIV, rising CO2 with falling mental status, inability to protect the airway, or exhaustion.","Do not wait for the sat to fall. Call for airway help before it becomes a crash intubation."]
+  ]}
+],
 flags:[
  "Silent chest, one-word speech, tripoding, or a rising CO2 with falling respiratory rate — impending arrest, call for airway help now.",
  "Unilateral absent breath sounds with hypotension and tracheal shift — needle decompression before imaging.",
@@ -257,6 +319,22 @@ pearls:[
 {
 id:"syncope", tag:"Cardiopulmonary", name:"Syncope",
 one:"The question is not why they fainted — it's whether the mechanism can kill them next time.",
+strat:[
+ {t:"Canadian Syncope Risk Score — 30-day serious adverse event", n:"Combines predisposition to vasovagal syncope, heart disease history, SBP extremes, troponin, QRS axis and duration, QTc, and ED diagnosis.",
+  rows:[
+   ["ok","Very low, −3 to −2","Under 1% risk.","Discharge without further inpatient testing."],
+   ["ok","Low, −1 to 0","Roughly 2%.","Discharge with outpatient follow-up."],
+   ["mod","Medium, 1 to 3","Roughly 8%.","Observation with telemetry, or expedited outpatient monitoring."],
+   ["sev","High, 4 to 5","Roughly 20%.","Admit with telemetry."],
+   ["sev","Very high, 6 to 11","Over 25%.","Admit with telemetry and cardiology involvement."]
+  ]},
+ {t:"Orthostatic vitals", n:"Supine 5 minutes, then measure at 1 and 3 minutes standing.",
+  rows:[
+   ["mod","SBP fall ≥20 or DBP fall ≥10 with a compensatory HR rise","Volume depletion or medication effect.","Fluids, hold the offending agent, recheck."],
+   ["mod","BP fall without a HR rise (<10 bpm)","Autonomic failure or a rate-limiting drug (beta-blocker, pacemaker).","Autonomic evaluation, compression, midodrine or fludrocortisone if disabling."],
+   ["sev","HR rise ≥30 with minimal BP change plus symptoms","Consider POTS, but exclude bleeding and dehydration first.","Volume, salt, deconditioning reversal. Not an inpatient diagnosis."]
+  ]}
+],
 flags:[
  "Syncope during exertion, while supine, or with palpitations preceding — cardiac until proven otherwise.",
  "Family history of sudden death under 50.",
@@ -300,6 +378,26 @@ pearls:[
 {
 id:"ams", tag:"Neuro", name:"Altered mental status / delirium",
 one:"Rule out the reversible killers, then look for the drug, the infection, and the metabolic derangement.",
+strat:[
+ {t:"4AT score — delirium screen", n:"Alertness, AMT4 (age, DOB, place, year), Attention (months backward), Acute change or fluctuation.",
+  rows:[
+   ["ok","0","Delirium and significant cognitive impairment both unlikely.","Reassess if the clinical picture changes."],
+   ["mod","1–3","Possible cognitive impairment without delirium.","Look for chronic cognitive impairment; recheck for fluctuation over the day."],
+   ["sev","4 or above","Possible delirium, with or without cognitive impairment.","Full delirium workup, non-pharmacologic bundle, deprescribe. Document delirium as a diagnosis."]
+  ]},
+ {t:"Delirium subtype — both need the same workup", n:"",
+  rows:[
+   ["mod","Hyperactive","Agitation, hallucinations, restlessness. The minority of cases.","Most likely to be recognized and most likely to be over-sedated. Reserve antipsychotics for danger to self or staff."],
+   ["sev","Hypoactive","Withdrawn, drowsy, slow. The majority, and the higher-mortality subtype.","Routinely missed as 'quiet' or 'depressed'. Screen actively; never treat with sedatives."],
+   ["sev","Mixed","Fluctuating between the two.","Highest fall risk during transitions. Constant observation rather than restraints."]
+  ]},
+ {t:"CIWA-Ar — alcohol withdrawal severity", n:"Use a symptom-triggered protocol, not fixed dosing.",
+  rows:[
+   ["ok","Under 8","Minimal withdrawal.","Monitor, thiamine, folate, supportive care."],
+   ["mod","8–15","Mild to moderate withdrawal.","Symptom-triggered benzodiazepine, reassess hourly."],
+   ["sev","16 or above","Severe withdrawal, high risk of seizure and delirium tremens.","Aggressive benzodiazepine dosing, consider phenobarbital, ICU if escalating or refractory."]
+  ]}
+],
 flags:[
  "Point of care glucose immediately — hypoglycemia is instantly reversible and instantly fatal if missed.",
  "Focal deficit, new asymmetry, or a gaze preference — stroke pathway, not delirium workup.",
@@ -348,6 +446,30 @@ pearls:[
 {
 id:"sepsis", tag:"Infection", name:"Fever / suspected sepsis",
 one:"Source, cultures, antibiotics, fluids, lactate — and the source matters most.",
+strat:[
+ {t:"Sepsis-3 definitions", n:"",
+  rows:[
+   ["ok","Infection without organ dysfunction","Suspected or confirmed infection, SOFA unchanged.","Source-directed antibiotics, monitor. Not sepsis by current definitions."],
+   ["sev","Sepsis","Infection plus organ dysfunction — an acute rise in SOFA of 2 or more points.","Antibiotics within 3 hours, cultures, lactate, fluids for hypoperfusion, source control planning."],
+   ["sev","Septic shock","Vasopressor requirement to keep MAP ≥65 <strong>plus</strong> lactate >2 mmol/L after adequate fluid resuscitation. Mortality above 40%.","Antibiotics within 1 hour, norepinephrine, ICU, urgent source control, consider hydrocortisone."]
+  ]},
+ {t:"Lactate", n:"Reflects tissue hypoperfusion, but also type B causes.",
+  rows:[
+   ["ok","Under 2 mmol/L","Normal.","No lactate-directed resuscitation needed."],
+   ["mod","2–4 mmol/L","Intermediate; still associated with increased mortality.","Fluids if there is hypoperfusion, repeat in 2–4 hours. Aim for clearance."],
+   ["sev","Above 4 mmol/L","Marked hypoperfusion; mortality around 30% even if the blood pressure is normal ('cryptic shock').","30 mL/kg crystalloid, aggressive source control, ICU consideration regardless of blood pressure."]
+  ]},
+ {t:"qSOFA — bedside prompt, not a screen", n:"RR ≥22, altered mentation, SBP ≤100. One point each.",
+  rows:[
+   ["ok","0–1","Low probability of poor outcome, but insensitive — it misses many septic patients.","Do not use it to rule out sepsis. Clinical judgment overrides."],
+   ["sev","2–3","Higher risk of death or prolonged ICU stay.","Escalate assessment, draw a lactate, start the sepsis pathway."]
+  ]},
+ {t:"Neutropenic fever risk (MASCC)", n:"",
+  rows:[
+   ["mod","MASCC ≥21","Low risk of serious complications.","Selected patients can be managed orally as outpatients with close follow-up."],
+   ["sev","MASCC <21","High risk.","Admit, IV antipseudomonal beta-lactam within 1 hour, add vancomycin for line infection, skin infection, or instability."]
+  ]}
+],
 flags:[
  "Hypotension not responding to fluid, lactate >4, or altered mentation — septic shock, escalate now.",
  "Rapidly spreading erythema with pain out of proportion, crepitus, or bullae — necrotizing fasciitis, surgical emergency.",
@@ -394,6 +516,21 @@ pearls:[
 {
 id:"hypotension", tag:"Cardiopulmonary", name:"Hypotension / shock",
 one:"Name the shock category before you pick the drip — the wrong fluid or pressor is the harm.",
+strat:[
+ {t:"Perfusion tiers — treat the perfusion, not the number", n:"",
+  rows:[
+   ["ok","SBP 90–100, warm, alert, urine output adequate, lactate normal","Tolerated hypotension, often the patient's baseline.","Recheck manually, hold the next antihypertensive dose, observe. Fluid boluses are usually unnecessary."],
+   ["mod","MAP under 65 or SBP under 90 with early signs — mild confusion, delayed capillary refill, urine output <0.5 mL/kg/h","Hypoperfusion.","Identify the shock category, fluid challenge if appropriate, blood if bleeding, stop the offending drug, recheck in 15 minutes."],
+   ["sev","MAP under 65 after adequate resuscitation, or lactate >2 with vasopressor need","Shock.","Vasopressor now, central access if prolonged, ICU, urgent cause-specific therapy."],
+   ["sev","Shock index (HR ÷ SBP) above 0.9, or above 1.0","Occult hypoperfusion — often precedes the blood pressure fall, especially in young patients and in hemorrhage.","Treat as impending shock even when the pressure still looks acceptable."]
+  ]},
+ {t:"MAP targets", n:"",
+  rows:[
+   ["ok","MAP ≥65","Default target for most shock states.","Higher targets did not improve outcomes in the general population (SEPSISPAM)."],
+   ["mod","MAP 80–85","Chronic severe hypertension, or acute kidney injury with a pressure-dependent GFR.","Individualize. Higher targets in chronic hypertension reduced renal replacement need in a subgroup."],
+   ["sev","SBP 100–120 with HR <60","Aortic dissection.","Rate control first with esmolol or labetalol, then vasodilator. Reversing the order increases shear stress."]
+  ]}
+],
 flags:[
  "Cold, clammy, narrow pulse pressure with JVD — cardiogenic or obstructive; fluid will make it worse.",
  "Warm, flushed, wide pulse pressure — distributive; usually sepsis, sometimes anaphylaxis, adrenal crisis, or neurogenic.",
@@ -441,6 +578,25 @@ pearls:[
 {
 id:"tachycardia", tag:"Cardiopulmonary", name:"Tachycardia / AF with RVR",
 one:"Stable or unstable first, then narrow or wide, then regular or irregular.",
+strat:[
+ {t:"CHA2DS2-VASc — annual stroke risk in AF", n:"CHF, Hypertension, Age ≥75 (2), Diabetes, Stroke/TIA (2), Vascular disease, Age 65–74, Sex category (female).",
+  rows:[
+   ["ok","0 in men, 1 in women","Roughly 0.2–0.6% per year.","No anticoagulation."],
+   ["mod","1 in men, 2 in women","Roughly 0.6–2% per year.","Anticoagulation is reasonable — a shared decision."],
+   ["sev","2 or more in men, 3 or more in women","2% per year and rising steeply with score.","Anticoagulate with a DOAC unless there is a mechanical valve or moderate-to-severe mitral stenosis, where warfarin is required."]
+  ]},
+ {t:"HAS-BLED — modify risk, don't withhold therapy", n:"Hypertension, Abnormal renal/liver function, Stroke, Bleeding history, Labile INR, Elderly >65, Drugs or alcohol.",
+  rows:[
+   ["ok","0–2","Low bleeding risk.","Anticoagulate per CHA2DS2-VASc."],
+   ["mod","3 or more","High bleeding risk, but this is not a contraindication.","Correct the modifiable factors — blood pressure, alcohol, concurrent NSAIDs and antiplatelets — and follow up more closely."]
+  ]},
+ {t:"Rate control targets", n:"",
+  rows:[
+   ["ok","Resting HR under 110","Lenient control.","Non-inferior to strict control for most patients with preserved function (RACE II). A reasonable inpatient goal."],
+   ["mod","Resting HR under 80","Strict control.","Reserve for persistent symptoms, heart failure, or tachycardia-mediated cardiomyopathy."],
+   ["sev","Rate above 150 with hypotension, ischemia, or pulmonary edema","Rate-related instability.","Synchronized cardioversion rather than titrating drugs."]
+  ]}
+],
 flags:[
  "Hypotension, ischemic chest pain, pulmonary edema, or altered mentation attributable to the rate — synchronized cardioversion now.",
  "Wide complex tachycardia is VT until proven otherwise, especially with structural heart disease. Do not give adenosine or a calcium channel blocker to an irregular wide tachycardia.",
@@ -485,8 +641,98 @@ pearls:[
 },
 
 {
+id:"hypertension", tag:"Cardiopulmonary", name:"Elevated blood pressure",
+one:"The only question that matters is whether there is acute target organ damage — that single fork separates an outpatient problem from an ICU drip.",
+strat:[
+ {t:"The fork that decides everything: is there acute target organ damage?", n:"Made clinically, not by the reading. There is no number that is itself an emergency.",
+  rows:[
+   ["ok","Asymptomatic severe elevation","SBP >180 or DBP >120 with no acute target organ injury. Labs and exam are clean.","Do <strong>not</strong> give IV boluses. Restart or up-titrate oral therapy, treat pain, retention, anxiety, and withdrawal, and recheck. Follow-up in 1\u20134 weeks. \u2018Hypertensive urgency\u2019 as a reason for IV medication has largely been abandoned."],
+   ["sev","Hypertensive emergency","Severe elevation <strong>plus</strong> acute injury: encephalopathy, ICH, stroke, papilledema, ACS, pulmonary edema, dissection, AKI with active sediment, eclampsia, or microangiopathic hemolysis.","IV titratable infusion in a monitored bed, arterial line where available. The target depends on the organ \u2014 see the next table."]
+  ]},
+ {t:"Targets by organ \u2014 the generic \u201825% in the first hour\u2019 rule is wrong for several of these", n:"",
+  rows:[
+   ["sev","Aortic dissection","Shear stress matters more than pressure alone.","HR under 60 first with esmolol or labetalol, <strong>then</strong> a vasodilator to SBP 100\u2013120 within minutes. Never vasodilate first \u2014 reflex tachycardia worsens the tear."],
+   ["sev","Intracerebral hemorrhage","Hematoma expansion is the risk.","SBP to roughly 140 in the first hours; avoid going below 130. Nicardipine or labetalol."],
+   ["mod","Acute ischemic stroke, not thrombolysed","Penumbral perfusion is pressure-dependent.","Permissive hypertension. Treat only above 220/120, and then lower by no more than about 15%."],
+   ["mod","Acute ischemic stroke, thrombolysis planned","Bleeding risk with lysis.","Must be under 185/110 before and under 180/105 for 24 hours after."],
+   ["sev","Acute pulmonary edema","Afterload is the driver.","IV nitroglycerin plus a loop diuretic, and NIV early. Avoid beta-blockade in acute decompensation."],
+   ["sev","Preeclampsia with severe features / eclampsia","Seizure prevention is separate from pressure control.","Magnesium sulfate plus labetalol, hydralazine, or oral nifedipine. Target under 160/110. Obstetrics immediately."],
+   ["sev","Sympathetic crisis \u2014 cocaine, stimulants, pheochromocytoma","Unopposed alpha stimulation.","Benzodiazepine first, then phentolamine or nicardipine. <strong>No beta-blocker before alpha blockade.</strong>"],
+   ["mod","All other emergencies","Watershed ischemia with rapid drops.","Reduce MAP by no more than 20\u201325% in the first hour, then to about 160/100 over 2\u20136 hours, then normalize over 24\u201348 hours."]
+  ]},
+ {t:"Chronic categories (ACC/AHA), which guide long-term therapy rather than anything you do tonight", n:"Based on an average of readings taken properly, ideally confirmed with home or ambulatory monitoring.",
+  rows:[
+   ["ok","Normal","Under 120/80.","No therapy. Reassess annually."],
+   ["ok","Elevated","120\u2013129 systolic and under 80 diastolic.","Lifestyle modification. No drug therapy."],
+   ["mod","Stage 1","130\u2013139 systolic or 80\u201389 diastolic.","Lifestyle, plus a drug if established cardiovascular disease, diabetes, CKD, or 10-year ASCVD risk of 10% or more."],
+   ["sev","Stage 2","140/90 or higher.","Lifestyle plus drug therapy. Start two agents when the baseline is more than 20/10 above goal. First-line: thiazide, ACE inhibitor or ARB, or dihydropyridine calcium channel blocker."],
+   ["sev","Resistant","Above goal on three agents including a diuretic, at optimal doses.","Confirm adherence and correct measurement first. Add spironolactone, screen for primary aldosteronism, sleep apnea, and NSAID use."]
+  ]}
+],
+flags:[
+ "Severe hypertension WITH chest pain, dyspnea, neuro deficit, visual change, oliguria, or pregnancy — this is an emergency and needs an IV agent.",
+ "Severe hypertension WITHOUT any of those findings is not an emergency. Lowering it acutely causes strokes, MIs, and AKI. Do not give IV hydralazine or labetalol for a number alone.",
+ "PRN IV antihypertensives ordered for asymptomatic ward hypertension are a recognized source of harm. Resist the nursing call for a one-time dose.",
+ "Look for the reversible ward cause first: pain, urinary retention, anxiety, withdrawal, hypoxia, a held home medication, or a wrongly sized cuff.",
+ "Headache plus severe hypertension plus papilledema or confusion — hypertensive encephalopathy or PRES, not a tension headache."
+],
+ddx:[
+ {g:"Hypertensive emergencies (acute target organ damage)", crit:true, i:["Aortic dissection","Acute pulmonary edema","ACS","Hypertensive encephalopathy, PRES","Intracerebral hemorrhage, subarachnoid hemorrhage, acute ischemic stroke","Acute kidney injury, thrombotic microangiopathy","Preeclampsia with severe features, eclampsia","Sympathetic crisis — pheochromocytoma, cocaine, amphetamines, MAOI interaction, clonidine withdrawal"]},
+ {g:"Reversible inpatient triggers (check these first)", i:["Pain, anxiety, agitation","Urinary retention — bladder scan","Held or missed home antihypertensives","Alcohol or opioid withdrawal","Hypoxia, hypercapnia","Volume overload","White coat effect, wrong cuff size, arm position, recent caffeine or nicotine","Drugs — NSAIDs, steroids, stimulants, decongestants, calcineurin inhibitors, erythropoietin, VEGF inhibitors"]},
+ {g:"Secondary hypertension (worth screening in the young, resistant, or abrupt)", i:["Primary hyperaldosteronism — the most common secondary cause, and underdiagnosed","Renal parenchymal disease, renal artery stenosis","Obstructive sleep apnea","Thyroid disease, hyperparathyroidism, Cushing's","Pheochromocytoma","Fibromuscular dysplasia, coarctation","Oral contraceptives"]}
+],
+hx:[
+ "Recheck the pressure yourself with the right cuff size, arm supported at heart level, after 5 minutes of rest, and in both arms.",
+ "Ask directly about chest pain, dyspnea, headache, visual change, focal weakness, and urine output — this is the whole triage.",
+ "Which home antihypertensives were held, and when was the last dose? A held clonidine or beta-blocker causes rebound.",
+ "Pain score, last void, and withdrawal risk.",
+ "Exam: fundoscopy for hemorrhages and papilledema, bilateral pressures, murmurs and rubs, pulmonary crackles, JVP, neuro exam, bladder percussion, and pulse symmetry."
+],
+wu:{
+ labs:["For asymptomatic elevation with no organ-damage features: nothing urgent is needed. Resist the reflex panel.","For suspected emergency: BMP with creatinine, CBC with smear (schistocytes suggest microangiopathy), troponin, BNP, urinalysis for protein and blood.","Urine drug screen if a sympathomimetic crisis is plausible.","Pregnancy test in anyone who could be pregnant — preeclampsia changes everything.","Secondary workup when indicated: aldosterone-to-renin ratio, plasma or urine metanephrines, TSH, overnight dexamethasone suppression."],
+ img:["ECG on anyone with chest symptoms or a suspected emergency.","Chest x-ray for dyspnea or suspected pulmonary edema.","CT head for neuro symptoms; CT angiography for suspected dissection.","Renal ultrasound with Dopplers if renovascular disease is suspected.","Echo for LV hypertrophy and function in the workup of chronic hypertension."],
+ other:["Calculate the 10-year ASCVD risk — it determines whether stage 1 hypertension gets a drug or lifestyle advice alone.","Confirm the diagnosis with out-of-office readings (home or ambulatory monitoring) before labelling someone hypertensive; white coat hypertension is common."]
+},
+mgmt:[
+ "<strong>Asymptomatic severe hypertension on the wards:</strong> treat the trigger (pain, retention, withdrawal, hypoxia), restart or uptitrate the patient's ORAL regimen, and recheck. The target is gradual reduction over days to weeks, not hours.",
+ "<strong>Hypertensive emergency:</strong> IV titratable agent in a monitored setting. Lower the mean arterial pressure by no more than 20–25% in the first hour, then to about 160/100 over the next 2–6 hours, then normalize over 24–48 hours. Overshooting causes watershed infarction.",
+ "<strong>Agent by cause:</strong> nicardipine or clevidipine for most; esmolol or labetalol plus a vasodilator for dissection (rate first, then pressure); nitroglycerin plus a loop diuretic for pulmonary edema; labetalol or hydralazine plus magnesium for preeclampsia; phentolamine for pheochromocytoma or cocaine (avoid unopposed beta-blockade).",
+ "<strong>Exceptions to the gradual rule:</strong> aortic dissection needs SBP 100–120 and HR <60 immediately. ICH needs SBP 140 within hours. Ischemic stroke needs permissive hypertension (treat only above 220/120, or 185/110 if thrombolysing).",
+ "<strong>Chronic management:</strong> thiazide-like diuretic, ACE inhibitor or ARB, and a dihydropyridine calcium channel blocker are the first-line classes. Start two agents when the pressure is more than 20/10 above goal. Do not combine an ACE inhibitor with an ARB.",
+ "Target <130/80 for most adults, which is supported by SPRINT for high-risk patients. Individualize upward in frailty, orthostasis, and limited life expectancy.",
+ "Address salt, alcohol, weight, exercise, and sleep apnea — these produce reductions comparable to a drug.",
+ "Arrange a follow-up pressure check within 1–4 weeks of any regimen change, and document the plan in the discharge summary rather than leaving it to the next team."
+],
+pearls:[
+ "The distinction between hypertensive urgency and emergency is target organ damage, not the number. A pressure of 220/120 with no symptoms and no organ injury does not need an IV drug.",
+ "Treating asymptomatic inpatient hypertension with IV agents is associated with more AKI and more myocardial injury than leaving it alone. This is one of the clearest low-value practices on the wards.",
+ "Primary hyperaldosteronism is present in a meaningful fraction of resistant hypertension and almost nobody screens for it. Check the aldosterone-to-renin ratio in resistant, hypokalemic, or young hypertensives.",
+ "A pressure difference of more than 20 mmHg between arms deserves an explanation — dissection, subclavian stenosis, or coarctation.",
+ "Clonidine and beta-blocker withdrawal cause rebound hypertension with tachycardia. Never stop them abruptly, and check the medication reconciliation."
+]
+},
+{
 id:"abd-pain", tag:"GI", name:"Abdominal pain",
 one:"Location narrows it, but the surgical and vascular emergencies drive the first hour.",
+strat:[
+ {t:"BISAP — pancreatitis severity in the first 24 h", n:"BUN >25, Impaired mental status, SIRS ≥2 criteria, Age >60, Pleural effusion.",
+  rows:[
+   ["ok","0–2","Mortality under 2%.","Ward care, lactated Ringer's, early enteral feeding, analgesia."],
+   ["sev","3–5","Mortality 15–20%.","Higher level of care, close monitoring for organ failure and necrosis, careful fluid balance."]
+  ]},
+ {t:"Revised Atlanta classification", n:"",
+  rows:[
+   ["ok","Mild","No organ failure, no local complications.","Feed early, expect discharge in days."],
+   ["mod","Moderately severe","Transient organ failure resolving within 48 h, or local complications.","Imaging at 72 h or later if not improving; do not image early for severity."],
+   ["sev","Severe","Persistent organ failure beyond 48 h.","ICU. Antibiotics only for proven infected necrosis; drainage is delayed where possible."]
+  ]},
+ {t:"Tokyo Guidelines — acute cholangitis severity", n:"",
+  rows:[
+   ["mod","Grade I, mild","Responds to initial medical therapy.","Antibiotics, biliary drainage within 24–48 hours."],
+   ["sev","Grade II, moderate","Two or more of: WBC >12k or <4k, fever ≥39°C, age ≥75, bilirubin ≥5, albumin low.","Antibiotics plus early biliary drainage, within 24 hours."],
+   ["sev","Grade III, severe","Any organ dysfunction — cardiovascular, neurologic, respiratory, renal, hepatic, hematologic.","Resuscitation, organ support, and <strong>urgent</strong> drainage. Antibiotics alone will fail."]
+  ]}
+],
 flags:[
  "Pain out of proportion to exam in an older patient with AF or vascular disease — mesenteric ischemia; a normal lactate does not exclude it early.",
  "Rigid abdomen, rebound, or free air — perforation, surgery now.",
@@ -535,6 +781,28 @@ pearls:[
 {
 id:"gib", tag:"GI", name:"GI bleeding",
 one:"Resuscitate, localize, risk-stratify, and get the scope on the calendar.",
+strat:[
+ {t:"Glasgow-Blatchford score — need for intervention", n:"BUN, hemoglobin, SBP, pulse, melena, syncope, liver disease, heart failure.",
+  rows:[
+   ["ok","0–1","Very low risk of needing transfusion, endoscopic therapy, or dying.","Can be managed as an outpatient with early endoscopy follow-up."],
+   ["mod","2–7","Intermediate risk.","Admit, endoscopy within 24 hours."],
+   ["sev","8 or above","High risk of intervention and rebleeding.","Admit with close monitoring, transfuse to threshold, endoscopy within 24 hours, sooner if unstable."]
+  ]},
+ {t:"Transfusion thresholds in GI bleeding", n:"",
+  rows:[
+   ["ok","Hemoglobin ≥7 g/dL, hemodynamically stable","No transfusion indicated.","Restrictive strategy. Monitor and reassess with serial counts."],
+   ["mod","Hemoglobin under 7 g/dL","Transfuse to a target of 7–9.","One unit at a time, reassess between units."],
+   ["mod","Hemoglobin under 8 g/dL with active coronary disease","Transfuse to a target of 8–10.","The one group where a higher threshold is justified."],
+   ["sev","Suspected variceal bleeding","Over-transfusion raises portal pressure and worsens bleeding and mortality.","Target 7 g/dL strictly. Do not chase a higher number."],
+   ["sev","Active massive hemorrhage with instability","The hemoglobin is meaningless in real time.","Transfuse to the clinical picture, activate massive transfusion protocol, balanced product ratios."]
+  ]},
+ {t:"Forrest classification — endoscopic rebleeding risk", n:"Useful for interpreting the GI note and planning monitoring.",
+  rows:[
+   ["sev","Ia–Ib: spurting or oozing","Rebleeding risk 55–90% untreated.","Endoscopic therapy, high-dose PPI infusion, monitored bed for 72 hours."],
+   ["mod","IIa–IIb: visible vessel or adherent clot","Rebleeding risk 20–40%.","Endoscopic therapy, PPI infusion."],
+   ["ok","IIc–III: flat pigmented spot or clean base","Rebleeding risk under 5%.","Oral PPI, early feeding, early discharge."]
+  ]}
+],
 flags:[
  "Hematemesis with hypotension or tachycardia — massive upper GI bleed. Two large-bore IVs, type and cross, and call GI.",
  "Melena with a known aortic graft — aortoenteric fistula; a small herald bleed precedes exsanguination.",
@@ -579,6 +847,29 @@ pearls:[
 {
 id:"aki", tag:"Renal", name:"AKI / rising creatinine",
 one:"Pre-renal, intrinsic, or post-renal — and check the bladder and the medication list before anything else.",
+strat:[
+ {t:"KDIGO staging", n:"Stage by whichever criterion — creatinine or urine output — gives the higher stage.",
+  rows:[
+   ["mod","Stage 1","Creatinine rise ≥0.3 mg/dL within 48 h, or 1.5–1.9× baseline; or urine output <0.5 mL/kg/h for 6–12 h.","Stop nephrotoxins, correct volume, exclude obstruction with a bladder scan, dose-adjust drugs, daily creatinine."],
+   ["sev","Stage 2","Creatinine 2.0–2.9× baseline; or urine output <0.5 mL/kg/h for ≥12 h.","As above plus close electrolyte monitoring, avoid contrast where reasonable, nephrology if the cause is unclear."],
+   ["sev","Stage 3","Creatinine ≥3.0× baseline, or ≥4.0 mg/dL, or starting renal replacement; or urine output <0.3 mL/kg/h for ≥24 h, or anuria ≥12 h.","Nephrology now, assess dialysis indications, strict volume and potassium management."]
+  ]},
+ {t:"Dialysis indications — AEIOU", n:"Emergent indications. For the non-emergent case, the trials do not support starting early.",
+  rows:[
+   ["sev","Acidosis","pH under 7.1 refractory to medical therapy.","Urgent renal replacement."],
+   ["sev","Electrolytes","Hyperkalemia refractory to medical management, or with ECG changes.","Urgent renal replacement while continuing medical therapy."],
+   ["sev","Ingestions","Methanol, ethylene glycol, lithium, salicylate, metformin-associated lactic acidosis.","Urgent dialysis; call toxicology."],
+   ["sev","Overload","Pulmonary edema refractory to diuretics.","Urgent ultrafiltration."],
+   ["sev","Uremia","Encephalopathy, pericarditis, or uremic bleeding — not the BUN number alone.","Urgent renal replacement."]
+  ]},
+ {t:"Separating pre-renal from ATN", n:"Both indices are unreliable on diuretics, in cirrhosis, and in sepsis.",
+  rows:[
+   ["ok","FENa <1%, FEUrea <35%, urine Na <20, bland sediment, BUN:Cr >20","Pre-renal physiology.","Restore perfusion. Expect improvement within 24–72 hours."],
+   ["mod","FENa >2%, urine Na >40, muddy brown granular casts","Acute tubular necrosis.","Supportive: avoid further insults, manage volume and electrolytes. Recovery takes 1–3 weeks."],
+   ["sev","Red cell casts, dysmorphic red cells, proteinuria >1 g","Glomerular disease.","Urgent nephrology, serologies, consider biopsy and immunosuppression. Fluids will not fix this."],
+   ["mod","White cell casts, eosinophiluria, rash, recent new drug","Acute interstitial nephritis.","Stop the drug. Steroids if no improvement within days."]
+  ]}
+],
 flags:[
  "Anuria — obstruction, vascular catastrophe, or severe ATN. Bladder scan immediately.",
  "AKI with hyperkalemia and ECG changes, refractory acidosis, refractory volume overload, or uremic pericarditis/encephalopathy — urgent dialysis discussion.",
@@ -625,6 +916,32 @@ pearls:[
 {
 id:"hyponatremia", tag:"Electrolytes", name:"Hyponatremia",
 one:"Symptoms decide urgency, volume status and urine studies decide the cause, and the correction rate decides whether you cause harm.",
+strat:[
+ {t:"Severity by symptoms — this drives urgency", n:"Symptoms matter more than the absolute number.",
+  rows:[
+   ["ok","Asymptomatic or minimal symptoms","Usually chronic and well tolerated.","Diagnose the cause first. Correct slowly, no more than 8 mEq/L per 24 h."],
+   ["mod","Moderate symptoms — nausea, headache, confusion, unsteadiness","Cerebral adaptation is being exceeded.","Address the cause; consider a single 100–150 mL bolus of 3% saline if symptoms are progressing. Recheck sodium every 2–4 hours."],
+   ["sev","Severe symptoms — seizure, obtundation, coma, respiratory arrest","Cerebral edema. This is an emergency.","3% saline 100–150 mL IV over 10–20 min, repeat up to 3 times until symptoms improve or sodium rises 4–6 mEq/L. This initial rapid rise is intentional and safe."]
+  ]},
+ {t:"Severity by sodium concentration", n:"",
+  rows:[
+   ["ok","130–134 mEq/L, mild","Common, often medication-related.","Identify and remove the cause. Recheck in 24 hours."],
+   ["mod","125–129 mEq/L, moderate","Workup is mandatory: serum osmolality, urine osmolality, urine sodium.","Cause-directed therapy. Watch for auto-correction once you fix volume or stop the diuretic."],
+   ["sev","Under 125 mEq/L, profound","High risk both from the hyponatremia and from correcting it.","Frequent monitoring, deliberate correction limits, consider nephrology. Highest osmotic demyelination risk."]
+  ]},
+ {t:"Correction rate limits", n:"Overcorrection is the iatrogenic harm to avoid.",
+  rows:[
+   ["ok","Up to 8 mEq/L in 24 h","Standard maximum for most patients.","Recheck sodium every 2–4 hours during active correction. Write the target in the note."],
+   ["sev","Up to 6 mEq/L in 24 h","High-risk patients: sodium under 105, alcohol use disorder, malnutrition, liver disease, hypokalemia.","Slower target. Consider a proactive DDAVP clamp strategy with nephrology."],
+   ["sev","Overcorrection has already happened","Osmotic demyelination risk — onset is delayed by days.","This is reversible: give free water as D5W and DDAVP to re-lower the sodium. Call nephrology immediately."]
+  ]},
+ {t:"Diagnostic branch points", n:"Serum osmolality, then volume status, then urine studies.",
+  rows:[
+   ["ok","Urine osm under 100 mOsm/kg","ADH is appropriately off.","Primary polydipsia, beer potomania, or low solute intake. Treat by correcting intake — and expect rapid auto-correction."],
+   ["mod","Urine osm >100, urine Na <20, hypovolemic","Appropriate ADH from true or effective volume depletion.","Isotonic saline if truly hypovolemic; treat the heart or liver disease if effective depletion."],
+   ["mod","Urine osm >100, urine Na >40, euvolemic","SIADH (or a diuretic effect).","Fluid restriction 800–1000 mL/day, salt tablets, loop diuretic. Saline can paradoxically lower the sodium if urine osm exceeds infusate osm."]
+  ]}
+],
 flags:[
  "Seizure, obtundation, or coma from hyponatremia — give hypertonic saline immediately, do not wait for the workup.",
  "Correction faster than 8 mEq/L in 24 hours risks osmotic demyelination, especially in alcohol use, malnutrition, liver disease, hypokalemia, and Na <105.",
@@ -668,6 +985,27 @@ pearls:[
 {
 id:"hyperkalemia", tag:"Electrolytes", name:"Hyperkalemia",
 one:"ECG first, membrane stabilization second, shifting third, and removal is the only thing that actually lowers total body potassium.",
+strat:[
+ {t:"Severity and immediate action", n:"The rate of rise and the ECG matter as much as the number.",
+  rows:[
+   ["mod","5.5–5.9 mEq/L, mild","Usually asymptomatic.","Stop contributing drugs and potassium sources, treat the cause, start a binder if it will persist, recheck in 4–6 hours."],
+   ["sev","6.0–6.4 mEq/L, moderate","Arrhythmia risk is real even without ECG changes.","ECG and monitor. Insulin plus dextrose and albuterol to shift, loop diuretic or binder to remove. Add calcium if any ECG change."],
+   ["sev","6.5 mEq/L or above, or any ECG change","Emergency regardless of how well the patient looks.","Calcium first, then shift, then remove. Continuous monitoring. Dialysis if refractory or if the patient has ESRD."]
+  ]},
+ {t:"ECG progression", n:"A normal ECG does not exclude dangerous hyperkalemia.",
+  rows:[
+   ["mod","Peaked, narrow-based T waves; shortened QT","Earliest change.","Treat, monitor, repeat ECG after intervention."],
+   ["sev","PR prolongation, flattened or absent P waves","Conduction is being affected.","Calcium now, aggressive shifting and removal."],
+   ["sev","Widened QRS, bundle branch or bizarre patterns","Pre-arrest.","Calcium immediately and repeat every 30–60 min as needed, arrange emergent dialysis."],
+   ["sev","Sine wave, bradycardia, or VT/VF","Imminent arrest.","Calcium, full resuscitation, emergent dialysis. Do not leave the bedside."]
+  ]},
+ {t:"Treatment tiers — do all three, in order", n:"",
+  rows:[
+   ["sev","1. Stabilize the membrane","Calcium gluconate 1–2 g IV over 2–3 min. Onset minutes, duration 30–60 min.","Does not lower potassium at all. Repeatable. Use for any ECG change or K ≥6.5."],
+   ["mod","2. Shift into cells","Regular insulin 10 units IV with 25 g dextrose (5 units in CKD/ESRD); nebulized albuterol 10–20 mg; bicarbonate only if there is significant metabolic acidosis.","Lasts 4–6 hours, then rebounds. Check glucose at 30, 60, and 120 minutes — post-treatment hypoglycemia is common and preventable."],
+   ["ok","3. Remove from the body","Loop diuretic if making urine; patiromer or sodium zirconium cyclosilicate; hemodialysis.","The only step that lowers total body potassium. Skipping it is the most common error."]
+  ]}
+],
 flags:[
  "Peaked T waves, widened QRS, flattened or absent P waves, or a sine wave pattern — calcium immediately.",
  "A normal ECG does not exclude dangerous hyperkalemia; the rate of rise matters as much as the number.",
@@ -710,6 +1048,27 @@ pearls:[
 {
 id:"hypercalcemia", tag:"Electrolytes", name:"Hypercalcemia",
 one:"Correct for albumin, then split it by PTH: PTH-mediated or not.",
+strat:[
+ {t:"Severity by corrected calcium", n:"Corrected Ca = measured Ca + 0.8 × (4.0 − albumin), or measure ionized calcium.",
+  rows:[
+   ["ok","Under 12 mg/dL, mild","Often chronic and asymptomatic; usually primary hyperparathyroidism.","No acute treatment. Hydrate orally, stop thiazides, calcium and vitamin D supplements. Outpatient workup with PTH."],
+   ["mod","12–14 mg/dL, moderate","Symptoms depend on the rate of rise; a chronic 13 may be tolerated while an acute 12.5 may not.","IV isotonic saline. Treat acutely if symptomatic. Send PTH and PTHrP before treating."],
+   ["sev","Above 14 mg/dL, severe","Emergency: confusion, coma, arrhythmia, profound volume depletion.","Aggressive saline, calcitonin as a bridge, bisphosphonate for definitive effect. ICU-level monitoring if altered."]
+  ]},
+ {t:"PTH — the diagnostic branch point", n:"Send PTH before treatment starts.",
+  rows:[
+   ["mod","PTH elevated or inappropriately normal","PTH-dependent: primary or tertiary hyperparathyroidism, lithium, familial hypocalciuric hypercalcemia.","Usually chronic and mild. 24-hour urine calcium to exclude FHH; endocrine referral and localization imaging."],
+   ["sev","PTH suppressed","PTH-independent: malignancy (PTHrP, osteolytic, or 1,25-OH vitamin D from lymphoma), granulomatous disease, vitamin D or A toxicity.","The inpatient default. Search for malignancy — SPEP, light chains, imaging. Prognosis is poor and this often prompts a goals-of-care conversation."]
+  ]},
+ {t:"Treatment onset and role", n:"",
+  rows:[
+   ["ok","Isotonic saline 200–300 mL/h","Onset hours. Corrects the calcium-driven diuresis every patient has.","Titrate to urine output 100–150 mL/h. Adjust in heart failure and CKD. Rehydration alone often drops calcium 1–3 mg/dL."],
+   ["mod","Calcitonin 4 units/kg SC q12h","Onset 4–6 hours, tachyphylaxis by 48 hours.","A bridge only, for severe symptomatic hypercalcemia while the bisphosphonate takes effect."],
+   ["sev","Zoledronic acid 4 mg IV","Onset 24–72 hours, lasts 2–4 weeks.","The definitive agent for malignancy-associated hypercalcemia. Renal dose-adjust and check dental status. Denosumab if renal failure or bisphosphonate failure."],
+   ["mod","Glucocorticoids","Onset 2–5 days.","Only for vitamin D–mediated causes: lymphoma, granulomatous disease, vitamin D toxicity."],
+   ["sev","Hemodialysis with low-calcium bath","Immediate.","Severe hypercalcemia with renal failure or heart failure limiting fluid administration."]
+  ]}
+],
 flags:[
  "Calcium >14 mg/dL, or any level with confusion, coma, or arrhythmia — treat as an emergency with fluids and calcitonin.",
  "New hypercalcemia with weight loss, bone pain, or anemia — malignancy. Do not settle for 'probably hyperparathyroidism'.",
@@ -753,6 +1112,30 @@ pearls:[
 {
 id:"anemia", tag:"Heme", name:"Anemia / falling hemoglobin",
 one:"Is it acute or chronic, is it bleeding, and what does the MCV and the reticulocyte count say?",
+strat:[
+ {t:"Transfusion thresholds", n:"Restrictive strategies are equal or better in nearly every trial. Transfuse one unit, then reassess.",
+  rows:[
+   ["ok","Hemoglobin ≥7 g/dL, asymptomatic","No transfusion indicated.","Investigate the cause. One unit raises hemoglobin about 1 g/dL — don't transfuse to a number."],
+   ["mod","Under 7 g/dL, most hospitalized patients","Transfusion threshold met.","One unit, then reassess clinically and with a post-transfusion count."],
+   ["mod","Under 8 g/dL with acute coronary syndrome or cardiac surgery","Higher threshold justified.","Target 8–10 g/dL."],
+   ["sev","Any hemoglobin with ischemia, hemodynamic instability, or active bleeding","Symptoms override the threshold.","Transfuse now and find the source. In acute bleeding the hemoglobin lags and a normal value is meaningless."],
+   ["sev","Thrombotic microangiopathy — TTP, HIT","Transfusion decisions differ entirely.","Never give platelets. Red cells are permitted. Plasma exchange for TTP is the treatment."]
+  ]},
+ {t:"MCV plus retic count — the diagnostic grid", n:"The reticulocyte count is the most underused test on the wards.",
+  rows:[
+   ["mod","Low MCV, low retic","Iron deficiency, thalassemia trait, anemia of inflammation, lead, sideroblastic.","Iron studies. Transferrin saturation under 20% supports iron deficiency even when ferritin is 30–100 in inflammation."],
+   ["mod","Normal MCV, low retic","Anemia of inflammation, CKD, early iron deficiency, marrow disease, mixed deficiency.","Creatinine, inflammatory markers, iron studies, and a smear. SPEP in older patients."],
+   ["sev","High MCV, low retic","B12 or folate deficiency, myelodysplasia, alcohol, drugs (hydroxyurea, methotrexate), hypothyroidism.","B12, folate, methylmalonic acid, TSH, smear. Do not miss neurologic B12 deficiency — replace even at borderline levels."],
+   ["sev","Any MCV, high retic","Bleeding or hemolysis.","LDH, haptoglobin, indirect bilirubin, direct Coombs, and a smear looking for schistocytes and spherocytes."]
+  ]},
+ {t:"Iron studies interpretation", n:"Ferritin is an acute phase reactant and rises with inflammation.",
+  rows:[
+   ["sev","Ferritin under 30 ng/mL","Absolute iron deficiency, essentially diagnostic.","Replace and find the source. Unexplained iron deficiency in an adult means endoscopy."],
+   ["mod","Ferritin 30–100 with transferrin saturation under 20%","Iron deficiency in the setting of inflammation.","Still treat as iron deficiency. IV iron is often more effective here because of hepcidin blockade."],
+   ["mod","Ferritin 100–300 with inflammation and low transferrin saturation","Functional iron deficiency.","IV iron is reasonable, particularly in heart failure and CKD, where it improves symptoms."],
+   ["ok","Ferritin above 300 with high transferrin saturation","Iron replete, or iron overload.","Do not give iron. Consider hemochromatosis if the saturation is over 45%."]
+  ]}
+],
 flags:[
  "A drop of more than 2 g/dL over hours means bleeding until proven otherwise — look for the source, don't just transfuse.",
  "Anemia with thrombocytopenia and schistocytes — TTP or another microangiopathy. This is a hematologic emergency; do not transfuse platelets and call heme now.",
@@ -797,6 +1180,29 @@ pearls:[
 {
 id:"thrombocytopenia", tag:"Heme", name:"Thrombocytopenia",
 one:"Rule out the clumping artifact, then decide: destruction, consumption, sequestration, or underproduction.",
+strat:[
+ {t:"Severity and transfusion thresholds", n:"The mechanism matters more than the number.",
+  rows:[
+   ["ok","100–150 k, mild","Rarely causes bleeding.","Repeat with a smear, exclude clumping, look for liver disease and drugs. Most procedures are safe."],
+   ["mod","50–99 k, moderate","No spontaneous bleeding.","Safe for most bedside procedures and for anticoagulation. Investigate the cause."],
+   ["mod","20–49 k","Bleeding with trauma or procedures.","Transfuse to over 50 k before invasive procedures, over 100 k for neurosurgical or ocular surgery."],
+   ["sev","Under 20 k","Risk of spontaneous bleeding rises, especially with fever or mucosal (wet) purpura.","Transfuse if bleeding or febrile. Hold anticoagulants and antiplatelets. Hematology involvement."],
+   ["sev","Under 10 k","Spontaneous bleeding risk including intracranial.","Prophylactic platelet transfusion in stable patients. <strong>Except</strong> in TTP and HIT, where platelets can worsen thrombosis."]
+  ]},
+ {t:"4T score for HIT", n:"Thrombocytopenia magnitude, Timing, Thrombosis, oTher causes. 0–2 points each.",
+  rows:[
+   ["ok","0–3, low probability","Negative predictive value above 98%.","HIT is effectively excluded. Do not send a PF4 assay — a false positive will cause harm."],
+   ["mod","4–5, intermediate","Roughly 10–20% probability.","Stop heparin, start a non-heparin anticoagulant, send the PF4 immunoassay."],
+   ["sev","6–8, high","Roughly 50–80% probability.","Stop all heparin including flushes and coated catheters. Start argatroban, bivalirudin, or fondaparinux. Send PF4 and serotonin release assay. Never start warfarin until platelets are above 150 k."]
+  ]},
+ {t:"Smear findings that change management immediately", n:"",
+  rows:[
+   ["sev","Schistocytes with anemia","Microangiopathy: TTP, HUS, DIC, malignant hypertension, mechanical valve.","Send ADAMTS13 but do not wait for it. Urgent hematology, plasma exchange for TTP. No platelet transfusion."],
+   ["sev","Blasts or dysplastic cells","Acute leukemia or myelodysplasia.","Urgent hematology, marrow biopsy, tumor lysis precautions."],
+   ["ok","Platelet clumps","Pseudothrombocytopenia from EDTA.","Repeat in a citrate tube. No workup or treatment needed."],
+   ["mod","Large platelets, otherwise normal smear","Peripheral destruction with compensatory production — ITP or drug-induced.","Treat if under 30 k or bleeding: steroids, IVIG if a fast rise is needed."]
+  ]}
+],
 flags:[
  "Thrombocytopenia with schistocytes, anemia, and any neuro or renal finding — TTP. Plasma exchange is life-saving and should not wait for ADAMTS13.",
  "Platelet drop of ≥50% 5–10 days after starting heparin, especially with a new thrombosis — HIT. Stop all heparin including flushes and start a non-heparin anticoagulant.",
@@ -842,6 +1248,32 @@ pearls:[
 {
 id:"lfts", tag:"GI", name:"Abnormal LFTs / jaundice",
 one:"Hepatocellular or cholestatic pattern first, then think obstruction, drug, alcohol, virus, ischemia, or autoimmune.",
+strat:[
+ {t:"R factor — pattern of injury", n:"R = (ALT ÷ its upper limit) ÷ (alk phos ÷ its upper limit).",
+  rows:[
+   ["mod","R above 5, hepatocellular","Viral hepatitis, drug injury, alcohol, ischemia, autoimmune, MASH.","Acetaminophen level, viral serologies, autoimmune panel, and a hypotension history. Ultrasound with Doppler."],
+   ["mod","R under 2, cholestatic","Biliary obstruction, PBC, PSC, drug cholestasis, sepsis, infiltrative disease.","Ultrasound first, then MRCP. ERCP only when intervention is likely."],
+   ["mod","R between 2 and 5, mixed","Drug injury is the most common explanation.","Review every medication and supplement with a timeline."]
+  ]},
+ {t:"Transaminase magnitude", n:"",
+  rows:[
+   ["ok","Under 5× upper limit","MASLD, alcohol, medications, chronic viral hepatitis.","Outpatient workup unless there is jaundice or synthetic dysfunction."],
+   ["mod","5–15× upper limit","Acute viral hepatitis, drug injury, autoimmune, alcohol-associated hepatitis.","Full serologic workup, stop hepatotoxins, check INR and bilirubin for function."],
+   ["sev","Above 1000 U/L or 25× upper limit","Ischemic hepatitis, acetaminophen, acute viral, autoimmune, Budd-Chiari.","Acetaminophen level and start N-acetylcysteine on suspicion. Check INR every 12 hours. Hepatology now."]
+  ]},
+ {t:"Acute liver failure vs decompensated cirrhosis", n:"The distinction changes everything.",
+  rows:[
+   ["sev","Acute liver failure","INR ≥1.5 plus encephalopathy in a patient <strong>without</strong> pre-existing liver disease, within 26 weeks of onset.","Transplant center contact today. ICU, N-acetylcysteine regardless of cause, glucose and ICP monitoring, avoid sedatives, and do not correct the INR with plasma unless bleeding."],
+   ["sev","Acute-on-chronic liver failure","Decompensation in known cirrhosis with organ failure.","Find the precipitant: infection, GI bleed, alcohol, drugs, portal vein thrombosis. Tap the ascites. Involve hepatology."],
+   ["mod","Compensated cirrhosis with abnormal labs","No ascites, encephalopathy, jaundice, or variceal bleeding.","Screen for varices and hepatocellular carcinoma, vaccinate, counsel on alcohol, and continue statins if indicated — they are safe here."]
+  ]},
+ {t:"Alcohol-associated hepatitis — steroid decision", n:"",
+  rows:[
+   ["mod","Maddrey discriminant function under 32","Mild to moderate disease.","Abstinence, nutrition, thiamine and folate. No steroids."],
+   ["sev","Maddrey 32 or above, or MELD above 20","Severe disease with high short-term mortality.","Prednisolone 40 mg daily for 28 days, but only after excluding active infection and GI bleeding."],
+   ["sev","Lille score above 0.45 at day 7","Steroid non-responder.","Stop the steroid. Focus on nutrition, abstinence, and transplant evaluation where programs allow early listing."]
+  ]}
+],
 flags:[
  "Jaundice with encephalopathy and an INR >1.5 in a patient without known cirrhosis — acute liver failure. This is a transplant center call, today.",
  "Fever, RUQ pain, jaundice, hypotension, and confusion — ascending cholangitis needs urgent biliary drainage.",
@@ -888,6 +1320,38 @@ pearls:[
 {
 id:"hyperglycemia", tag:"Endocrine", name:"Hyperglycemia / DKA / HHS",
 one:"Fluids, potassium before insulin, insulin infusion, and close the anion gap — not the glucose.",
+strat:[
+ {t:"DKA severity — decides the care setting", n:"All require the same sequence: fluids, potassium, insulin, dextrose, transition.",
+  rows:[
+   ["mod","Mild","pH 7.25–7.30, bicarbonate 15–18, alert.","Ward care is appropriate. Subcutaneous rapid-acting insulin protocols are validated here and avoid an ICU bed."],
+   ["sev","Moderate","pH 7.00–7.24, bicarbonate 10–15, drowsy.","Insulin infusion, hourly glucose, BMP every 2–4 hours. Step-down or ICU depending on your unit's capability."],
+   ["sev","Severe","pH under 7.00, bicarbonate under 10, stupor or coma.","ICU, insulin infusion, close airway monitoring. Bicarbonate only considered below pH 6.9."]
+  ]},
+ {t:"DKA vs HHS", n:"They overlap, and mixed pictures are common.",
+  rows:[
+   ["sev","DKA","Glucose >250 (or normal in euglycemic DKA), pH <7.3 or bicarbonate <18, and ketonemia.","Insulin is the primary therapy — it turns off ketogenesis. Endpoint is the closed anion gap, not the glucose."],
+   ["sev","HHS","Glucose >600, effective osmolality >320, minimal ketosis, profound dehydration, often marked confusion.","Volume is the primary therapy — the deficit is often 8–10 L. Correct osmolality gradually. Mortality is higher than DKA."],
+   ["sev","Euglycemic DKA","Gap acidosis with ketones and a normal or mildly raised glucose.","Think SGLT2 inhibitors, pregnancy, alcohol, starvation. Give insulin <strong>with</strong> dextrose from the start. Easy to miss because the glucose looks fine."]
+  ]},
+ {t:"Potassium before insulin", n:"Check the potassium before the first insulin dose, every time.",
+  rows:[
+   ["sev","Under 3.3 mEq/L","Insulin will drive it lower and cause an arrhythmia.","<strong>Hold insulin.</strong> Replete 20–40 mEq/h with monitoring, then start insulin once above 3.3."],
+   ["mod","3.3–5.3 mEq/L","Total body potassium is depleted regardless of the serum value.","Add 20–30 mEq to each liter of fluid, targeting 4–5 mEq/L."],
+   ["ok","Above 5.3 mEq/L","Shift effect, not repletion status.","Hold potassium, start insulin, recheck in 2 hours — it will fall."]
+  ]},
+ {t:"Transition off the insulin infusion", n:"The single most common consequential error on the wards.",
+  rows:[
+   ["ok","Anion gap closed, bicarbonate >18, patient eating","Resolution criteria met.","Give long-acting subcutaneous insulin and <strong>overlap the infusion by 2 hours</strong> before stopping it."],
+   ["sev","Glucose normal but anion gap still open","DKA is not resolved. The glucose is not the endpoint.","Continue the insulin infusion and add dextrose to the fluids. Do not stop the drip."],
+   ["sev","Infusion stopped without subcutaneous overlap","Rebound ketoacidosis within hours.","Restart the infusion, give basal insulin, and overlap properly. A patient with type 1 diabetes always needs basal insulin, even when NPO."]
+  ]},
+ {t:"Inpatient hyperglycemia without acidosis", n:"Target 140–180 mg/dL for most inpatients.",
+  rows:[
+   ["ok","Under 180 mg/dL","At target.","Continue the current regimen, monitor before meals and at bedtime."],
+   ["mod","180–250 mg/dL","Above target.","Basal-bolus regimen with correction. Sliding scale alone is inferior and should not be the whole regimen."],
+   ["sev","Above 250 mg/dL persistently","Check for ketones and a gap, and look for a precipitant: infection, steroids, tube feeds, missed doses.","Escalate basal insulin by 10–20%, add nutritional coverage. For steroid-induced hyperglycemia, NPH given with the morning steroid dose matches the afternoon peak."]
+  ]}
+],
 flags:[
  "Potassium below 3.3 — do not start insulin until it is repleted. Insulin will drive it lower and cause an arrhythmia.",
  "Cerebral edema with a rapid osmolality shift — rare in adults but catastrophic; correct sodium and glucose gradually.",
@@ -934,6 +1398,35 @@ pearls:[
 {
 id:"stroke", tag:"Neuro", name:"Focal neuro deficit / stroke",
 one:"Time is the drug. Last known well, then CT, then a decision about thrombolysis and thrombectomy.",
+strat:[
+ {t:"Treatment windows from last known well", n:"This single number determines every option.",
+  rows:[
+   ["sev","Under 4.5 hours","Thrombolysis window.","IV tenecteplase or alteplase if no contraindication. BP must be under 185/110 before and under 180/105 after."],
+   ["sev","Under 6 hours with large vessel occlusion","Thrombectomy by standard criteria.","Call neurointervention immediately. CT angiography head and neck."],
+   ["sev","6–24 hours with large vessel occlusion","Extended thrombectomy window with imaging selection (DAWN, DEFUSE-3).","CT perfusion or MRI mismatch. Still highly beneficial — do not write these patients off on time alone."],
+   ["mod","Wake-up stroke, unknown onset","Not automatically excluded.","Imaging-based selection (DWI-FLAIR mismatch or perfusion) can still make them eligible."],
+   ["ok","Beyond the window or no occlusion","Medical management.","Antiplatelet, statin, permissive hypertension, stroke unit care, early rehabilitation."]
+  ]},
+ {t:"NIHSS severity", n:"",
+  rows:[
+   ["ok","0–4, minor","Small deficit, but still treatable and still at high recurrence risk.","Consider thrombolysis for disabling deficits. Dual antiplatelet for 21 days then single agent reduces recurrence."],
+   ["mod","5–15, moderate","Meaningful disability.","Full pathway, thrombolysis and thrombectomy assessment, stroke unit."],
+   ["sev","16–20, moderate to severe","Usually large vessel occlusion.","Urgent thrombectomy evaluation, monitor for malignant edema."],
+   ["sev","Above 20, severe","High risk of hemorrhagic transformation and malignant cerebral edema.","ICU-level monitoring, neurosurgery aware, early goals-of-care conversation alongside active treatment."]
+  ]},
+ {t:"Blood pressure targets — opposite in the two syndromes", n:"",
+  rows:[
+   ["ok","Ischemic stroke, not thrombolysed","Permissive hypertension preserves penumbral perfusion.","Treat only above 220/120. Lowering it aggressively causes harm."],
+   ["mod","Ischemic stroke, thrombolysis planned or given","Hemorrhage risk.","Under 185/110 before, under 180/105 for 24 hours after. Labetalol or nicardipine."],
+   ["sev","Intracerebral hemorrhage","Hematoma expansion risk.","Lower systolic to about 140 within the first hours, avoiding drops below 130. Reverse anticoagulation immediately."]
+  ]},
+ {t:"Anticoagulation timing after cardioembolic stroke", n:"Balance recurrence against hemorrhagic transformation.",
+  rows:[
+   ["ok","TIA or minor infarct","Low transformation risk.","Start anticoagulation within a few days; early initiation is supported by recent trial data."],
+   ["mod","Moderate infarct","Intermediate risk.","Typically 5–7 days, with a repeat scan if there was any hemorrhagic component."],
+   ["sev","Large infarct or hemorrhagic transformation","High transformation risk.","Delay 10–14 days, repeat imaging first, and decide with neurology."]
+  ]}
+],
 flags:[
  "Establish <strong>last known well</strong>, not when symptoms were noticed. This single number determines every treatment option.",
  "Sudden severe headache described as the worst ever — subarachnoid hemorrhage. CT, then LP or CT angiogram if CT is negative and suspicion is high.",
@@ -980,6 +1473,28 @@ pearls:[
 {
 id:"seizure", tag:"Neuro", name:"Seizure",
 one:"Stop the seizure, protect the airway, find the provocation, and decide if it's still going when the shaking stops.",
+strat:[
+ {t:"Status epilepticus timeline — the clock drives the drug", n:"Each stage has a time target. Delays at any stage make the next one harder to treat.",
+  rows:[
+   ["mod","0–5 minutes, stabilization","Airway, oxygen, IV access, glucose, position laterally.","Most seizures self-terminate here. Time it — 'a few minutes' is usually an underestimate."],
+   ["sev","5–20 minutes, first-line","Established status epilepticus.","Benzodiazepine at a <strong>full</strong> dose: lorazepam 4 mg IV (repeat once), or midazolam 10 mg IM without IV access. Underdosing here is the most common error in status."],
+   ["sev","20–40 minutes, second-line","Benzodiazepine-refractory status.","Levetiracetam 60 mg/kg (max 4500 mg), fosphenytoin 20 mg PE/kg, or valproate 40 mg/kg. ESETT found all three roughly equivalent."],
+   ["sev","Beyond 40 minutes, refractory","Refractory status epilepticus. Mortality rises sharply.","Intubate, continuous infusion of midazolam, propofol, or ketamine, with continuous EEG. Anesthesia and neurology at the bedside."],
+   ["sev","Beyond 24 hours of infusion","Super-refractory status.","Neurocritical care. Consider ketamine, immunotherapy, and a search for autoimmune or paraneoplastic encephalitis."]
+  ]},
+ {t:"Provoked vs unprovoked — this decides long-term treatment", n:"",
+  rows:[
+   ["ok","Acute symptomatic (provoked)","Hypoglycemia, hyponatremia, withdrawal, drug toxicity, acute stroke, eclampsia, uremia.","Treat the cause. Do <strong>not</strong> start a long-term antiepileptic for a provoked seizure with a corrected cause."],
+   ["mod","First unprovoked seizure","Recurrence risk 30–50% over 2 years, rising to 60–90% with an abnormal EEG or MRI.","MRI and EEG. Antiepileptic decision depends on that recurrence risk and should involve neurology."],
+   ["sev","Two or more unprovoked seizures, or one with a high-risk lesion","This is epilepsy by definition.","Start maintenance therapy, and address driving and safety counseling explicitly before discharge."]
+  ]},
+ {t:"When the shaking stops but the patient doesn't wake", n:"",
+  rows:[
+   ["ok","Wakes progressively within 20–30 minutes","Normal postictal state.","Observe, protect from falls, recheck glucose."],
+   ["sev","Still altered beyond 30 minutes","Non-convulsive status epilepticus, ongoing structural injury, or a second process.","Urgent EEG — not more time. CT head. Treat empirically for non-convulsive status if the suspicion is high."],
+   ["sev","Focal deficit persisting","Todd's paralysis or a stroke.","If within the thrombolysis window and you cannot distinguish them, treat as a stroke."]
+  ]}
+],
 flags:[
  "Convulsions lasting more than 5 minutes, or two seizures without recovery in between, is status epilepticus. Treat immediately.",
  "Persistent altered mental status more than 20–30 minutes after a seizure stops — non-convulsive status. Get an EEG.",
@@ -1026,6 +1541,30 @@ pearls:[
 {
 id:"headache", tag:"Neuro", name:"Headache",
 one:"The job is to identify the small fraction that is secondary and dangerous before treating the pain.",
+strat:[
+ {t:"Time to peak intensity \u2014 the first question, and the one that sorts everything", n:"",
+  rows:[
+   ["sev","Thunderclap","Maximal within seconds to one minute.","Immediate non-contrast CT head, then LP or CT angiography if negative. Consider SAH, reversible cerebral vasoconstriction, dissection, venous sinus thrombosis, pituitary apoplexy."],
+   ["mod","Subacute progressive","Worsening over days to weeks, or new positional or morning-predominant headache.","Raised intracranial pressure, mass, venous sinus thrombosis, or giant cell arteritis. MRI with contrast, fundoscopy, ESR and CRP."],
+   ["ok","Recurrent stereotyped","Familiar pattern, unchanged from prior episodes, normal neurologic exam.","Primary headache. Treat it. No imaging needed if the pattern is unchanged and the exam is normal."]
+  ]},
+ {t:"CT sensitivity for subarachnoid hemorrhage falls with time \u2014 this decides whether you still need the LP", n:"",
+  rows:[
+   ["mod","Within 6 hours of onset","Modern non-contrast CT read by a qualified radiologist.","Sensitivity approaches 100%. A negative CT in this window effectively excludes SAH; LP is generally not required."],
+   ["sev","6 hours to 2 weeks","Sensitivity falls progressively as blood degrades.","A negative CT does <strong>not</strong> exclude SAH. Proceed to LP for xanthochromia and a red cell count that fails to clear across tubes, or to CT angiography."],
+   ["mod","Beyond 2 weeks","CT and LP both lose sensitivity.","MRI with gradient echo sequences, or angiography. Discuss with neurology."]
+  ]},
+ {t:"Ottawa SAH rule \u2014 a rule-out tool only", n:"Applies to alert patients over 15 with a new atraumatic headache peaking within one hour.",
+  rows:[
+   ["ok","Rule negative","None of: age 40 or over, neck pain or stiffness, witnessed loss of consciousness, onset during exertion, thunderclap onset, or limited neck flexion on exam.","SAH is effectively excluded on this basis. Sensitivity approaches 100%."],
+   ["mod","Rule positive","Any one criterion present.","Investigate. Specificity is poor, around 15% \u2014 a positive rule means image, not that the patient has SAH."]
+  ]},
+ {t:"Secondary headache red flags (SNOOP4), any one of which mandates imaging", n:"",
+  rows:[
+   ["sev","Any one present","<strong>S</strong>ystemic signs (fever, weight loss, cancer, immunosuppression), <strong>N</strong>eurologic deficit or papilledema, <strong>O</strong>nset sudden, <strong>O</strong>lder than 50 at new onset, <strong>P</strong>attern change, <strong>P</strong>ositional, <strong>P</strong>recipitated by Valsalva, <strong>P</strong>apilledema.","Image. Add ESR and CRP if over 50, and start prednisone 40\u201360 mg immediately for suspected giant cell arteritis before the biopsy \u2014 waiting risks permanent blindness."],
+   ["ok","None present","Normal exam, established pattern, no systemic features.","Primary headache. Treat with the inpatient migraine cocktail. <strong>Avoid opioids and butalbital</strong> \u2014 they worsen outcomes and cause medication overuse headache."]
+  ]}
+],
 flags:[
  "Thunderclap — maximal within seconds to a minute. Subarachnoid hemorrhage, reversible cerebral vasoconstriction, dissection, venous sinus thrombosis, pituitary apoplexy.",
  "New headache over age 50 with jaw claudication, scalp tenderness, or visual symptoms — giant cell arteritis. Start steroids before the biopsy.",
@@ -1074,6 +1613,35 @@ pearls:[
 {
 id:"leg-swelling", tag:"Vascular", name:"Leg swelling / suspected DVT or cellulitis",
 one:"Unilateral is vascular or infectious until proven otherwise; bilateral is usually systemic.",
+strat:[
+ {t:"Wells score for DVT", n:"Active cancer, paralysis or immobilization, bedrest >3 days or surgery within 12 weeks, localized tenderness, entire leg swollen, calf >3 cm larger, pitting edema, collateral veins, prior DVT (1 point each); alternative diagnosis more likely (−2).",
+  rows:[
+   ["ok","0 or below, low probability","Roughly 5% prevalence.","A negative D-dimer excludes DVT — no imaging needed."],
+   ["mod","1–2, moderate","Roughly 17% prevalence.","D-dimer; if positive, compression ultrasound."],
+   ["sev","3 or above, high probability","Roughly 50% or more.","Go straight to compression ultrasound. A negative D-dimer does <strong>not</strong> exclude DVT here. If imaging is delayed, anticoagulate empirically."]
+  ]},
+ {t:"DVT location and anticoagulation duration", n:"",
+  rows:[
+   ["mod","Isolated distal (calf) DVT, low risk, no cancer","Lower propagation and embolization risk.","Serial ultrasound surveillance over 2 weeks is an accepted alternative to anticoagulation."],
+   ["sev","Proximal DVT — popliteal or above","High embolization risk.","Anticoagulate: apixaban or rivaroxaban for most; low molecular weight heparin in cancer and pregnancy."],
+   ["ok","Provoked by a transient major risk factor","Surgery, trauma, immobilization, estrogen.","3 months of anticoagulation, then stop."],
+   ["sev","Unprovoked, or with a persistent risk factor","Recurrence risk above 30% at 5 years after stopping.","Indefinite anticoagulation, reassessed annually. Reduced-dose apixaban or rivaroxaban is an option for extended treatment."],
+   ["sev","Phlegmasia cerulea dolens — massive swelling, cyanosis, threatened limb","Limb-threatening venous outflow obstruction.","Vascular surgery or interventional radiology immediately for thrombolysis or thrombectomy."]
+  ]},
+ {t:"Eron classification — cellulitis severity", n:"",
+  rows:[
+   ["ok","Class I","No systemic toxicity, no uncontrolled comorbidity.","Oral antibiotics as an outpatient. 5 days is adequate if improving."],
+   ["mod","Class II","Systemically unwell, or a comorbidity that complicates resolution (diabetes, venous insufficiency, obesity, immunosuppression).","Short admission or observation for IV antibiotics, then oral step-down."],
+   ["sev","Class III","Significant systemic toxicity — hemodynamic instability, confusion, tachypnea.","Admit for IV antibiotics with close monitoring."],
+   ["sev","Class IV","Sepsis, or a necrotizing infection.","Resuscitation, broad antibiotics with clindamycin for toxin suppression, and <strong>immediate</strong> surgical assessment. Do not let imaging delay the operating room."]
+  ]},
+ {t:"Purulent vs non-purulent — the antibiotic decision", n:"",
+  rows:[
+   ["ok","Non-purulent cellulitis","Almost always beta-hemolytic streptococci.","Cephalexin or cefazolin. Routine MRSA coverage is unnecessary and does not improve outcomes."],
+   ["mod","Purulent cellulitis or abscess","Staphylococcus aureus including MRSA.","Incision and drainage is the treatment; antibiotics are adjunctive. Add trimethoprim-sulfamethoxazole or doxycycline."],
+   ["sev","Failure to improve at 48–72 hours","Usually the wrong diagnosis, an undrained abscess, or resistant organism.","Reconsider: stasis dermatitis, gout, DVT, lipodermatosclerosis. Ultrasound for abscess. Bilateral 'cellulitis' is almost always stasis dermatitis."]
+  ]}
+],
 flags:[
  "Unilateral swelling with a pale or dusky, painful, pulseless limb — phlegmasia or acute arterial occlusion. Vascular surgery now.",
  "Rapidly advancing erythema with pain out of proportion, bullae, crepitus, or systemic toxicity — necrotizing fasciitis. Surgical emergency, not an antibiotic decision.",
@@ -1120,6 +1688,29 @@ pearls:[
 {
 id:"diarrhea", tag:"GI", name:"Diarrhea",
 one:"Inpatient diarrhea is C. difficile, medication, or tube feeds until you've excluded them.",
+strat:[
+ {t:"C. difficile severity", n:"Test only with 3 or more unformed stools in 24 hours and no laxatives in the prior 48 hours.",
+  rows:[
+   ["mod","Non-severe","WBC ≤15,000 and creatinine <1.5 mg/dL.","Oral vancomycin 125 mg four times daily for 10 days, or fidaxomicin 200 mg twice daily for 10 days (lower recurrence). Metronidazole only if neither is available."],
+   ["sev","Severe","WBC >15,000 or creatinine ≥1.5 mg/dL.","Oral vancomycin 125 mg four times daily or fidaxomicin for 10 days. Monitor closely for progression."],
+   ["sev","Fulminant","Hypotension or shock, ileus, or megacolon.","Vancomycin 500 mg four times daily orally or by nasogastric tube, plus IV metronidazole 500 mg every 8 hours, plus vancomycin enemas if there is ileus. Surgery consult for possible colectomy."],
+   ["mod","First recurrence","Symptoms return within 8 weeks of treatment.","Fidaxomicin, or a tapered and pulsed vancomycin course. Consider bezlotoxumab."],
+   ["sev","Second or later recurrence","Established recurrent disease.","Fecal microbiota transplantation has strong evidence here. Involve ID or GI."]
+  ]},
+ {t:"When to send stool studies at all", n:"",
+  rows:[
+   ["ok","Onset more than 72 hours after admission","Community pathogens are very unlikely.","Test for C. difficile only. Culture and GI PCR panels are low-yield and should generally not be sent."],
+   ["mod","Onset within 72 hours of admission, or community-acquired","Community pathogens are plausible.","GI PCR panel or culture, plus C. difficile. Ova and parasites if travel or immunosuppression."],
+   ["sev","Immunocompromised, HIV, or post-transplant","Broader differential including CMV colitis and parasites.","Full panel plus consideration of endoscopy with biopsy."],
+   ["sev","Bloody diarrhea with AKI and thrombocytopenia","Shiga toxin E. coli with hemolytic uremic syndrome.","Do <strong>not</strong> give antibiotics or antimotility agents — both worsen outcomes. Supportive care and nephrology."]
+  ]},
+ {t:"Osmotic vs secretory vs inflammatory", n:"",
+  rows:[
+   ["ok","Stops with fasting, stool osmotic gap >100","Osmotic — lactose, magnesium, sorbitol, laxatives.","Remove the offending agent. Check the medication list for sorbitol-containing liquids."],
+   ["mod","Continues with fasting and overnight, gap <50","Secretory — infection, bile acid, hormonal, microscopic colitis.","Deserves a real workup. Check TSH, fecal elastase, and consider colonoscopy with biopsy."],
+   ["sev","Blood, mucus, fever, elevated calprotectin","Inflammatory — IBD, infectious colitis, ischemia, CMV.","Endoscopy, exclude infection before immunosuppression. Never give loperamide."]
+  ]}
+],
 flags:[
  "Diarrhea with fever, leukocytosis over 15,000, rising creatinine, hypotension, or ileus — fulminant C. difficile. Surgery should know about it.",
  "Bloody diarrhea with abdominal pain after a hypotensive episode — ischemic colitis.",
@@ -1166,6 +1757,31 @@ pearls:[
 {
 id:"acid-base", tag:"Metabolic", name:"Acid-base disturbance",
 one:"Work it in order every time: pH, primary disorder, compensation, anion gap, delta-delta, and osmolar gap.",
+strat:[
+ {t:"Step through it in this order, every time", n:"",
+  rows:[
+   ["ok","1. pH","Acidemic under 7.35, alkalemic above 7.45. A normal pH with abnormal chemistry means a mixed disorder.","Never stop at the pH — the most dangerous pattern is a normal pH hiding two opposing severe disorders."],
+   ["ok","2. Primary disorder","Look at whether HCO3 or pCO2 moves in the same direction as the pH.","HCO3 low with low pH is metabolic acidosis; pCO2 high with low pH is respiratory acidosis."],
+   ["ok","3. Compensation","Metabolic acidosis: <strong>Winter's formula</strong>, expected pCO2 = 1.5 × HCO3 + 8 ± 2.","If the actual pCO2 is higher than expected there is a concurrent respiratory acidosis; if lower, a concurrent respiratory alkalosis."],
+   ["ok","4. Anion gap","Na − (Cl + HCO3). Normal 8–12. Add 2.5 for every 1 g/dL the albumin sits below 4.","A gap above 12 means an unmeasured acid — work the GOLDMARK list."],
+   ["ok","5. Delta-delta","(Measured gap − 12) ÷ (24 − measured HCO3).","Under 1 means a coexisting normal-gap acidosis; above 2 means a coexisting metabolic alkalosis."],
+   ["ok","6. Osmolar gap","Measured osm − (2×Na + glucose/18 + BUN/2.8).","Above 10 suggests a toxic alcohol. Start fomepizole on suspicion rather than waiting for a level."]
+  ]},
+ {t:"Acidemia severity", n:"",
+  rows:[
+   ["mod","pH 7.30–7.35","Mild.","Treat the cause. No buffering. Recheck with the trend."],
+   ["mod","pH 7.20–7.29","Moderate.","Treat the cause aggressively. Watch the respiratory rate — a falling rate means fatigue, not improvement."],
+   ["sev","pH 7.10–7.19","Severe. Catecholamine responsiveness starts to fall.","ICU consideration. Address the specific cause: fluids for DKA, source control for sepsis, dialysis for toxins."],
+   ["sev","pH under 7.10","Critical. Reduced cardiac contractility and vasopressor resistance.","Bicarbonate is reasonable here, and BICAR-ICU suggested benefit at pH under 7.20 specifically in acute kidney injury. Urgent dialysis if renal."]
+  ]},
+ {t:"Respiratory compensation expectations", n:"Use these to detect the second disorder.",
+  rows:[
+   ["ok","Acute respiratory acidosis","HCO3 rises 1 mEq/L per 10 mmHg rise in pCO2.","A bicarbonate higher than this means the process is chronic or there is a metabolic alkalosis too."],
+   ["ok","Chronic respiratory acidosis","HCO3 rises 4 mEq/L per 10 mmHg rise in pCO2.","Do not normalize the CO2 in a chronic retainer — you will cause a post-hypercapnic metabolic alkalosis."],
+   ["ok","Acute respiratory alkalosis","HCO3 falls 2 mEq/L per 10 mmHg fall in pCO2.","Look for the driver: pain, sepsis, PE, salicylate."],
+   ["ok","Metabolic alkalosis","pCO2 rises 0.7 mmHg per 1 mEq/L rise in HCO3.","Chloride-responsive in most cases — saline and potassium."]
+  ]}
+],
 flags:[
  "A high anion gap with a normal lactate and normal ketones — think toxic alcohol, salicylate, or uremia. Check the osmolar gap.",
  "Severe metabolic acidosis with a rising respiratory rate and a tiring patient — intubation will make it worse unless you match the minute ventilation.",
@@ -1233,16 +1849,20 @@ chipsEl.addEventListener('click', e => {
 function haystack(d){
   return [d.name, d.tag, d.one, ...d.flags, ...d.pearls, ...d.mgmt,
     ...d.ddx.flatMap(g => [g.g, ...g.i]),
-    ...d.hx, ...(d.wu.labs||[]), ...(d.wu.img||[]), ...(d.wu.other||[])
+    ...d.hx, ...(d.wu.labs||[]), ...(d.wu.img||[]), ...(d.wu.other||[]),
+    ...((d.strat||[]).flatMap(tb => [tb.t, tb.n||'', ...tb.rows.flatMap(r => r)]))
   ].join(' ').toLowerCase();
 }
 
 function renderList(){
   const q = searchEl.value.trim().toLowerCase();
-  const hits = DATA.filter(d =>
-    (activeTag === 'All' || d.tag === activeTag) &&
-    (!q || haystack(d).includes(q))
-  );
+  const terms = q.split(/\s+/).filter(Boolean);
+  const hits = DATA.filter(d => {
+    if (activeTag !== 'All' && d.tag !== activeTag) return false;
+    if (!terms.length) return true;
+    const h = haystack(d);
+    return terms.every(t => h.includes(t));
+  });
   if (!hits.length){
     listEl.innerHTML = `<div class="empty">Nothing matches that. Try a broader term — a single symptom, a lab name, or a drug.</div>`;
     return;
@@ -1258,9 +1878,24 @@ function renderList(){
 
 function ul(items){ return `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`; }
 
+function stratBlock(d){
+  const tables = d.strat;
+  if (!tables || !tables.length) return '';
+  const body = tables.map(tb => `<div class="strat-table">
+      <p class="strat-label">${tb.t}${tb.n ? ` <span class="strat-note">${tb.n}</span>` : ''}</p>
+      ${tb.rows.map(r => `<div class="tier s-${r[0]}">
+        <div class="tname">${r[1]}</div>
+        <div class="tdef">${r[2]}</div>
+        <div class="tdo">${r[3]}</div>
+      </div>`).join('')}
+    </div>`).join('');
+  return `<section class="blk strat"><h3>Stratification &mdash; definition and what it changes</h3>${body}</section>`;
+}
+
 function renderDetail(d){
   const ddx = d.ddx.map(g =>
     `<div class="grp${g.crit ? ' critical' : ''}"><h4>${g.g}</h4>${ul(g.i)}</div>`).join('');
+
 
   const wu = [
     d.wu.labs && d.wu.labs.length ? `<div class="wu-sub"><h4>Labs</h4>${ul(d.wu.labs)}</div>` : '',
@@ -1273,6 +1908,7 @@ function renderDetail(d){
     <h2 class="dtitle">${d.name}</h2>
     <p class="dsub">${d.one}</p>
     <section class="blk flags"><h3>Red flags — check these first</h3>${ul(d.flags)}</section>
+    ${stratBlock(d)}
     <section class="blk"><h3>Differential</h3>${ddx}</section>
     <section class="blk"><h3>Focused history &amp; exam</h3>${ul(d.hx)}</section>
     <section class="blk wu"><h3>Workup</h3>${wu}</section>
