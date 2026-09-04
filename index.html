@@ -212,6 +212,10 @@ details.drug[open] > summary{border-bottom:1px solid var(--line)}
 .opt{font:inherit;font-size:12.5px;padding:5px 9px;border:1px solid var(--line);border-radius:6px;
   background:var(--surface);color:var(--muted);cursor:pointer}
 .opt.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.fin{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.fin label{font-size:13px;flex:1}
+.fin input{width:92px;padding:6px 8px;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);text-align:right}
+.fin input:focus{outline:2px solid var(--blue);outline-offset:-1px}
 .calc-out{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);display:flex;gap:11px;align-items:flex-start}
 .calc-num{font-size:27px;font-weight:700;line-height:1;min-width:36px}
 .calc-band{font-size:13.5px;line-height:1.45;color:var(--muted)}
@@ -219,6 +223,53 @@ details.drug[open] > summary{border-bottom:1px solid var(--line)}
 .calc-band.s-ok strong{color:var(--green)}
 .calc-band.s-mod strong{color:var(--amber)}
 .calc-band.s-sev strong{color:var(--red)}
+.modes{display:flex;gap:4px;margin-bottom:10px;background:#E3E8ED;padding:3px;border-radius:9px}
+.mode{flex:1;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 6px;border:none;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer;font-weight:600}
+.mode[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(19,32,46,.10)}
+.ccgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px}
+.ccbtn{display:block;text-align:left;background:var(--surface);border:1px solid var(--line);
+  border-left:4px solid var(--blue);border-radius:9px;padding:11px 13px;cursor:pointer;font:inherit;color:inherit}
+.ccbtn:hover{border-color:var(--blue)}
+.ccname{display:block;font-weight:650;font-size:15px;line-height:1.25}
+.ccsub{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.hpi-jump{font-size:13px;color:var(--muted);margin:14px 0 0}
+.linkbtn{background:none;border:none;padding:0;font:inherit;font-size:13px;color:var(--blue);cursor:pointer;text-decoration:underline}
+.masthead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.homebtn{background:none;border:none;padding:0;font:inherit;font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--ink);cursor:pointer}
+.homebtn:hover{color:var(--blue)}
+.homeicon{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:5px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);cursor:pointer}
+.homeicon:hover{border-color:var(--blue);color:var(--blue)}
+
+/* HPI builder */
+.hpi-intro{margin:0 0 12px;font-size:13px;color:var(--muted)}
+.hrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}
+.hfield{display:flex;flex-direction:column;gap:3px}
+.hfield.wide{flex:1;min-width:180px}
+.hfield label{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.hfield input,.hfield select{padding:6px 8px;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.hfield input{width:80px}
+.hfield.wide input{width:100%}
+.hin.wide2{width:100%;padding:7px 9px;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.hgrp{margin-bottom:13px}
+.hlabel{margin:0 0 6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hhint{text-transform:none;letter-spacing:0;font-weight:400;font-family:var(--sans);font-size:11.5px}
+.hchips{display:flex;flex-wrap:wrap;gap:5px}
+.hchip{font:inherit;font-size:12.5px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);color:var(--muted);cursor:pointer;text-align:left}
+.hchip:hover{border-color:var(--blue)}
+.hchip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.hgrp[data-key="neg"] .hchip.on{background:var(--muted);border-color:var(--muted)}
+.hout{margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+.houthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.hbtn{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;margin-left:6px;
+  padding:4px 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--blue);cursor:pointer}
+.hpi-text{width:100%;padding:11px;font:inherit;font-size:14.5px;line-height:1.5;border:1px solid var(--line);
+  border-radius:8px;background:#FBFCFD;color:var(--ink);resize:vertical}
+.hpi-text:focus{outline:2px solid var(--blue);outline-offset:-1px}
+.hpi-note{margin:6px 0 0;font-size:11.5px;color:var(--muted)}
 .disclaimer{
   font-size:12.5px;color:var(--muted);line-height:1.5;
   border-top:1px solid var(--line);margin-top:22px;padding-top:12px;
@@ -237,9 +288,15 @@ details.drug[open] > summary{border-bottom:1px solid var(--line)}
 
 <header>
   <div class="masthead">
-    <h1>Ward Illness Scripts</h1>
+    <button id="home" class="homebtn" title="Back to all presentations">Ward Illness Scripts</button>
     <span class="sub">By presentation</span>
+    <button id="homeicon" class="homeicon" aria-label="Home">Home</button>
   </div>
+  <nav class="modes" id="modes" role="tablist">
+    <button class="mode" data-mode="scripts" aria-selected="true">Scripts</button>
+    <button class="mode" data-mode="hpi" aria-selected="false">HPI</button>
+    <button class="mode" data-mode="drugs" aria-selected="false">Drugs</button>
+  </nav>
   <input id="search" type="search" placeholder="Search a symptom, sign, or lab — e.g. hypoxia, K 6.4, confusion" autocomplete="off" aria-label="Search presentations">
   <div class="chips" id="chips" role="group" aria-label="Filter by system"></div>
 </header>
@@ -2007,6 +2064,570 @@ const SCORES = {
          [23,"sev","8 or above","High risk of intervention and rebleeding. Admit with close monitoring, transfuse to threshold, endoscopy within 24 hours or sooner if unstable."]]}]
 };
 
+/* ---------- additional score calculators ---------- */
+SCORES["chest-pain"].push({
+  id:"wellspe", name:"Wells score for PE", sub:"pretest probability of pulmonary embolism",
+  items:[
+   {q:"Clinical signs of DVT (leg swelling, deep vein tenderness)", o:[["No",0],["Yes",3]]},
+   {q:"PE is the most likely diagnosis, or equally likely", o:[["No",0],["Yes",3]]},
+   {q:"Heart rate above 100", o:[["No",0],["Yes",1.5]]},
+   {q:"Immobilization 3 days or more, or surgery in the last 4 weeks", o:[["No",0],["Yes",1.5]]},
+   {q:"Previous objectively diagnosed PE or DVT", o:[["No",0],["Yes",1.5]]},
+   {q:"Hemoptysis", o:[["No",0],["Yes",1]]},
+   {q:"Malignancy (treated within 6 months or palliative)", o:[["No",0],["Yes",1]]}],
+  bands:[[1.5,"ok","Low (under 2)","About 1.3% PE prevalence. Apply PERC; if PERC-negative, stop. If PERC-positive, D-dimer (age-adjusted if over 50)."],
+         [6,"mod","Moderate (2–6)","About 16% prevalence. D-dimer; if positive, CT pulmonary angiogram."],
+         [12.5,"sev","High (above 6)","About 37% prevalence. Go straight to CT pulmonary angiogram — a negative D-dimer does not exclude PE here. Consider empiric anticoagulation if imaging is delayed."]]
+},{
+  id:"perc", name:"PERC rule", sub:"PE rule-out criteria — only valid if your gestalt probability is already under 15%",
+  items:[
+   {q:"Age 50 or over", o:[["No",0],["Yes",1]]},
+   {q:"Heart rate 100 or over", o:[["No",0],["Yes",1]]},
+   {q:"Oxygen saturation under 95% on room air", o:[["No",0],["Yes",1]]},
+   {q:"Unilateral leg swelling", o:[["No",0],["Yes",1]]},
+   {q:"Hemoptysis", o:[["No",0],["Yes",1]]},
+   {q:"Recent surgery or trauma (within 4 weeks, requiring anesthesia)", o:[["No",0],["Yes",1]]},
+   {q:"Prior PE or DVT", o:[["No",0],["Yes",1]]},
+   {q:"Hormone use (oral contraceptive, hormone replacement, estrogen)", o:[["No",0],["Yes",1]]}],
+  bands:[[0,"ok","All 8 negative","PERC-negative. PE is effectively excluded (under 2%) without a D-dimer, provided your pretest probability was genuinely low."],
+         [8,"mod","One or more positive","PERC-positive. This does not mean the patient has a PE — it means you cannot stop here. Proceed to D-dimer."]]
+},{
+  id:"timi", name:"TIMI risk score", sub:"UA/NSTEMI — 14-day death, MI, or urgent revascularization",
+  items:[
+   {q:"Age 65 or over", o:[["No",0],["Yes",1]]},
+   {q:"Three or more CAD risk factors", o:[["No",0],["Yes",1]]},
+   {q:"Known CAD with stenosis of 50% or more", o:[["No",0],["Yes",1]]},
+   {q:"Aspirin use in the last 7 days", o:[["No",0],["Yes",1]]},
+   {q:"Severe angina — two or more episodes in 24 h", o:[["No",0],["Yes",1]]},
+   {q:"ST deviation of 0.5 mm or more", o:[["No",0],["Yes",1]]},
+   {q:"Elevated cardiac marker", o:[["No",0],["Yes",1]]}],
+  bands:[[1,"ok","0–1","About 5% risk of an event at 14 days."],
+         [4,"mod","2–4","13–20% risk. Admit; consider an early invasive strategy."],
+         [7,"sev","5–7","26–41% risk. Early invasive strategy, cardiology involved."]]
+});
+
+SCORES["dyspnea"].push(SCORES["chest-pain"].find(s=>s.id==="wellspe"), SCORES["chest-pain"].find(s=>s.id==="perc"));
+
+SCORES["syncope"] = [{
+  id:"csrs", name:"Canadian Syncope Risk Score", sub:"30-day serious adverse events",
+  items:[
+   {q:"Predisposition to vasovagal symptoms (warm crowded place, prolonged standing, fear, emotion, pain)", o:[["No",0],["Yes",-1]]},
+   {q:"History of heart disease (CAD, AF/flutter, CHF, valvular)", o:[["No",0],["Yes",1]]},
+   {q:"Any systolic BP reading under 90 or over 180", o:[["No",0],["Yes",2]]},
+   {q:"Elevated troponin (above the 99th percentile)", o:[["No",0],["Yes",2]]},
+   {q:"Abnormal QRS axis (under −30° or over 100°)", o:[["No",0],["Yes",1]]},
+   {q:"QRS duration over 130 ms", o:[["No",0],["Yes",1]]},
+   {q:"Corrected QT over 480 ms", o:[["No",0],["Yes",2]]},
+   {q:"ED diagnosis", o:[["Neither",0],["Vasovagal syncope",-2],["Cardiac syncope",2]]}],
+  bands:[[0,"ok","Very low risk (−3 to 0)","0.4–0.9% serious adverse event at 30 days. Discharge with return precautions."],
+         [1,"ok","Low risk (1)","About 1.9%. Discharge is generally reasonable."],
+         [3,"mod","Medium risk (2–3)","3.8–7.5%. Further cardiac investigation; consider monitoring or observation."],
+         [5,"sev","High risk (4–5)","Up to 25%. Admit with telemetry."],
+         [11,"sev","Very high risk (6 or above)","Up to 75%. Admit, monitored bed, cardiology."]]
+}];
+
+SCORES["ams"].push({
+  id:"cam", name:"Confusion Assessment Method (CAM)", sub:"diagnosis of delirium",
+  items:[
+   {q:"1. Acute onset AND fluctuating course", o:[["Absent",0],["Present",1]]},
+   {q:"2. Inattention (cannot follow, loses track, easily distracted)", o:[["Absent",0],["Present",1]]},
+   {q:"3. Disorganized thinking (rambling, illogical, unclear flow)", o:[["Absent",0],["Present",1]]},
+   {q:"4. Altered level of consciousness (anything other than alert)", o:[["Absent",0],["Present",1]]}],
+  bands:[[3,"ok","Criteria not met","CAM is positive only with features 1 AND 2, plus either 3 or 4. Check the individual features above rather than the total — this tool sums them, so confirm 1 and 2 are both present before calling it positive."],
+         [4,"sev","All four present","Delirium. Note the formal rule is 1 and 2 plus either 3 or 4, so a total of 3 can also be positive — read the features, not just the number."]]
+},{
+  id:"ciwa", name:"CIWA-Ar", sub:"alcohol withdrawal severity — each item 0–7 unless noted",
+  items:[
+   {q:"Nausea and vomiting", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Severe, constant (7)",7]]},
+   {q:"Tremor", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Severe (7)",7]]},
+   {q:"Paroxysmal sweats", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Drenching (7)",7]]},
+   {q:"Anxiety", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Panic (7)",7]]},
+   {q:"Agitation", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Pacing/thrashing (7)",7]]},
+   {q:"Tactile disturbance", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Continuous hallucinations (7)",7]]},
+   {q:"Auditory disturbance", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Continuous hallucinations (7)",7]]},
+   {q:"Visual disturbance", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Continuous hallucinations (7)",7]]},
+   {q:"Headache", o:[["None (0)",0],["Mild (1–3)",2],["Moderate (4–6)",5],["Extremely severe (7)",7]]},
+   {q:"Orientation and clouding of sensorium (0–4)", o:[["Oriented (0)",0],["Cannot do serial additions / uncertain of date (1)",1],["Disoriented to date by ≤2 days (2)",2],["Disoriented to place or person (4)",4]]}],
+  bands:[[8,"ok","Under 8–10 — minimal","No medication needed. Continue monitoring on the protocol interval."],
+         [15,"mod","8–15 — mild to moderate","Symptom-triggered benzodiazepine: lorazepam 1–2 mg or diazepam 5–10 mg. Reassess in 1 hour."],
+         [67,"sev","Above 15 — severe","High risk of seizure and delirium tremens. Aggressive symptom-triggered dosing, frequent reassessment, and consider ICU. Phenobarbital or an infusion if benzodiazepine-refractory."]]
+});
+
+SCORES["sepsis"] = [{
+  id:"qsofa", name:"qSOFA", sub:"bedside prompt for sepsis — specific but insensitive, not a screening rule",
+  items:[
+   {q:"Respiratory rate 22 or more", o:[["No",0],["Yes",1]]},
+   {q:"Altered mentation (GCS under 15)", o:[["No",0],["Yes",1]]},
+   {q:"Systolic BP 100 or less", o:[["No",0],["Yes",1]]}],
+  bands:[[1,"ok","0–1","Does not rule out sepsis — qSOFA misses many septic patients. If you are worried, act on that."],
+         [3,"sev","2 or more","Associated with markedly higher mortality. Escalate: lactate, cultures, antibiotics, and reassess for organ dysfunction."]]
+},{
+  id:"mascc", name:"MASCC risk index", sub:"febrile neutropenia — higher score means LOWER risk (max 26)",
+  items:[
+   {q:"Burden of illness", o:[["No or mild symptoms (5)",5],["Moderate symptoms (3)",3],["Severe symptoms (0)",0]]},
+   {q:"No hypotension (systolic 90 or above)", o:[["No — hypotensive (0)",0],["Yes (5)",5]]},
+   {q:"No active COPD", o:[["No — has COPD (0)",0],["Yes (4)",4]]},
+   {q:"Solid tumor, or hematologic malignancy with no previous fungal infection", o:[["No (0)",0],["Yes (4)",4]]},
+   {q:"No dehydration requiring parenteral fluids", o:[["No — dehydrated (0)",0],["Yes (3)",3]]},
+   {q:"Outpatient status at onset of fever", o:[["No — inpatient (0)",0],["Yes (3)",3]]},
+   {q:"Age under 60", o:[["No (0)",0],["Yes (2)",2]]}],
+  bands:[[20,"sev","Under 21 — high risk","Admit for IV antibiotics. Do not use this score to justify outpatient care."],
+         [26,"ok","21 or above — low risk","Low risk of serious complications. Selected patients may be candidates for oral antibiotics or outpatient management — with oncology agreement, good follow-up, and no other reason to admit. Not valid in acute leukemia induction or allogeneic transplant conditioning."]]
+}];
+
+SCORES["tachycardia"].push({
+  id:"hasbled", name:"HAS-BLED", sub:"1-year major bleeding risk on anticoagulation — use it to fix modifiable risks, not to withhold therapy",
+  items:[
+   {q:"Hypertension (uncontrolled, systolic above 160)", o:[["No",0],["Yes",1]]},
+   {q:"Abnormal renal function (dialysis, transplant, creatinine ≥2.26 mg/dL)", o:[["No",0],["Yes",1]]},
+   {q:"Abnormal liver function (cirrhosis, bilirubin >2× normal with AST/ALT >3×)", o:[["No",0],["Yes",1]]},
+   {q:"Stroke history", o:[["No",0],["Yes",1]]},
+   {q:"Bleeding history or predisposition (anemia)", o:[["No",0],["Yes",1]]},
+   {q:"Labile INR (time in therapeutic range under 60%)", o:[["No",0],["Yes",1]]},
+   {q:"Elderly (over 65)", o:[["No",0],["Yes",1]]},
+   {q:"Drugs — antiplatelet or NSAID", o:[["No",0],["Yes",1]]},
+   {q:"Alcohol — 8 or more drinks per week", o:[["No",0],["Yes",1]]}],
+  bands:[[1,"ok","0–1 — low","Roughly 1% annual major bleeding. Anticoagulate."],
+         [2,"mod","2 — moderate","Roughly 2%. Anticoagulate and address modifiable factors."],
+         [9,"sev","3 or more — high","Roughly 4% or more. <strong>Still anticoagulate if CHA2DS2-VASc warrants it</strong> — this score identifies what to fix (blood pressure, NSAIDs, alcohol, labile INR) and who needs closer follow-up. It is not a reason to withhold."]]
+});
+
+SCORES["abd-pain"] = [{
+  id:"bisap", name:"BISAP", sub:"acute pancreatitis severity within the first 24 h",
+  items:[
+   {q:"BUN above 25 mg/dL", o:[["No",0],["Yes",1]]},
+   {q:"Impaired mental status (GCS under 15)", o:[["No",0],["Yes",1]]},
+   {q:"SIRS — 2 or more criteria", o:[["No",0],["Yes",1]]},
+   {q:"Age over 60", o:[["No",0],["Yes",1]]},
+   {q:"Pleural effusion on imaging", o:[["No",0],["Yes",1]]}],
+  bands:[[2,"ok","0–2","Mortality under 2%. Ward-level care with standard fluid resuscitation and early enteral feeding."],
+         [5,"sev","3 or more","Mortality rises steeply, above 20% at the top end. Consider higher level of care, closer monitoring, and early involvement of GI or surgery."]]
+}];
+
+SCORES["thrombocytopenia"] = [{
+  id:"fourt", name:"4T score", sub:"probability of heparin-induced thrombocytopenia",
+  items:[
+   {q:"Thrombocytopenia", o:[["Fall under 30%, or nadir under 10 (0)",0],["Fall 30–50%, or nadir 10–19 (1)",1],["Fall over 50% AND nadir 20 or above (2)",2]]},
+   {q:"Timing of platelet fall", o:[["Under 4 days with no recent heparin (0)",0],["Unclear, or fall after day 10 (1)",1],["Clear onset day 5–10, or under 1 day with heparin in the last 30 days (2)",2]]},
+   {q:"Thrombosis or other sequelae", o:[["None (0)",0],["Progressive or recurrent thrombosis, erythematous skin lesions (1)",1],["New confirmed thrombosis, skin necrosis, or systemic reaction after bolus (2)",2]]},
+   {q:"Other cause of thrombocytopenia", o:[["Definite other cause (0)",0],["Possible other cause (1)",1],["No other cause apparent (2)",2]]}],
+  bands:[[3,"ok","0–3 — low probability","Under 5% probability of HIT. The negative predictive value is high — HIT is effectively excluded and heparin can generally continue. A PF4 assay is not needed."],
+         [5,"mod","4–5 — intermediate","Roughly 14%. Stop heparin, start a non-heparin anticoagulant, and send a PF4 immunoassay."],
+         [8,"sev","6–8 — high probability","Roughly 64%. Stop all heparin including flushes, start argatroban or fondaparinux, send PF4 and serotonin release assay, and involve hematology."]]
+}];
+
+SCORES["lfts"] = [{
+  id:"childpugh", name:"Child-Pugh", sub:"cirrhosis severity and surgical risk",
+  items:[
+   {q:"Total bilirubin (mg/dL)", o:[["Under 2 (1)",1],["2–3 (2)",2],["Above 3 (3)",3]]},
+   {q:"Serum albumin (g/dL)", o:[["Above 3.5 (1)",1],["2.8–3.5 (2)",2],["Under 2.8 (3)",3]]},
+   {q:"INR", o:[["Under 1.7 (1)",1],["1.7–2.3 (2)",2],["Above 2.3 (3)",3]]},
+   {q:"Ascites", o:[["None (1)",1],["Mild or diuretic-responsive (2)",2],["Moderate to severe or refractory (3)",3]]},
+   {q:"Hepatic encephalopathy", o:[["None (1)",1],["Grade I–II (2)",2],["Grade III–IV (3)",3]]}],
+  bands:[[6,"ok","Class A (5–6)","About 100% one-year survival. Generally tolerates surgery."],
+         [9,"mod","Class B (7–9)","About 80% one-year survival. Surgery carries substantial risk; transplant evaluation is reasonable."],
+         [15,"sev","Class C (10–15)","About 45% one-year survival. High operative mortality. Transplant evaluation and goals-of-care discussion."]]
+},{
+  id:"westhaven", name:"West Haven criteria", sub:"grade of hepatic encephalopathy",
+  items:[
+   {q:"Clinical picture", o:[
+     ["Grade 0 — normal",0],
+     ["Grade I — trivial lack of awareness, shortened attention, altered sleep",1],
+     ["Grade II — lethargy, disorientation to time, asterixis, inappropriate behavior",2],
+     ["Grade III — somnolent but rousable, gross disorientation, marked confusion",3],
+     ["Grade IV — coma, unresponsive to pain",4]]}],
+  bands:[[1,"ok","Grade 0–I","Covert encephalopathy. Lactulose titrated to 2–3 soft stools daily, and hunt for the precipitant."],
+         [2,"mod","Grade II","Overt encephalopathy. Lactulose plus rifaximin 550 mg twice daily; treat the precipitant (GI bleed, infection, constipation, over-diuresis, hypokalemia)."],
+         [4,"sev","Grade III–IV","Airway is the priority — these patients aspirate. ICU-level care, lactulose by NG once the airway is secure, hepatology, and transplant consideration."]]
+}];
+
+SCORES["aki"] = [{
+  id:"kdigo", name:"KDIGO AKI stage", sub:"stage by whichever criterion is worse",
+  items:[
+   {q:"Creatinine", o:[["No rise (0)",0],["1.5–1.9× baseline, or a rise ≥0.3 mg/dL in 48 h (1)",1],["2.0–2.9× baseline (2)",2],["3× baseline, or ≥4.0 mg/dL, or started on dialysis (3)",3]]},
+   {q:"Urine output", o:[["Normal (0)",0],["Under 0.5 mL/kg/h for 6–12 h (1)",1],["Under 0.5 mL/kg/h for 12 h or more (2)",2],["Under 0.3 mL/kg/h for 24 h, or anuria for 12 h (3)",3]]}],
+  bands:[[0,"ok","No AKI","Neither criterion met."],
+         [1,"mod","Stage 1","Stop nephrotoxins, optimize volume and perfusion, exclude obstruction, review every drug dose. Note: this tool adds the two items — use the HIGHER of the two, not the sum."],
+         [3,"mod","Stage 2","As above plus closer monitoring, daily labs, and nephrology if the cause is unclear."],
+         [6,"sev","Stage 3","Nephrology now. Assess dialysis indications: refractory acidosis, hyperkalemia, ingestion, overload, uremia."]]
+}];
+
+SCORES["stroke"] = [{
+  id:"abcd2", name:"ABCD2", sub:"2-day stroke risk after TIA",
+  items:[
+   {q:"Age 60 or over", o:[["No",0],["Yes",1]]},
+   {q:"Blood pressure 140/90 or above at presentation", o:[["No",0],["Yes",1]]},
+   {q:"Clinical features", o:[["Neither (0)",0],["Speech disturbance without weakness (1)",1],["Unilateral weakness (2)",2]]},
+   {q:"Duration", o:[["Under 10 min (0)",0],["10–59 min (1)",1],["60 min or more (2)",2]]},
+   {q:"Diabetes", o:[["No",0],["Yes",1]]}],
+  bands:[[3,"ok","0–3 — low","About 1% 2-day stroke risk. Still needs prompt workup — most centers now image and evaluate all TIAs regardless of score."],
+         [5,"mod","4–5 — moderate","About 4%. Admit or use a rapid TIA pathway with same-day imaging."],
+         [7,"sev","6–7 — high","About 8%. Admit. Dual antiplatelet for 21 days is indicated for high-risk TIA (ABCD2 4 or above)."]]
+}];
+
+SCORES["headache"] = [{
+  id:"ottawa", name:"Ottawa SAH rule", sub:"rule-out only — for alert patients over 15 with new atraumatic headache peaking within 1 hour",
+  items:[
+   {q:"Age 40 or over", o:[["No",0],["Yes",1]]},
+   {q:"Neck pain or stiffness", o:[["No",0],["Yes",1]]},
+   {q:"Witnessed loss of consciousness", o:[["No",0],["Yes",1]]},
+   {q:"Onset during exertion", o:[["No",0],["Yes",1]]},
+   {q:"Thunderclap onset (instantly peaking pain)", o:[["No",0],["Yes",1]]},
+   {q:"Limited neck flexion on examination", o:[["No",0],["Yes",1]]}],
+  bands:[[0,"ok","No criteria present","Sensitivity approaches 100% — subarachnoid hemorrhage is effectively excluded on this basis. No imaging needed for SAH."],
+         [6,"mod","One or more present","Investigate. Specificity is poor (about 15%), so a positive rule means image — it does not mean the patient has SAH. Non-contrast CT; add LP or CTA if beyond 6 hours from onset."]]
+}];
+
+SCORES["leg-swelling"].push({
+  id:"lrinec", name:"LRINEC score", sub:"necrotizing soft tissue infection — supports the diagnosis, never excludes it",
+  items:[
+   {q:"C-reactive protein (mg/L)", o:[["Under 150 (0)",0],["150 or above (4)",4]]},
+   {q:"White cell count (per mm³)", o:[["Under 15,000 (0)",0],["15,000–25,000 (1)",1],["Above 25,000 (2)",2]]},
+   {q:"Hemoglobin (g/dL)", o:[["Above 13.5 (0)",0],["11–13.5 (1)",1],["Under 11 (2)",2]]},
+   {q:"Sodium (mEq/L)", o:[["135 or above (0)",0],["Under 135 (2)",2]]},
+   {q:"Creatinine (mg/dL)", o:[["1.6 or below (0)",0],["Above 1.6 (2)",2]]},
+   {q:"Glucose (mg/dL)", o:[["180 or below (0)",0],["Above 180 (1)",1]]}],
+  bands:[[5,"ok","0–5 — low risk","Under 50% probability. <strong>This does not exclude necrotizing infection.</strong> If the exam worries you — pain out of proportion, rapid progression, crepitus, bullae, systemic toxicity — call surgery regardless of this number."],
+         [7,"mod","6–7 — intermediate","Roughly 50–75% probability. Surgical consultation now."],
+         [13,"sev","8 or above — high risk","Over 75% probability. Immediate surgical debridement, broad antibiotics with clindamycin for toxin suppression, resuscitation."]]
+});
+
+SCORES["diarrhea"] = [{
+  id:"cdiff", name:"C. difficile severity", sub:"IDSA/SHEA classification — drives the regimen",
+  items:[
+   {q:"White cell count", o:[["Under 15,000 (0)",0],["15,000 or above (1)",1]]},
+   {q:"Creatinine", o:[["Under 1.5 mg/dL (0)",0],["1.5 mg/dL or above (1)",1]]},
+   {q:"Hypotension, shock, ileus, or megacolon", o:[["None (0)",0],["Any present (4)",4]]}],
+  bands:[[0,"ok","Non-severe","Oral vancomycin 125 mg four times daily for 10 days, or fidaxomicin 200 mg twice daily for 10 days (lower recurrence). Metronidazole only if neither is available."],
+         [2,"mod","Severe (WBC ≥15,000 or creatinine ≥1.5)","Oral vancomycin 125 mg four times daily for 10 days, or fidaxomicin 200 mg twice daily. Same doses as non-severe — the severity label changes monitoring and escalation threshold, not the first-line dose."],
+         [6,"sev","Fulminant (hypotension, shock, ileus, or megacolon)","Vancomycin 500 mg four times daily orally or by NG, PLUS metronidazole 500 mg IV every 8 h, PLUS vancomycin enemas if ileus. Surgical consultation for colectomy consideration."]]
+}];
+
+/* ---------- numeric formula calculators ---------- */
+const FORMULAS = {
+"acid-base":[
+ {id:"anion-gap", name:"Anion gap, corrected for albumin",
+  inputs:[["na","Sodium (mEq/L)",140],["cl","Chloride (mEq/L)",104],["hco3","Bicarbonate (mEq/L)",24],["alb","Albumin (g/dL)",4]],
+  calc:v=>{const ag=v.na-(v.cl+v.hco3); const cor=ag+2.5*(4-v.alb);
+    return {main:cor.toFixed(1), unit:"corrected AG",
+      note:`Measured gap ${ag.toFixed(1)}. Corrected for albumin: ${cor.toFixed(1)}. Normal is 8–12. ` +
+        (cor>12?"<strong>Wide gap</strong> — work through GOLDMARK: glycols, oxoproline, L-lactate, D-lactate, methanol, aspirin, renal failure, ketoacidosis.":"Not a wide gap. If acidotic, this is a normal-anion-gap (hyperchloremic) picture — GI losses, RTA, saline, acetazolamide.")};}},
+ {id:"winters", name:"Winter's formula — expected respiratory compensation",
+  inputs:[["hco3","Bicarbonate (mEq/L)",24],["pco2","Measured pCO2 (mmHg)",40]],
+  calc:v=>{const exp=1.5*v.hco3+8; const lo=exp-2, hi=exp+2;
+    return {main:exp.toFixed(0), unit:"expected pCO2",
+      note:`Expected pCO2 is ${lo.toFixed(0)}–${hi.toFixed(0)} mmHg. Measured is ${v.pco2}. ` +
+        (v.pco2>hi?"<strong>Higher than expected — concurrent respiratory acidosis.</strong> The patient is not compensating adequately; think about fatigue, sedation, or airway obstruction.":
+         v.pco2<lo?"<strong>Lower than expected — concurrent respiratory alkalosis.</strong> Think sepsis, salicylate, pain, hepatic failure, PE.":
+         "Within the expected range — appropriate respiratory compensation for a simple metabolic acidosis.")};}},
+ {id:"osm-gap", name:"Osmolar gap",
+  inputs:[["osm","Measured osmolality (mOsm/kg)",290],["na","Sodium (mEq/L)",140],["glu","Glucose (mg/dL)",100],["bun","BUN (mg/dL)",14],["etoh","Ethanol (mg/dL), 0 if none",0]],
+  calc:v=>{const calc=2*v.na+v.glu/18+v.bun/2.8+v.etoh/3.7; const gap=v.osm-calc;
+    return {main:gap.toFixed(1), unit:"osmolar gap",
+      note:`Calculated osmolality ${calc.toFixed(1)}. ` +
+        (gap>10?"<strong>Gap above 10 — suspect a toxic alcohol</strong> (methanol, ethylene glycol) or propylene glycol from a lorazepam infusion. Start fomepizole on suspicion; do not wait for the level.":"Gap is not elevated. A normal gap does not fully exclude late toxic alcohol poisoning, once the parent alcohol has been metabolized to its acid.")};}},
+ {id:"delta-delta", name:"Delta-delta ratio",
+  inputs:[["ag","Corrected anion gap",12],["hco3","Bicarbonate (mEq/L)",24]],
+  calc:v=>{const dAG=v.ag-12, dHCO3=24-v.hco3; const r=dHCO3===0?0:dAG/dHCO3;
+    return {main:r.toFixed(2), unit:"ratio",
+      note:(r<1?"<strong>Under 1</strong> — a concurrent normal-anion-gap metabolic acidosis alongside the wide-gap one.":
+            r>2?"<strong>Above 2</strong> — a concurrent metabolic alkalosis, or a pre-existing high bicarbonate from chronic respiratory acidosis.":
+            "Between 1 and 2 — a pure high-anion-gap metabolic acidosis.")};}}
+],
+"hyponatremia":[
+ {id:"corr-na", name:"Sodium corrected for glucose",
+  inputs:[["na","Measured sodium (mEq/L)",125],["glu","Glucose (mg/dL)",400]],
+  calc:v=>{const cor=v.na+2.4*((v.glu-100)/100);
+    return {main:cor.toFixed(1), unit:"corrected Na",
+      note:`Add 2.4 mEq/L for every 100 mg/dL of glucose above 100. Corrected sodium is ${cor.toFixed(1)}. ` +
+        (cor>=135?"Once corrected this is not true hyponatremia — it is translocational, and treating the hyperglycemia fixes it.":"Still hyponatremic after correction — work it up with serum osmolality, urine osmolality, and urine sodium.")};}},
+ {id:"na-rate", name:"Correction limit check",
+  inputs:[["start","Sodium at start of the 24 h period",118],["now","Current sodium",126]],
+  calc:v=>{const d=v.now-v.start;
+    return {main:(d>=0?"+":"")+d.toFixed(1), unit:"mEq/L change",
+      note:(d>8?"<strong>Over the 8 mEq/L limit for 24 hours.</strong> Risk of osmotic demyelination, especially with alcohol use, malnutrition, liver disease, hypokalemia, or a starting sodium under 105. Consider re-lowering with D5W 3 mL/kg/h and desmopressin 2 mcg IV.":
+            d>6?"Between 6 and 8 — at the limit. Stop active correction and watch for auto-correction once the stimulus is removed.":
+            "Within the 8 mEq/L per 24 h limit (6 if high risk). Keep rechecking every 2–4 hours.")};}}
+],
+"hypercalcemia":[
+ {id:"corr-ca", name:"Calcium corrected for albumin",
+  inputs:[["ca","Measured total calcium (mg/dL)",11],["alb","Albumin (g/dL)",3]],
+  calc:v=>{const cor=v.ca+0.8*(4-v.alb);
+    return {main:cor.toFixed(1), unit:"corrected Ca",
+      note:`Corrected calcium ${cor.toFixed(1)} mg/dL. ` +
+        (cor>=14?"<strong>Severe.</strong> Saline 200–300 mL/h, calcitonin 4 units/kg every 12 h, and zoledronic acid 4 mg IV. Check PTH before treating.":
+         cor>=12?"<strong>Moderate.</strong> Saline resuscitation; add calcitonin and a bisphosphonate if symptomatic.":
+         cor>10.5?"Mild. Hydrate, stop calcium, vitamin D, thiazides, and lithium. Send PTH.":
+         "Within the normal range once corrected. An ionized calcium settles any remaining doubt.")};}}
+],
+"aki":[
+ {id:"fena", name:"FENa and FEUrea",
+  inputs:[["una","Urine sodium (mEq/L)",20],["pna","Plasma sodium (mEq/L)",140],["ucr","Urine creatinine (mg/dL)",100],["pcr","Plasma creatinine (mg/dL)",2],["uun","Urine urea (mg/dL), 0 to skip",0],["bun","BUN (mg/dL), 0 to skip",0]],
+  calc:v=>{const fena=(v.una*v.pcr)/(v.pna*v.ucr)*100;
+    let ureaNote="";
+    if(v.uun>0 && v.bun>0){const feu=(v.uun*v.pcr)/(v.bun*v.ucr)*100;
+      ureaNote=` FEUrea is ${feu.toFixed(1)}% — ${feu<35?"under 35%, supporting a pre-renal picture. This is the one to use if the patient is on diuretics, which invalidate FENa.":"above 35%, favoring intrinsic disease."}`;}
+    return {main:fena.toFixed(2)+"%", unit:"FENa",
+      note:(fena<1?"Under 1% — pre-renal, or contrast or pigment nephropathy or early glomerulonephritis, all of which can also give a low FENa.":
+            fena>2?"Above 2% — ATN or intrinsic disease.":
+            "Between 1 and 2% — indeterminate.") +
+        " <strong>FENa is invalid on diuretics</strong> — use FEUrea instead." + ureaNote};}},
+ {id:"crcl", name:"Cockcroft-Gault creatinine clearance",
+  inputs:[["age","Age (years)",65],["wt","Weight (kg)",70],["cr","Creatinine (mg/dL)",1.2],["female","Female? 1 = yes, 0 = no",0]],
+  calc:v=>{let cl=((140-v.age)*v.wt)/(72*v.cr); if(v.female==1) cl*=0.85;
+    return {main:cl.toFixed(0), unit:"mL/min",
+      note:`Use total body weight in the non-obese; many pharmacies use adjusted body weight if BMI is high. This is the equation most drug dosing is built on. ` +
+        (cl<30?"<strong>Under 30 — major dose adjustments needed.</strong> Check apixaban, rivaroxaban, enoxaparin, and every renally cleared antibiotic with pharmacy.":
+         cl<50?"Reduced — check DOAC and antibiotic dosing.":"Adequate for standard dosing in most cases.")};}}
+],
+"lfts":[
+ {id:"rfactor", name:"R factor — hepatocellular vs cholestatic",
+  inputs:[["alt","ALT (U/L)",200],["altuln","ALT upper limit of normal",40],["alp","Alkaline phosphatase (U/L)",120],["alpuln","Alk phos upper limit of normal",120]],
+  calc:v=>{const r=(v.alt/v.altuln)/(v.alp/v.alpuln);
+    return {main:r.toFixed(1), unit:"R factor",
+      note:(r>5?"<strong>Above 5 — hepatocellular.</strong> Acetaminophen level, viral hepatitis serologies, autoimmune panel, and a look at every drug and supplement.":
+            r<2?"<strong>Under 2 — cholestatic.</strong> Right upper quadrant ultrasound first; MRCP if the ducts are not seen well. Think stones, malignant obstruction, PBC, PSC, drug cholestasis, sepsis.":
+            "Between 2 and 5 — mixed. Work both directions.")};}},
+ {id:"maddrey", name:"Maddrey discriminant function",
+  inputs:[["pt","Patient PT (seconds)",20],["ctrl","Control PT (seconds)",12],["bili","Total bilirubin (mg/dL)",8]],
+  calc:v=>{const df=4.6*(v.pt-v.ctrl)+v.bili;
+    return {main:df.toFixed(1), unit:"discriminant function",
+      note:(df>=32?"<strong>32 or above — severe alcohol-associated hepatitis.</strong> Prednisolone 40 mg daily for 28 days, provided there is no active infection, GI bleed, or renal failure. Reassess with the Lille score at day 7; above 0.45 means non-response, so stop.":
+            "Under 32 — steroids are not indicated. Abstinence, nutrition, thiamine and folate, and treat the precipitant.")};}}
+],
+"tachycardia":[
+ {id:"qtc", name:"Corrected QT (Bazett)",
+  inputs:[["qt","QT interval (ms)",400],["hr","Heart rate (bpm)",75]],
+  calc:v=>{const rr=60/v.hr; const qtc=v.qt/Math.sqrt(rr);
+    return {main:qtc.toFixed(0), unit:"ms QTc",
+      note:`RR interval ${rr.toFixed(2)} s. ` +
+        (qtc>500?"<strong>Above 500 ms — high torsades risk.</strong> Stop QT-prolonging drugs, replete potassium above 4.5 and magnesium above 2, and have magnesium 2 g IV ready.":
+         qtc>460?"Prolonged. Review the medication list and correct electrolytes.":
+         "Within normal limits. Bazett over-corrects at high heart rates — be cautious interpreting it above 100 bpm.")};}}
+],
+"dyspnea":[
+ {id:"aagrad", name:"A-a gradient",
+  inputs:[["fio2","FiO2 (as a decimal, 0.21 = room air)",0.21],["paco2","PaCO2 (mmHg)",40],["pao2","PaO2 (mmHg)",90],["age","Age (years)",50],["pbar","Barometric pressure (760 at sea level)",760]],
+  calc:v=>{const pAO2=v.fio2*(v.pbar-47)-(v.paco2/0.8); const g=pAO2-v.pao2; const expected=(v.age/4)+4;
+    return {main:g.toFixed(1), unit:"mmHg A-a gradient",
+      note:`Alveolar PO2 ${pAO2.toFixed(1)}. Expected gradient for this age is about ${expected.toFixed(0)}. ` +
+        (g>expected?"<strong>Widened</strong> — V/Q mismatch, shunt, or diffusion problem. Think PE, pneumonia, edema, ARDS, atelectasis.":
+         "Normal gradient. In a hypoxic patient this points to hypoventilation or a low inspired oxygen — check the CO2 and the mental status, not the lungs.")};}}
+],
+"hyperglycemia":[
+ {id:"dka-gap", name:"DKA resolution check",
+  inputs:[["na","Sodium (mEq/L)",135],["cl","Chloride (mEq/L)",100],["hco3","Bicarbonate (mEq/L)",12],["glu","Glucose (mg/dL)",250],["bhb","Beta-hydroxybutyrate (mmol/L), 0 to skip",0]],
+  calc:v=>{const ag=v.na-(v.cl+v.hco3);
+    const resolved=ag<=12 && v.hco3>=18;
+    return {main:ag.toFixed(1), unit:"anion gap",
+      note:(resolved?"<strong>Gap closed and bicarbonate 18 or above.</strong> If the patient is eating, transition to subcutaneous insulin — and <strong>overlap the long-acting dose with the infusion for 2 hours</strong> before stopping the drip.":
+            "<strong>Gap still open.</strong> Continue the insulin infusion. If glucose is under 250, add dextrose and keep the insulin running — you are treating the ketosis, not the sugar.") +
+        (v.bhb>0?` Beta-hydroxybutyrate ${v.bhb} mmol/L (resolution is under 0.6). Trust this over urine ketones, which can look worse as the patient improves.`:"") +
+        ` Corrected sodium is ${(v.na+2.4*((v.glu-100)/100)).toFixed(1)}.`};}}
+]
+};
+
+/* ---------- HPI builder ---------- */
+const HPI_ONSET = ["suddenly, maximal at onset","over minutes","over several hours","over 1–2 days","over the past week","gradually over weeks","intermittently over months"];
+const HPI_COURSE = ["constant since onset","intermittent","progressively worsening","improving","unchanged","episodic with return to baseline between episodes"];
+
+const HPI = {
+"chest-pain":{cc:"chest pain",
+ quality:["pressure-like","tightness","sharp","burning","tearing/ripping","aching","pleuritic"],
+ location:["substernal","left-sided","right-sided","epigastric","diffuse across the chest","interscapular/back"],
+ mod:["worse with exertion","worse with deep breath","worse lying flat","better sitting forward","worse with palpation","relieved by rest","relieved by nitroglycerin","unrelated to position or exertion"],
+ assoc:["diaphoresis","dyspnea","nausea or vomiting","radiation to the left arm","radiation to the jaw","radiation to the back","palpitations","lightheadedness","syncope"],
+ neg:["fever","cough","hemoptysis","leg swelling","recent immobility or travel","vomiting before pain onset","prior similar pain"],
+ risk:["known coronary artery disease","prior MI, PCI, or CABG","hypertension","hyperlipidemia","diabetes","current smoker","family history of premature CAD","prior VTE","active malignancy","recent surgery","cocaine or stimulant use"]},
+
+"dyspnea":{cc:"shortness of breath", subj:"The dyspnea", qLead:"is",
+ quality:["present at rest","present on exertion only","positional","episodic"],
+ location:[],
+ mod:["worse lying flat","worse with exertion","better with sitting up","better with home inhalers","worse at night"],
+ assoc:["orthopnea","paroxysmal nocturnal dyspnea","cough","sputum production","wheezing","chest pain","leg swelling","weight gain","fever"],
+ neg:["hemoptysis","chest pain","fever","recent aspiration event","calf pain or asymmetry","sick contacts"],
+ risk:["COPD","asthma","heart failure","known pulmonary hypertension","current or prior smoking","recent immobility or surgery","active malignancy","prior VTE","recent hospitalization"]},
+
+"syncope":{cc:"a syncopal episode", subj:"The episode", qLead:"involved",
+ quality:["a complete loss of consciousness","near-syncope without full loss of consciousness"],
+ location:[],
+ mod:["occurred while standing","occurred while seated","occurred while supine","occurred during exertion","occurred on standing up","occurred after urination, coughing, or defecation"],
+ assoc:["prodromal warmth or nausea","tunnel vision or graying out","palpitations preceding","chest pain preceding","brief myoclonic jerks","injury from the fall","rapid return to baseline"],
+ neg:["prolonged postictal confusion","tongue biting","incontinence","preceding chest pain","preceding palpitations","prior similar episodes","melena or overt bleeding"],
+ risk:["known structural heart disease","prior arrhythmia","family history of sudden cardiac death","recent medication change","diuretic use","antihypertensive use","known aortic stenosis"]},
+
+"ams":{cc:"altered mental status",
+ quality:["hyperactive and agitated","hypoactive and withdrawn","fluctuating between the two"],
+ location:[],
+ mod:["worse at night","fluctuates through the day","improves with reorientation"],
+ assoc:["inattention","disorganized thinking","visual hallucinations","sleep-wake reversal","new incontinence","reduced oral intake","falls"],
+ neg:["fever","focal weakness","headache","seizure activity","head trauma","new medications","alcohol withdrawal symptoms"],
+ risk:["baseline dementia or cognitive impairment","prior delirium","alcohol use","benzodiazepine or opioid use","polypharmacy","hearing or vision impairment","recent surgery or anesthesia","indwelling catheter"]},
+
+"sepsis":{cc:"fever", subj:"The fever", qLead:"is",
+ quality:["accompanied by rigors","without rigors","documented at home","documented in hospital"],
+ location:[],
+ mod:["responds transiently to antipyretics","spikes at a consistent time of day","persistent despite antibiotics"],
+ assoc:["chills or rigors","cough or sputum","dysuria or frequency","abdominal pain","diarrhea","skin redness or drainage","confusion","reduced urine output"],
+ neg:["cough","dysuria","abdominal pain","diarrhea","rash","headache or neck stiffness","joint pain or swelling","line site erythema"],
+ risk:["indwelling central line or PICC","urinary catheter","recent surgery or procedure","immunosuppression or chemotherapy","recent antibiotics","recent hospitalization","prosthetic valve or hardware","injection drug use"]},
+
+"hypotension":{cc:"hypotension", subj:"The hypotension",
+ quality:["symptomatic","asymptomatic, found on routine vitals"],
+ location:[],
+ mod:["responds to fluid bolus","transient","persistent despite fluids","worse after a medication dose"],
+ assoc:["lightheadedness","confusion","reduced urine output","cool extremities","chest pain","dyspnea","abdominal pain"],
+ neg:["fever","chest pain","overt bleeding","melena","rash or urticaria","recent contrast or drug exposure"],
+ risk:["recent antihypertensive or opioid dose","dialysis today","known heart failure","adrenal insufficiency or chronic steroid use","recent GI bleed","active infection"]},
+
+"tachycardia":{cc:"tachycardia",
+ quality:["regular","irregular","sustained","paroxysmal"],
+ location:[],
+ mod:["terminated with vagal maneuvers","persists despite rate control","worse with activity"],
+ assoc:["palpitations","chest pain","dyspnea","lightheadedness","syncope or near-syncope","reduced exercise tolerance"],
+ neg:["chest pain","syncope","fever","bleeding","recent alcohol binge","thyroid symptoms"],
+ risk:["known atrial fibrillation","structural heart disease","prior ablation","thyroid disease","alcohol use","recent surgery","current infection","stimulant use"]},
+
+"hypertension":{cc:"elevated blood pressure",
+ quality:["asymptomatic, found on routine vitals","symptomatic"],
+ location:[],
+ mod:["improved after rest and repeat measurement","unchanged on repeat","improved after analgesia or bladder emptying"],
+ assoc:["headache","visual change","chest pain","dyspnea","focal weakness","reduced urine output","nausea"],
+ neg:["headache","chest pain","dyspnea","visual change","focal neurologic deficit","reduced urine output"],
+ risk:["known hypertension","medication nonadherence or held doses","obstructive sleep apnea","chronic kidney disease","NSAID or decongestant use","stimulant use","pregnancy"]},
+
+"abd-pain":{cc:"abdominal pain",
+ quality:["crampy","sharp","dull or aching","burning","colicky","constant","out of proportion to exam"],
+ location:["right upper quadrant","epigastric","left upper quadrant","periumbilical","right lower quadrant","left lower quadrant","diffuse","suprapubic"], locPrep:true,
+ mod:["worse after eating","better after eating","worse with movement","relieved by vomiting","relieved by bowel movement","migrated from another location"],
+ assoc:["nausea","vomiting","anorexia","fever","diarrhea","constipation","obstipation","melena or hematochezia","jaundice","urinary symptoms"],
+ neg:["fever","vomiting","change in bowel habit","blood in stool","urinary symptoms","vaginal bleeding or discharge","prior similar pain"],
+ risk:["prior abdominal surgery","known hernia","gallstones","peptic ulcer disease","inflammatory bowel disease","diverticulosis","atrial fibrillation or vascular disease","alcohol use","NSAID use","anticoagulation"]},
+
+"gib":{cc:"gastrointestinal bleeding",
+ quality:["hematemesis","coffee-ground emesis","melena","hematochezia","maroon stool","blood on toilet paper only"],
+ location:[],
+ mod:["ongoing","stopped spontaneously","recurrent over days"],
+ assoc:["lightheadedness","syncope","dyspnea on exertion","chest pain","abdominal pain","reduced urine output"],
+ neg:["abdominal pain","vomiting before the bleeding","weight loss","prior similar episodes","epistaxis"],
+ risk:["known peptic ulcer disease","known varices or cirrhosis","prior GI bleed","NSAID use","anticoagulant or antiplatelet use","alcohol use","prior aortic graft","recent polypectomy"]},
+
+"aki":{cc:"a rising creatinine",
+ quality:["nonoliguric","oliguric","anuric"],
+ location:[],
+ mod:["improved with fluids","worse after a contrast study","worse after a new medication"],
+ assoc:["reduced urine output","leg or facial swelling","dyspnea","nausea","confusion","hematuria","flank pain"],
+ neg:["urinary hesitancy or retention","hematuria","rash","joint pain","hemoptysis","recent contrast exposure","NSAID use"],
+ risk:["chronic kidney disease","diabetes","heart failure","cirrhosis","recent hypotensive episode","ACE inhibitor or ARB","diuretics","NSAIDs","recent aminoglycoside or vancomycin","known prostatic enlargement"]},
+
+"hyponatremia":{cc:"hyponatremia",
+ quality:["asymptomatic, found on routine labs","mildly symptomatic","severely symptomatic"],
+ location:[],
+ mod:["worsening over days","stable","improved with fluid restriction"],
+ assoc:["headache","nausea","confusion","lethargy","gait unsteadiness","seizure","falls"],
+ neg:["seizure","vomiting","diarrhea","recent diuretic change","excessive water intake","weight change"],
+ risk:["thiazide diuretic","SSRI or carbamazepine","heart failure","cirrhosis","known malignancy","recent pulmonary or CNS disease","adrenal insufficiency","high water or low solute intake"]},
+
+"hyperkalemia":{cc:"hyperkalemia", subj:"The hyperkalemia", qLead:"is",
+ quality:["asymptomatic, found on routine labs","accompanied by ECG changes","symptomatic"],
+ location:[],
+ mod:["rising on serial labs","stable","improved after treatment"],
+ assoc:["muscle weakness","paresthesias","palpitations","reduced urine output","nausea"],
+ neg:["chest pain","palpitations","weakness","missed dialysis session","recent crush injury or immobility"],
+ risk:["chronic kidney disease or ESRD","ACE inhibitor or ARB","spironolactone or eplerenone","trimethoprim-sulfamethoxazole","NSAIDs","potassium supplements or salt substitutes","diabetes","recent AKI"]},
+
+"hypercalcemia":{cc:"hypercalcemia",
+ quality:["asymptomatic, found on routine labs","symptomatic"],
+ location:[],
+ mod:["a new finding","chronic and stable over years","rising rapidly"],
+ assoc:["polyuria","polydipsia","constipation","nausea","abdominal pain","bone pain","confusion","depressed mood","kidney stones"],
+ neg:["weight loss","bone pain","kidney stones","fractures","calcium or vitamin D supplement use"],
+ risk:["known malignancy","thiazide diuretic","lithium","calcium or vitamin D supplements","sarcoidosis or granulomatous disease","known hyperparathyroidism","prolonged immobilization"]},
+
+"anemia":{cc:"anemia",
+ quality:["acute drop","chronic and stable","gradually declining"],
+ location:[],
+ mod:["stable after transfusion","continuing to fall","improved with iron"],
+ assoc:["fatigue","dyspnea on exertion","chest pain","lightheadedness","palpitations","pica","jaundice","dark urine"],
+ neg:["overt bleeding","melena or hematochezia","hematuria","heavy menses","epistaxis","weight loss","jaundice"],
+ risk:["known GI pathology","chronic kidney disease","malignancy","recent surgery","anticoagulation","NSAID use","alcohol use","poor dietary intake","prior gastric surgery"]},
+
+"thrombocytopenia":{cc:"thrombocytopenia",
+ quality:["new","chronic","rapidly falling"],
+ location:[],
+ mod:["falling on serial counts","stable","recovering"],
+ assoc:["petechiae","easy bruising","gum or nose bleeding","hematuria","melena","new thrombosis or limb swelling"],
+ neg:["bleeding","new thrombosis","fever","recent transfusion","recent viral illness","neurologic symptoms"],
+ risk:["heparin exposure in the last 5–10 days","recent new medication","known liver disease or splenomegaly","malignancy or chemotherapy","HIV or hepatitis C","alcohol use","recent transfusion"]},
+
+"lfts":{cc:"abnormal liver enzymes", subj:"The pattern",
+ quality:["hepatocellular","cholestatic","mixed","isolated hyperbilirubinemia"],
+ location:[],
+ mod:["rising","falling","new since admission","chronic"],
+ assoc:["jaundice","scleral icterus","pruritus","dark urine","pale stool","right upper quadrant pain","fever","confusion or asterixis","abdominal distension"],
+ neg:["abdominal pain","fever","jaundice","pruritus","confusion","weight loss","recent travel"],
+ risk:["alcohol use","acetaminophen use including combination products","new medication or supplement","known viral hepatitis","injection drug use","obesity or metabolic syndrome","recent hypotensive episode","known gallstones"]},
+
+"hyperglycemia":{cc:"hyperglycemia",
+ quality:["ketotic","non-ketotic","hyperosmolar","euglycemic DKA"],
+ location:[],
+ mod:["improving with insulin","persistent","worse after steroids"],
+ assoc:["polyuria","polydipsia","nausea or vomiting","abdominal pain","weight loss","blurred vision","confusion","Kussmaul breathing"],
+ neg:["fever","chest pain","abdominal pain","infection symptoms","insulin omission","foot ulcer"],
+ risk:["type 1 diabetes","type 2 diabetes","insulin pump use","SGLT2 inhibitor","recent steroid course","current infection","new diagnosis","tube feeds or TPN"]},
+
+"stroke":{cc:"a focal neurologic deficit", subj:"The deficit",
+ quality:["maximal at onset","stuttering or progressive","resolved on arrival"],
+ location:["left-sided weakness","right-sided weakness","facial droop","speech disturbance","visual field cut","ataxia or gait disturbance"],
+ mod:["fluctuating","improving","worsening"],
+ assoc:["aphasia","dysarthria","facial droop","visual change or diplopia","vertigo","headache","neglect","gaze deviation"],
+ neg:["headache","seizure activity","trauma","recent bleeding","recent surgery","prior stroke"],
+ risk:["atrial fibrillation","hypertension","diabetes","hyperlipidemia","prior stroke or TIA","smoking","carotid disease","recent MI","anticoagulant or antiplatelet use"]},
+
+"seizure":{cc:"a seizure",
+ quality:["generalized tonic-clonic","focal with retained awareness","focal with impaired awareness","unclear semiology"],
+ location:[],
+ mod:["a single event","recurrent","prolonged beyond 5 minutes"],
+ assoc:["preceding aura","tongue biting","incontinence","postictal confusion","injury from the event","focal weakness after the event"],
+ neg:["fever","head trauma","alcohol withdrawal symptoms","missed antiepileptic doses","headache","focal deficit"],
+ risk:["known epilepsy","prior stroke or head injury","brain lesion or metastases","alcohol use","benzodiazepine use","recent medication change","renal impairment on cefepime","sleep deprivation"]},
+
+"headache":{cc:"headache",
+ quality:["throbbing","pressure-like","stabbing","band-like","thunderclap — maximal within a minute","worst of life"],
+ location:["frontal","occipital","unilateral","holocranial","retro-orbital","temporal"],
+ mod:["worse with Valsalva","worse lying flat","worse upright","wakes from sleep","better in a dark quiet room","better with home medication"],
+ assoc:["photophobia","phonophobia","nausea or vomiting","aura","visual change","neck stiffness","fever","focal weakness","lacrimation or rhinorrhea"],
+ neg:["fever","neck stiffness","visual change","focal deficit","jaw claudication","scalp tenderness","trauma","prior similar headaches"],
+ risk:["known migraine","recent LP or epidural","anticoagulation","known malignancy","immunosuppression","pregnancy or postpartum","frequent analgesic use","age over 50 with new headache"]},
+
+"leg-swelling":{cc:"leg swelling",
+ quality:["unilateral","bilateral","pitting","non-pitting"],
+ location:["calf","whole leg","below the knee","foot and ankle"], locPrep:true, locFront:false,
+ mod:["worse at the end of the day","better with elevation","progressive over days"],
+ assoc:["pain","warmth","erythema","skin breakdown or ulcer","dyspnea","chest pain","fever"],
+ neg:["fever","chest pain","dyspnea","trauma","skin break or bite","prior similar episode"],
+ risk:["prior VTE","active malignancy","recent surgery or immobility","recent long travel","estrogen or hormone therapy","heart failure","cirrhosis","chronic venous insufficiency","amlodipine or gabapentinoid use"]},
+
+"diarrhea":{cc:"diarrhea",
+ quality:["watery","bloody","mucoid","fatty or floating","small volume and frequent","large volume"],
+ location:[],
+ mod:["continues with fasting","stops with fasting","occurs at night","worse after eating"],
+ assoc:["abdominal cramping","fever","nausea or vomiting","tenesmus","urgency","incontinence","weight loss","dehydration symptoms"],
+ neg:["fever","blood in stool","nocturnal symptoms","weight loss","recent travel","sick contacts","abdominal pain"],
+ risk:["antibiotics in the last 3 months","recent hospitalization","proton pump inhibitor use","laxatives or stool softeners","tube feeds","immunosuppression","known inflammatory bowel disease","recent travel"]},
+
+"acid-base":{cc:"an acid-base disturbance", subj:"The disturbance", qLead:"is",
+ quality:["a metabolic acidosis","a metabolic alkalosis","a respiratory acidosis","a respiratory alkalosis","a mixed disorder"],
+ location:[],
+ mod:["worsening","improving with treatment","stable"],
+ assoc:["tachypnea","Kussmaul breathing","confusion","nausea or vomiting","weakness","visual disturbance","tinnitus"],
+ neg:["vomiting","diarrhea","ingestion","tinnitus","visual change","confusion"],
+ risk:["chronic kidney disease","diabetes","alcohol use","possible ingestion","chronic CO2 retention","high-output ostomy","recent large-volume saline","lorazepam infusion","acetazolamide or topiramate"]}
+};
+
+/* mod phrases that are past/present-tense verbs — rendered "It <phrase>." not "It is <phrase>." */
+const HPI_VERBAL = new Set(["occurred while standing","occurred while seated","occurred while supine","occurred during exertion","occurred on standing up","occurred after urination, coughing, or defecation","responds transiently to antipyretics","spikes at a consistent time of day","responds to fluid bolus","terminated with vagal maneuvers","persists despite rate control","improved after rest and repeat measurement","improved after analgesia or bladder emptying","improved with fluids","improved with fluid restriction","improved after treatment","improved with iron","improves with reorientation","fluctuates through the day","wakes from sleep","continues with fasting","stops with fasting","occurs at night","migrated from another location","stopped spontaneously","continuing to fall","persists despite fluids"]);
+
 /* ---------- drug vocabulary for the index ---------- */
 const DRUG_TERMS = ["acetylcysteine","adenosine","albuterol","albumin","alteplase","amiodarone","amoxicillin-clavulanate","ampicillin","ampicillin-sulbactam","andexanet","apixaban","argatroban","aspirin","atorvastatin","azithromycin","bicarbonate","bivalirudin","caplacizumab","calcitonin","calcium gluconate","cefazolin","cefepime","cefotaxime","ceftriaxone","cephalexin","clevidipine","clindamycin","clopidogrel","colchicine","dabigatran","denosumab","desmopressin","dexamethasone","dextrose","diazepam","digoxin","diltiazem","diphenhydramine","dobutamine","doxycycline","enoxaparin","epinephrine","erythromycin","esmolol","famotidine","fidaxomicin","fludrocortisone","fomepizole","fosphenytoin","furosemide","glucagon","haloperidol","heparin","hydralazine","hydrocortisone","ibuprofen","idarucizumab","insulin","ipratropium","isoproterenol","ketorolac","labetalol","lactulose","levetiracetam","levofloxacin","lidocaine","linezolid","lorazepam","magnesium","meropenem","methylprednisolone","metoclopramide","metoprolol","metronidazole","midazolam","midodrine","milrinone","naloxone","nicardipine","nifedipine","nimodipine","nitroglycerin","nitroprusside","norepinephrine","octreotide","pantoprazole","patiromer","phenobarbital","phentolamine","piperacillin-tazobactam","prasugrel","prednisolone","prednisone","procainamide","prochlorperazine","propofol","protamine","quetiapine","rifaximin","rivaroxaban","rosuvastatin","sodium zirconium cyclosilicate","spironolactone","sumatriptan","thiamine","ticagrelor","tolvaptan","tranexamic acid","trimethoprim-sulfamethoxazole","valproate","vancomycin","vasopressin","verapamil","vitamin k","warfarin","zoledronic acid"];
 
@@ -2017,6 +2638,7 @@ const searchEl = document.getElementById('search');
 const chipsEl  = document.getElementById('chips');
 const discEl   = document.getElementById('disc');
 let activeTag = 'All';
+let mode = 'scripts';
 
 const SECTIONS = [
   {key:'first',  label:'First 5 min'},
@@ -2082,9 +2704,9 @@ function highlight(html, terms){
 }
 
 /* ---------- top-level views ---------- */
-const tags = ['All', ...Array.from(new Set(DATA.map(d => d.tag))), 'Drugs'];
+const tags = ['All', ...Array.from(new Set(DATA.map(d => d.tag)))];
 chipsEl.innerHTML = tags.map(t =>
-  `<button class="chip${t==='Drugs'?' chip-alt':''}" data-tag="${t}" aria-pressed="${t === 'All'}">${t}</button>`
+  `<button class="chip" data-tag="${t}" aria-pressed="${t === 'All'}">${t}</button>`
 ).join('');
 chipsEl.addEventListener('click', e => {
   const b = e.target.closest('.chip');
@@ -2094,6 +2716,26 @@ chipsEl.addEventListener('click', e => {
   closeDetail(true);
   render();
 });
+
+const modesEl = document.getElementById('modes');
+modesEl.addEventListener('click', e => {
+  const b = e.target.closest('.mode');
+  if (b) setMode(b.dataset.mode);
+});
+
+function setMode(m){
+  mode = m;
+  [...modesEl.children].forEach(c => c.setAttribute('aria-selected', c.dataset.mode === m));
+  chipsEl.style.display = (m === 'scripts') ? '' : 'none';
+  if (m !== 'hpi') hpiPick = null;
+  searchEl.value = '';
+  searchEl.placeholder = m === 'drugs' ? 'Search a drug name'
+    : m === 'hpi' ? 'Search a chief complaint'
+    : 'Search a symptom, sign, or lab \u2014 e.g. hypoxia, K 6.4, confusion';
+  closeDetail(true);
+  render();
+  window.scrollTo(0, 0);
+}
 
 function haystack(d){
   return [d.name, d.tag, d.one, ...(FIRST[d.id]||[]), ...d.flags, ...d.pearls, ...d.mgmt,
@@ -2106,7 +2748,8 @@ function haystack(d){
 function render(){
   const q = searchEl.value.trim().toLowerCase();
   const terms = q.split(/\s+/).filter(Boolean);
-  if (activeTag === 'Drugs') return renderDrugs(terms);
+  if (mode === 'hpi') return renderHPIView(terms);
+  if (mode === 'drugs') return renderDrugs(terms);
   if (terms.length) return renderLineResults(terms);
   renderCards();
 }
@@ -2125,7 +2768,7 @@ function renderCards(){
 /* line-level results: the matching bullet, not just the script */
 function renderLineResults(terms){
   const pool = INDEX.filter(r => {
-    if (activeTag !== 'All' && activeTag !== 'Drugs'){
+    if (activeTag !== 'All'){
       const d = DATA.find(x => x.id === r.id);
       if (!d || d.tag !== activeTag) return false;
     }
@@ -2160,6 +2803,31 @@ function renderLineResults(terms){
     groups +
     (nameOnly.length ? `<p class="count">Also matching by title</p>` + nameOnly.map(d =>
       `<button class="card" data-id="${d.id}"><span class="tag">${d.tag}</span><h2>${d.name}</h2><p>${d.one}</p></button>`).join('') : '');
+}
+
+/* HPI tab */
+let hpiPick = null;
+
+function renderHPIView(terms){
+  if (!hpiPick){
+    const opts = DATA.filter(d => HPI[d.id] && (!terms.length || terms.every(t =>
+      (d.name + ' ' + HPI[d.id].cc).toLowerCase().includes(t))));
+    listEl.innerHTML = `<p class="count">HPI builder \u2014 pick a chief complaint</p>` +
+      (opts.length ? `<div class="ccgrid">${opts.map(d =>
+        `<button class="ccbtn" data-cc="${d.id}"><span class="ccname">${d.name}</span><span class="ccsub">${HPI[d.id].cc}</span></button>`
+      ).join('')}</div>` : `<div class="empty">No complaint matches that.</div>`);
+    return;
+  }
+  const d = DATA.find(x => x.id === hpiPick);
+  listEl.innerHTML = `<button class="back" id="ccback">&larr; Change chief complaint</button>
+    <h2 class="dtitle">HPI \u2014 ${d.name}</h2>
+    <p class="dsub">Tap what applies. Anything you skip is simply left out.</p>
+    <section class="blk">${hpiHTML(d)}</section>
+    <p class="hpi-jump">Need the workup for this? <button class="linkbtn" data-goto="${d.id}">Open the ${d.name.toLowerCase()} script</button></p>`;
+  listEl.querySelectorAll('.hpi').forEach(buildHPI);
+  listEl.querySelectorAll('.hpi .hin').forEach(i =>
+    i.addEventListener('input', () => buildHPI(i.closest('.hpi'))));
+  document.getElementById('ccback').addEventListener('click', () => { hpiPick = null; render(); window.scrollTo(0,0); });
 }
 
 /* drug index */
@@ -2201,7 +2869,7 @@ function sectionHTML(d){
   ].join('');
   out.push(fold('wu','Workup', wu));
 
-  const calc = (SCORES[d.id]||[]).map(sc => calcHTML(sc)).join('');
+  const calc = (SCORES[d.id]||[]).map(sc => calcHTML(sc)).join('') + (FORMULAS[d.id]||[]).map(f => formulaHTML(f)).join('');
   const tables = (d.strat||[]).map(tb => `<div class="strat-table">
       <p class="strat-label">${tb.t}${tb.n ? ` <span class="strat-note">${tb.n}</span>` : ''}</p>
       ${tb.rows.map(r => `<div class="tier s-${r[0]}">
@@ -2222,6 +2890,175 @@ function fold(key, title, body, open){
     <summary><h3>${title}</h3><span class="chev" aria-hidden="true"></span></summary>
     <div class="foldbody">${body}</div>
   </details>`;
+}
+
+function hpiGroup(d, key, label, hint){
+  const items = HPI[d.id][key] || [];
+  if (!items.length) return '';
+  return `<div class="hgrp" data-key="${key}">
+    <p class="hlabel">${label}${hint ? ` <span class="hhint">${hint}</span>` : ''}</p>
+    <div class="hchips">${items.map(t => `<button class="hchip" data-t="${esc(t)}">${t}</button>`).join('')}</div>
+  </div>`;
+}
+
+function hpiHTML(d){
+  const h = HPI[d.id];
+  return `<div class="hpi" data-id="${d.id}">
+    <p class="hpi-intro">Tap what applies. The paragraph builds itself underneath and stays editable.</p>
+    <div class="hrow">
+      <div class="hfield"><label>Age</label><input class="hin" data-k="age" type="text" placeholder="64"></div>
+      <div class="hfield"><label>Sex</label>
+        <select class="hin" data-k="sex"><option value="">—</option><option>M</option><option>F</option></select></div>
+      <div class="hfield wide"><label>Relevant background (one line)</label>
+        <input class="hin" data-k="pmh" type="text" placeholder="HFpEF, CKD 3, T2DM"></div>
+    </div>
+    <div class="hgrp" data-key="onset">
+      <p class="hlabel">Onset <span class="hhint">pick one</span></p>
+      <div class="hchips single">${HPI_ONSET.map(t => `<button class="hchip" data-t="${esc(t)}">${t}</button>`).join('')}</div>
+    </div>
+    <div class="hgrp" data-key="course">
+      <p class="hlabel">Course <span class="hhint">pick one</span></p>
+      <div class="hchips single">${HPI_COURSE.map(t => `<button class="hchip" data-t="${esc(t)}">${t}</button>`).join('')}</div>
+    </div>
+    ${hpiGroup(d,'quality','Character')}
+    ${hpiGroup(d,'location','Location')}
+    ${h.quality && h.quality.length ? `<div class="hgrp" data-key="sev">
+      <p class="hlabel">Severity <span class="hhint">pick one</span></p>
+      <div class="hchips single">${["mild","moderate","severe","1–3/10","4–6/10","7–10/10"].map(t=>`<button class="hchip" data-t="${t}">${t}</button>`).join('')}</div>
+    </div>` : ''}
+    ${hpiGroup(d,'mod','Modifying factors')}
+    ${hpiGroup(d,'assoc','Associated symptoms','positives')}
+    ${hpiGroup(d,'neg','Pertinent negatives','these become “denies…”')}
+    ${hpiGroup(d,'risk','Relevant risk factors and history')}
+    <div class="hgrp">
+      <p class="hlabel">Anything else <span class="hhint">free text, added at the end</span></p>
+      <input class="hin wide2" data-k="extra" type="text" placeholder="e.g. two similar episodes last month, both self-resolved">
+    </div>
+    <div class="hout">
+      <div class="houthead"><span>Generated HPI</span>
+        <span><button class="hbtn" data-act="copy">Copy</button><button class="hbtn" data-act="reset">Reset</button></span></div>
+      <textarea class="hpi-text" rows="7" spellcheck="true"></textarea>
+      <p class="hpi-note">Edit freely — typing here won't be overwritten unless you tap another chip.</p>
+    </div>
+  </div>`;
+}
+
+function joinList(a){
+  if (!a.length) return '';
+  if (a.length === 1) return a[0];
+  if (a.length === 2) return a[0] + ' and ' + a[1];
+  return a.slice(0,-1).join(', ') + ', and ' + a[a.length-1];
+}
+
+function buildHPI(box){
+  const d = DATA.find(x => x.id === box.dataset.id);
+  const h = HPI[d.id];
+  const val = k => { const el = box.querySelector(`.hin[data-k="${k}"]`); return el ? el.value.trim() : ''; };
+  const picked = key => [...box.querySelectorAll(`.hgrp[data-key="${key}"] .hchip.on`)].map(b => b.dataset.t);
+
+  const age = val('age'), sex = val('sex'), pmh = val('pmh'), extra = val('extra');
+  const onset = picked('onset')[0], course = picked('course')[0], sev = picked('sev')[0];
+  const quality = picked('quality'), location = picked('location'), mod = picked('mod');
+  const assoc = picked('assoc'), neg = picked('neg'), risk = picked('risk');
+
+  const who = (age || sex || pmh)
+    ? `${age ? age + '-year-old' : 'Patient'}${sex ? ' ' + (sex === 'M' ? 'man' : 'woman') : ''}${pmh ? ' with a history of ' + pmh : ''}`
+    : 'Patient';
+
+  const subj = h.subj || ('The ' + h.cc.replace(/^(a|an) /,''));
+  const qLead = h.qLead || 'is described as';
+  const copula = (qLead === 'is described as' || qLead === 'is');
+
+  // A descriptor can sit in front of the complaint only if it reads as a plain adjective.
+  const premodOK = t => t.split(' ').length <= 3 &&
+    !/^(a |an |in |with |accompanied|documented|near-|out of|resolved|maximal|stuttering)/.test(t) &&
+    !/exam|onset|arrival|labs|vitals/.test(t) &&
+    !/\b(on|at|after|during|without|only|by|per|than|despite)\b/.test(t);
+
+  const locList = h.locPrep ? location.map(l => 'in the ' + l) : location;
+  const sevWord = sev ? (/\/10/.test(sev) ? '' : sev) : '';
+  const locFrontOK = (h.locFront !== false) && (d.id !== 'stroke');
+  const front = copula
+    ? [...quality, ...(locFrontOK ? location : []), sevWord].filter(Boolean).filter(premodOK) : [];
+  const leftover = [...quality, ...locList, (copula && sevWord && !front.includes(sevWord) ? sevWord : '')]
+    .filter(Boolean).filter(t => !front.includes(t) && !front.includes(t.replace(/^in the /,'')));
+
+  // 1. opening — descriptors fold in front of the complaint where they read naturally
+  const ccPhrase = front.length ? `${front.join(', ')} ${h.cc.replace(/^(a|an) /,'')}` : h.cc;
+  let s1 = `${who} presents with ${ccPhrase}`;
+  if (onset) s1 += ` that began ${onset}`;
+  if (course) s1 += onset ? ` and has been ${course}` : `, currently ${course}`;
+  s1 += '.';
+
+  // 2. anything that could not be folded in
+  let s2 = '';
+  if (d.id === 'stroke' && location.length){
+    s2 = `The deficit manifests as ${joinList(location)}`;
+    if (leftover.length) s2 += ` and is ${joinList(leftover.filter(x => !location.includes(x)))}`;
+    s2 += '.';
+  } else if (leftover.length){
+    const locLeft = leftover.filter(t => locList.includes(t));
+    const restLeft = leftover.filter(t => !locList.includes(t));
+    const parts = [];
+    if (restLeft.length) parts.push(`${subj} ${qLead} ${joinList(restLeft)}.`);
+    if (locLeft.length) parts.push(`${restLeft.length ? 'It is' : subj + ' is'} located ${joinList(locLeft)}.`);
+    s2 = parts.join(' ');
+  }
+  if (sev && !front.includes(sevWord) && !leftover.includes(sevWord))
+    s2 += ` Severity is ${/\/10/.test(sev) ? 'rated ' + sev : sev}.`;
+
+  // 3. modifying factors — one sentence, verbs and adjectives kept apart internally
+  const modVerb = mod.filter(m => HPI_VERBAL.has(m));
+  const modAdj  = mod.filter(m => !HPI_VERBAL.has(m));
+  let s3 = '';
+  if (modAdj.length && modVerb.length) s3 = `It is ${joinList(modAdj)}, and it ${joinList(modVerb)}.`;
+  else if (modAdj.length) s3 = `It is ${joinList(modAdj)}.`;
+  else if (modVerb.length) s3 = `It ${joinList(modVerb)}.`;
+
+  // 4. positives and negatives share a sentence
+  let s4 = '';
+  if (assoc.length && neg.length) s4 = `Reports ${joinList(assoc)}; denies ${joinList(neg)}.`;
+  else if (assoc.length) s4 = `Reports ${joinList(assoc)}.`;
+  else if (neg.length) s4 = `Denies ${joinList(neg)}.`;
+
+  const s5 = risk.length ? `Relevant history includes ${joinList(risk)}.` : '';
+  const s6 = extra ? extra.replace(/\s*$/,'').replace(/([^.!?])$/,'$1.') : '';
+
+  const out = [s1,s2,s3,s4,s5,s6].filter(Boolean).join(' ').replace(/\s{2,}/g,' ').trim();
+  const ta = box.querySelector('.hpi-text');
+  ta.value = out;
+  ta.dataset.gen = out;
+}
+
+function formulaHTML(f){
+  return `<div class="calc formula" data-formula="${f.id}">
+    <p class="calc-title">${f.name} <span class="calc-sub">enter values</span></p>
+    ${f.inputs.map(([k,label,def]) => `<div class="fin">
+      <label>${label}</label><input type="number" step="any" data-k="${k}" value="${def}">
+    </div>`).join('')}
+    <div class="calc-out"><span class="calc-num">\u2014</span><span class="calc-band"></span></div>
+  </div>`;
+}
+
+function formulaFor(id){
+  for (const k in FORMULAS){ const f = FORMULAS[k].find(x => x.id === id); if (f) return f; }
+}
+
+function updateFormula(box){
+  const f = formulaFor(box.dataset.formula);
+  const v = {};
+  let ok = true;
+  box.querySelectorAll('input').forEach(i => {
+    const n = parseFloat(i.value);
+    if (isNaN(n)) ok = false; else v[i.dataset.k] = n;
+  });
+  const num = box.querySelector('.calc-num'), out = box.querySelector('.calc-band');
+  if (!ok){ num.textContent = '\u2014'; out.innerHTML = 'Fill in every field.'; return; }
+  let r;
+  try { r = f.calc(v); } catch(e){ num.textContent='\u2014'; out.innerHTML='Check the values.'; return; }
+  num.textContent = r.main;
+  out.className = 'calc-band';
+  out.innerHTML = `<strong>${r.unit}</strong> ${r.note}`;
 }
 
 function calcHTML(sc){
@@ -2259,7 +3096,13 @@ function renderDetail(d){
     <nav class="jump">${SECTIONS.map(s => `<button class="jchip" data-sec="${s.key}">${s.label}</button>`).join('')}</nav>
     ${sectionHTML(d)}`;
   document.getElementById('back').addEventListener('click', () => closeDetail());
-  detailEl.querySelectorAll('.calc').forEach(updateCalc);
+  detailEl.querySelectorAll('.calc[data-score]').forEach(updateCalc);
+  detailEl.querySelectorAll('.calc[data-formula]').forEach(updateFormula);
+  detailEl.querySelectorAll('.calc[data-formula] input').forEach(i =>
+    i.addEventListener('input', () => updateFormula(i.closest('.calc'))));
+  detailEl.querySelectorAll('.hpi').forEach(buildHPI);
+  detailEl.querySelectorAll('.hpi .hin').forEach(i =>
+    i.addEventListener('input', () => buildHPI(i.closest('.hpi'))));
 }
 
 function goSection(key){
@@ -2298,6 +3141,45 @@ document.addEventListener('click', e => {
   if (card) return openDetail(card.dataset.id);
   const jump = e.target.closest('.jchip');
   if (jump) return goSection(jump.dataset.sec);
+  const ccb = e.target.closest('.ccbtn');
+  if (ccb){ hpiPick = ccb.dataset.cc; render(); window.scrollTo(0,0); return; }
+  const goto = e.target.closest('.linkbtn');
+  if (goto){
+    const id = goto.dataset.goto;
+    activeTag = 'All';
+    [...chipsEl.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.tag === 'All'));
+    setMode('scripts');
+    return openDetail(id);
+  }
+  const hchip = e.target.closest('.hchip');
+  if (hchip){
+    const grp = hchip.closest('.hchips');
+    if (grp.classList.contains('single')){
+      const was = hchip.classList.contains('on');
+      grp.querySelectorAll('.hchip').forEach(b => b.classList.remove('on'));
+      if (!was) hchip.classList.add('on');
+    } else {
+      hchip.classList.toggle('on');
+    }
+    return buildHPI(hchip.closest('.hpi'));
+  }
+  const hbtn = e.target.closest('.hbtn');
+  if (hbtn){
+    const box = hbtn.closest('.hpi');
+    if (hbtn.dataset.act === 'reset'){
+      box.querySelectorAll('.hchip.on').forEach(b => b.classList.remove('on'));
+      box.querySelectorAll('.hin').forEach(i => i.value = '');
+      return buildHPI(box);
+    }
+    const ta = box.querySelector('.hpi-text');
+    ta.select();
+    let done = false;
+    try { done = document.execCommand('copy'); } catch(err){}
+    if (!done && navigator.clipboard) navigator.clipboard.writeText(ta.value).catch(()=>{});
+    hbtn.textContent = 'Copied';
+    setTimeout(() => { hbtn.textContent = 'Copy'; }, 1200);
+    return;
+  }
   const opt = e.target.closest('.opt');
   if (opt){
     const box = opt.closest('.calc');
@@ -2306,6 +3188,14 @@ document.addEventListener('click', e => {
     updateCalc(box);
   }
 });
+
+function goHome(){
+  activeTag = 'All';
+  [...chipsEl.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.tag === 'All'));
+  setMode('scripts');
+}
+document.getElementById('home').addEventListener('click', goHome);
+document.getElementById('homeicon').addEventListener('click', goHome);
 
 searchEl.addEventListener('input', () => {
   if (detailEl.classList.contains('open')) closeDetail(true);
