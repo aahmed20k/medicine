@@ -225,6 +225,34 @@ details.drug[open] > summary{border-bottom:1px solid var(--line)}
 .mode{flex:1;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
   padding:8px 6px;border:none;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer;font-weight:600}
 .mode[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(19,32,46,.10)}
+.subchips{margin:0 0 4px;padding:0 0 4px}
+.drop > summary{flex-direction:column;align-items:flex-start;gap:2px}
+.dclass{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.dindlist{margin:0 0 12px;padding-left:17px}
+.dindlist li{font-size:13.5px;margin-bottom:2px}
+.dosetext{margin:0 0 12px;font-size:14px;font-weight:600;background:#FBFCFD;border:1px solid var(--line);
+  border-left:3px solid var(--green);border-radius:6px;padding:8px 10px}
+.dnote{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.dnote strong{color:var(--ink)}
+.dbody{padding:11px 13px 12px}
+.dlabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;font-weight:600}
+.dind{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:13px}
+.indchip{font:inherit;font-size:12.5px;padding:5px 9px;border:1px solid var(--line);border-radius:7px;
+  background:var(--surface);color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px}
+.indchip:hover{border-color:var(--blue);color:var(--blue)}
+.indgrp{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.doses{display:flex;flex-direction:column;gap:4px;margin-bottom:11px}
+.doserow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;width:100%;text-align:left;
+  font:inherit;background:#FBFCFD;border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:6px;padding:7px 10px;cursor:pointer}
+.doserow:hover{border-color:var(--blue);border-left-color:var(--green)}
+.dose{font-size:13.5px;font-weight:600;color:var(--ink)}
+.dfor{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.dnone{font-size:12.5px;color:var(--muted);margin:0 0 11px}
+.dmentions{border-top:1px solid var(--line);padding-top:8px}
+.dmentions > summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--blue)}
+.dmentions > summary::-webkit-details-marker{display:none}
 .ccgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px}
 .ccbtn{display:block;text-align:left;background:var(--surface);border:1px solid var(--line);
   border-left:4px solid var(--blue);border-radius:9px;padding:11px 13px;cursor:pointer;font:inherit;color:inherit}
@@ -292,6 +320,7 @@ details.drug[open] > summary{border-bottom:1px solid var(--line)}
   </div>
   <nav class="modes" id="modes" role="tablist">
     <button class="mode" data-mode="scripts" aria-selected="true">Scripts</button>
+    <button class="mode" data-mode="eye" aria-selected="false">Eye</button>
     <button class="mode" data-mode="hpi" aria-selected="false">HPI</button>
     <button class="mode" data-mode="drugs" aria-selected="false">Drugs</button>
   </nav>
@@ -1954,6 +1983,631 @@ pearls:[
 ];
 
 
+/* ---------- ophthalmology ---------- */
+DATA.push(
+{
+id:"eye-vision-loss", tag:"Ophthalmology", sub:"On call", name:"Acute vision loss",
+one:"Painless or painful, monocular or binocular, and how long — those three answers narrow it almost entirely.",
+flags:[
+ "Sudden painless monocular loss with a cherry-red spot and an afferent pupillary defect — central retinal artery occlusion. This is a stroke of the eye; activate the stroke pathway.",
+ "Vision loss over 50 with jaw claudication, scalp tenderness, or temporal tenderness — giant cell arteritis. Start high-dose steroids immediately, before the biopsy, or the other eye follows within days.",
+ "Bilateral simultaneous loss points to chiasm, cortex, or a toxic or functional cause — not the eye.",
+ "A relative afferent pupillary defect means optic nerve or extensive retinal disease. It does not occur in cataract, refractive error, or media opacity.",
+ "Painful loss with a hard eye, mid-dilated pupil, and a hazy cornea — acute angle closure. Check the pressure now."
+],
+ddx:[
+ {g:"Vascular — minutes, painless", crit:true, i:["Central or branch retinal artery occlusion","Central or branch retinal vein occlusion","Arteritic anterior ischemic optic neuropathy (giant cell arteritis)","Non-arteritic AION","Amaurosis fugax / TIA","Occipital stroke"]},
+ {g:"Retinal — hours to days", i:["Rhegmatogenous retinal detachment","Vitreous hemorrhage","Macular hemorrhage from wet AMD","Central serous chorioretinopathy"]},
+ {g:"Optic nerve", i:["Optic neuritis — pain on eye movement, younger, often MS-associated","Compressive lesion","Papilledema with severely raised ICP","Toxic or nutritional (methanol, ethambutol, B12)"]},
+ {g:"Painful anterior segment", i:["Acute angle-closure glaucoma","Keratitis or corneal ulcer","Endophthalmitis","Uveitis with hypopyon"]},
+ {g:"Non-organic and mimics", i:["Functional visual loss","Migraine with aura — bilateral, positive phenomena, resolves in under an hour","Uncorrected refractive error — improves with pinhole"]}
+],
+hx:[
+ "Monocular or binocular — have them cover each eye and check. Patients routinely report a hemianopia as one-eye loss.",
+ "Time course: seconds (vascular), minutes with full recovery (amaurosis), hours to days (detachment, neuritis), painless vs painful.",
+ "Positive phenomena (flashes, floaters, zigzags) vs negative (curtain, black, missing field).",
+ "Associated: pain on eye movement, headache, jaw claudication, scalp tenderness, weight loss, temporal pain, neurologic symptoms.",
+ "Exam every time: visual acuity each eye with correction or pinhole, pupils with a swinging flashlight for a RAPD, confrontation fields, extraocular movements, red desaturation, intraocular pressure, and a dilated fundus exam."
+],
+wu:{
+ labs:["<strong>ESR, CRP, and platelets in anyone over 50 with vision loss</strong> — the triad raises sensitivity for giant cell arteritis; do not wait on them to start steroids if suspicion is high.","CBC, glucose, HbA1c, lipids for vascular occlusion.","Hypercoagulable and inflammatory workup in the young or bilateral case.","Consider syphilis and ACE if uveitis or atypical optic neuropathy."],
+ img:["Optical coherence tomography of the macula and nerve — fast, and it separates macular from optic nerve disease.","Fluorescein angiography for occlusive disease.","B-scan ultrasound when the view is obscured by hemorrhage or cataract — detects detachment and mass.","MRI brain and orbits with contrast and fat suppression for optic neuritis or compressive disease.","Urgent CT or MRI brain plus vessel imaging for retinal artery occlusion — this is a stroke workup, including carotid imaging and echo.","Temporal artery ultrasound or biopsy for giant cell arteritis."],
+ other:["Check intraocular pressure in every red or painful eye with vision loss.","Retinal artery occlusion needs an emergent stroke evaluation, not an outpatient referral — the risk of cerebral stroke is highest in the first days."]
+},
+strat:[
+ {t:"The first branch: is it painful, and is it one eye or both?", n:"",
+  rows:[
+   ["sev","Painless, monocular, sudden","Retinal artery or vein occlusion, AION, vitreous hemorrhage, retinal detachment.","Acuity, RAPD, dilated exam, and pressure. If CRAO, treat as an acute stroke and get the ESR/CRP for giant cell arteritis at the same time."],
+   ["sev","Painful, monocular","Angle closure, keratitis, endophthalmitis, uveitis, optic neuritis (pain on movement).","Measure the intraocular pressure before anything else. Slit lamp, and ophthalmology now."],
+   ["mod","Binocular, simultaneous","Chiasmal or cortical disease, toxic, functional, or bilateral papilledema.","Confrontation fields and a neurologic exam. Neuroimaging rather than an eye-focused workup."],
+   ["ok","Transient, fully resolved","Amaurosis fugax, migraine, papilledema-related obscurations.","TIA workup if vascular. Migraine if positive phenomena building over minutes and resolving within an hour."]
+  ]},
+ {t:"Giant cell arteritis — do not wait for confirmation", n:"Any new vision loss over age 50 deserves an ESR and CRP the same hour.",
+  rows:[
+   ["sev","Vision already lost","Arteritic AION, often with a pallid swollen disc.","Methylprednisolone 1 g IV daily for 3 days, then prednisone 1 mg/kg. The treated eye rarely recovers — you are protecting the other one. Biopsy within 1–2 weeks; steroids do not erase histology that fast."],
+   ["sev","Symptoms without vision loss","Jaw claudication, scalp tenderness, new headache, polymyalgia, fever, weight loss, raised ESR and CRP.","Prednisone 1 mg/kg (about 60 mg) daily immediately, then arrange temporal artery biopsy or ultrasound. Add aspirin and a PPI, and start bone protection."]
+  ]},
+ {t:"Central retinal artery occlusion — the window is short", n:"Retinal tolerance to ischemia is measured in hours, and outcomes are poor regardless; the priority is the stroke workup.",
+  rows:[
+   ["sev","Within 4–6 hours","Sudden painless loss, RAPD, pale retina with a cherry-red spot.","Ocular massage, anterior chamber paracentesis, and pressure-lowering drops are traditional but of unproven benefit. Thrombolysis is investigational. The evidence-backed action is an emergent stroke evaluation and secondary prevention."],
+   ["sev","Any timeframe","Confirmed retinal artery occlusion.","Admit or refer through the stroke pathway: brain and vessel imaging, carotid imaging, echo, rhythm monitoring, and risk factor treatment. Check ESR and CRP for the arteritic form."]
+  ]}
+],
+mgmt:[
+ "<strong>Giant cell arteritis:</strong> methylprednisolone 1 g IV daily for 3 days if vision is affected, otherwise prednisone 1 mg/kg orally. Do not delay for the biopsy. Add aspirin 81 mg, a proton pump inhibitor, calcium and vitamin D, and plan for tocilizumab as a steroid-sparing agent with rheumatology.",
+ "<strong>Retinal artery occlusion:</strong> emergent stroke pathway. Treat as you would a cerebral infarct for workup and secondary prevention.",
+ "<strong>Retinal vein occlusion:</strong> no emergent ocular treatment. Control blood pressure, glucose, and lipids; ophthalmology arranges anti-VEGF for macular edema and monitors for neovascularization.",
+ "<strong>Optic neuritis:</strong> methylprednisolone 1 g IV daily for 3 days followed by an oral taper speeds recovery but does not change final acuity. MRI determines MS risk and drives the neurology conversation. Avoid oral prednisone alone — it raised recurrence in the Optic Neuritis Treatment Trial.",
+ "<strong>Angle closure:</strong> lower the pressure medically, then definitive laser peripheral iridotomy — see the red eye script.",
+ "<strong>Retinal detachment:</strong> urgent vitreoretinal referral. Macula-on detachments are repaired within 24 hours; macula-off is less time-critical but still prompt. Keep the patient positioned as the surgeon directs.",
+ "Everyone gets documented acuity in both eyes, a pupil exam, and a pressure before they leave your assessment."
+],
+pearls:[
+ "A RAPD with a normal-looking fundus and a young patient is optic neuritis until proven otherwise; with an older patient, think arteritic AION.",
+ "A normal ESR does not exclude giant cell arteritis — up to a fifth have a normal ESR, which is why CRP and platelets are added.",
+ "'The patient sees nothing in one eye' plus a normal pupil response means either bilateral disease, a cortical cause, or a functional one.",
+ "Pinhole testing takes ten seconds and separates refractive error from real pathology.",
+ "In vitreous hemorrhage, always get a B-scan — you are looking for the retinal tear or detachment hiding behind the blood."
+]
+},
+
+{
+id:"eye-red-eye", tag:"Ophthalmology", sub:"On call", name:"Acute red eye",
+one:"The three questions that matter: is vision affected, is there true pain, and what is the pressure?",
+flags:[
+ "Reduced vision, true pain, photophobia, or a hazy cornea means this is not conjunctivitis. Do not send it home with drops.",
+ "Hard eye, mid-dilated fixed pupil, hazy cornea, nausea and vomiting, halos around lights — acute angle closure. Measure pressure immediately.",
+ "Contact lens wearer with a corneal infiltrate — bacterial keratitis, often Pseudomonas. This can perforate in days and must never get a steroid.",
+ "Hypopyon, or pain and vision loss after recent intraocular surgery or injection — endophthalmitis. Call ophthalmology the same hour.",
+ "Vesicular rash in the V1 dermatome, especially on the nose tip (Hutchinson's sign) — herpes zoster ophthalmicus with likely ocular involvement.",
+ "A dendritic ulcer on fluorescein is herpes simplex keratitis. Topical steroids here can melt the cornea."
+],
+ddx:[
+ {g:"Sight-threatening", crit:true, i:["Acute angle-closure glaucoma","Bacterial or fungal keratitis / corneal ulcer","Endophthalmitis","Anterior uveitis with hypopyon","Scleritis","Herpes simplex or zoster keratitis","Orbital cellulitis"]},
+ {g:"Usually benign", i:["Viral conjunctivitis — watery, often bilateral, preauricular node, recent URI","Bacterial conjunctivitis — purulent, sticky lids","Allergic conjunctivitis — itch is the hallmark","Subconjunctival hemorrhage — painless, vision normal, alarming to look at","Dry eye, blepharitis","Episcleritis — sectoral, blanches with phenylephrine, minimal pain","Pterygium, pinguecula"]},
+ {g:"Trauma-related", i:["Corneal abrasion or foreign body","Chemical injury","UV keratitis (welder's flash)","Traumatic iritis"]}
+],
+hx:[
+ "Vision: any change at all pushes you toward the serious list.",
+ "Pain: itch suggests allergy, grittiness suggests surface disease, deep boring pain suggests scleritis, severe pain with nausea suggests angle closure.",
+ "Discharge: watery (viral), purulent (bacterial), stringy (allergic).",
+ "Contact lens use, sleeping in lenses, water exposure, trauma, recent eye surgery or injection, prior episodes, cold sores or shingles.",
+ "Exam: acuity, pattern of redness (diffuse vs ciliary flush vs sectoral), cornea with fluorescein, anterior chamber for cells and hypopyon, pupil shape and reaction, intraocular pressure, preauricular nodes. Evert the lid if a foreign body is plausible."
+],
+wu:{
+ labs:["Not usually needed. Corneal scrapings for Gram stain and culture in a significant corneal ulcer, before starting treatment, done by ophthalmology.","Consider uveitis workup (HLA-B27, syphilis, TB, sarcoid, ACE) for recurrent or bilateral uveitis, in consultation."],
+ img:["None routinely. CT orbits if orbital cellulitis, trauma, or a retained foreign body is suspected.","B-scan if the view is obscured and endophthalmitis or detachment is a concern."],
+ other:["Intraocular pressure is part of the exam, not an optional test. Avoid tonometry if you suspect an open globe.","Fluorescein under cobalt blue on every painful red eye."]
+},
+strat:[
+ {t:"Sorting the red eye in the first minute", n:"Vision, pain, pupil, and pressure. If all four are normal, the serious causes are largely excluded.",
+  rows:[
+   ["ok","Normal vision, no true pain, normal pupil","Conjunctivitis, subconjunctival hemorrhage, episcleritis, dry eye.","Supportive care. Viral conjunctivitis is self-limited and highly contagious — hygiene advice and no antibiotic needed. Bacterial: erythromycin ointment or trimethoprim-polymyxin drops."],
+   ["mod","Photophobia, ciliary flush, vision mildly reduced","Anterior uveitis, traumatic iritis, keratitis.","Slit lamp and pressure. Ophthalmology same day. Cycloplegia for comfort; steroids only with ophthalmology involvement."],
+   ["sev","Vision clearly reduced, severe pain, or abnormal pupil","Angle closure, corneal ulcer, endophthalmitis, scleritis.","Ophthalmology immediately. Check the pressure, do not patch, and give nothing with a steroid until the cornea has been examined."]
+  ]},
+ {t:"Intraocular pressure — what the number means acutely", n:"Normal is roughly 10–21 mmHg.",
+  rows:[
+   ["ok","10–21","Normal.","Does not exclude other pathology; keep working through the differential."],
+   ["mod","22–29","Ocular hypertension, uveitic or steroid response, hyphema.","Not an emergency in isolation. Identify the cause; ophthalmology follow-up."],
+   ["sev","30 or above","Acute angle closure, neovascular glaucoma, severe uveitic or traumatic rise.","Treat now — the optic nerve and retinal circulation are at risk within hours. Ophthalmology immediately."],
+   ["sev","Above 40 with pain and a hazy cornea","Acute angle-closure crisis.","Full medical lowering plus urgent laser peripheral iridotomy once the cornea clears."]
+  ]},
+ {t:"Contact lens wearer with a red eye", n:"Treat this as its own category — the organisms and the stakes differ.",
+  rows:[
+   ["sev","Any corneal infiltrate or staining","Presumed bacterial keratitis until proven otherwise, with Pseudomonas the key organism.","Stop lens wear entirely. Ophthalmology the same day for scraping and fortified or fluoroquinolone drops, often hourly. <strong>No steroid, no patching.</strong>"],
+   ["mod","Red, uncomfortable, no infiltrate","Contact lens overwear, hypoxia, giant papillary conjunctivitis.","Stop lenses, lubricate, and re-examine. Low threshold to refer if it does not settle quickly."]
+  ]}
+],
+mgmt:[
+ "<strong>Acute angle closure:</strong> lower the pressure with a combination — topical timolol, apraclonidine or brimonidine, and pilocarpine 1–2% (pilocarpine often fails above a pressure of about 40 until the pressure drops), plus acetazolamide 500 mg IV or orally, and mannitol if refractory. Lie the patient supine. Definitive treatment is laser peripheral iridotomy, and the other eye needs prophylactic iridotomy.",
+ "<strong>Bacterial keratitis:</strong> ophthalmology scrapes and cultures, then intensive topical fluoroquinolone or fortified antibiotics, frequently hourly including overnight. No steroids without a cornea specialist. No patch.",
+ "<strong>Anterior uveitis:</strong> topical steroid and cycloplegic, dosed and tapered by ophthalmology. Check the pressure at each visit — both the disease and the steroid raise it.",
+ "<strong>Herpes simplex keratitis:</strong> topical ganciclovir gel or trifluridine, or oral acyclovir. Steroids are contraindicated in epithelial disease.",
+ "<strong>Herpes zoster ophthalmicus:</strong> oral acyclovir 800 mg five times daily, valacyclovir 1 g three times daily, or famciclovir, started within 72 hours where possible, and continued longer in the immunocompromised. Ophthalmology assesses for keratitis and uveitis.",
+ "<strong>Conjunctivitis:</strong> viral is supportive — cool compresses, lubricants, strict hand hygiene, and counsel that it is contagious for up to two weeks. Bacterial gets erythromycin ointment or trimethoprim-polymyxin. Neither needs a steroid.",
+ "<strong>Scleritis:</strong> oral NSAIDs, and systemic workup for associated autoimmune disease. This is painful, vision-threatening, and needs rheumatology as well as ophthalmology.",
+ "Never prescribe a topical anesthetic for home use — it prevents healing and causes corneal melt. Never give a topical steroid for an undiagnosed red eye."
+],
+pearls:[
+ "Itch means allergy. True pain means something structural. A gritty foreign body sensation means the surface.",
+ "Ciliary flush — redness concentrated at the limbus — means intraocular inflammation, not conjunctivitis.",
+ "Phenylephrine blanches episcleritis but not scleritis, which is a useful bedside test.",
+ "A fixed mid-dilated pupil in a painful red eye is angle closure until the pressure says otherwise.",
+ "Unilateral chronic red eye that never fully settles should raise the question of malignancy or a retained foreign body.",
+ "The single most common serious error in a red eye is prescribing a steroid before the cornea has been stained and examined."
+]
+},
+
+{
+id:"eye-trauma", tag:"Ophthalmology", sub:"On call", name:"Ocular trauma",
+one:"Your first job is to exclude an open globe, because everything else you might do could make it worse.",
+flags:[
+ "Any of these means open globe until proven otherwise: a peaked or teardrop pupil, a shallow anterior chamber, prolapsed uveal tissue, a positive Seidel test, 360-degree subconjunctival hemorrhage, or significant vision loss after high-velocity trauma.",
+ "<strong>If you suspect an open globe: stop examining.</strong> No pressure check, no lid retraction, no drops, no ointment. Shield the eye with a rigid shield, keep the patient NPO, give antiemetics and analgesia, update tetanus, start IV antibiotics, and call ophthalmology.",
+ "Hammering metal on metal, grinding, or an explosion means an intraocular foreign body until CT says otherwise, even if the eye looks quiet and the vision is normal.",
+ "Proptosis with a tense orbit, reduced vision, an afferent defect, and raised pressure after trauma — retrobulbar hemorrhage with orbital compartment syndrome. This needs lateral canthotomy and cantholysis within minutes, at the bedside.",
+ "Chemical injury takes priority over everything including history taking — irrigate first."
+],
+ddx:[
+ {g:"Immediately sight-threatening", crit:true, i:["Open globe injury / ruptured globe","Intraocular foreign body","Retrobulbar hemorrhage with orbital compartment syndrome","Chemical burn","Traumatic optic neuropathy"]},
+ {g:"Anterior segment", i:["Corneal abrasion","Corneal or conjunctival foreign body","Traumatic hyphema","Traumatic iritis","Lens dislocation or traumatic cataract"]},
+ {g:"Posterior segment", i:["Commotio retinae","Retinal tear or detachment","Vitreous hemorrhage","Choroidal rupture"]},
+ {g:"Orbital and adnexal", i:["Orbital floor (blowout) fracture with or without muscle entrapment","Lid laceration — canalicular involvement if medial","Orbital emphysema"]}
+],
+hx:[
+ "Mechanism in detail: blunt or sharp, velocity, what material, whether eye protection was worn. Metal-on-metal is the phrase that should make you order a CT.",
+ "Time of injury, immediate vs delayed vision change, tetanus status, and whether the patient wears contact lenses.",
+ "Prior ocular surgery — a previously operated eye ruptures at the wound with less force.",
+ "Exam, gently: acuity first (even counting fingers or light perception is a number), pupils for a RAPD, extraocular movements, and a look for the open-globe signs above before you touch anything.",
+ "Check for diplopia on upgaze and infraorbital numbness, which point to an orbital floor fracture with entrapment."
+],
+wu:{
+ labs:["Sickle cell screen in any hyphema in a patient of African, Mediterranean, or Middle Eastern descent — sickling changes the management entirely.","Routine preoperative labs if surgery is likely."],
+ img:["<strong>CT orbits, axial and coronal, thin cuts</strong> — the study of choice for foreign body, fracture, and globe integrity.","<strong>Never MRI before excluding a metallic foreign body.</strong>","Ultrasound B-scan is useful but should be avoided or done only by ophthalmology if an open globe is suspected, since pressure on the globe can extrude contents.","Plain films are not adequate to exclude an intraocular foreign body."],
+ other:["Document acuity in both eyes before any intervention — this becomes the medicolegal baseline.","Seidel test with fluorescein looks for aqueous streaming from a wound, but do not press on a globe you think is open."]
+},
+strat:[
+ {t:"Open globe versus closed globe — the decision that governs everything else", n:"",
+  rows:[
+   ["sev","Suspected open globe","Peaked pupil, shallow or flat chamber, uveal prolapse, positive Seidel, extremely low pressure, 360° bullous subconjunctival hemorrhage, or a high-velocity mechanism.","Rigid shield, NPO, antiemetics (vomiting raises pressure and can extrude contents), tetanus, IV antibiotics (commonly vancomycin plus ceftazidime), analgesia, and ophthalmology now for surgical repair. Stop examining the eye."],
+   ["mod","Closed globe with visual symptoms","Hyphema, traumatic iritis, commotio, vitreous hemorrhage, lens injury.","Full exam including pressure and dilated fundus. Ophthalmology same day."],
+   ["ok","Closed globe, surface injury only","Corneal abrasion or superficial foreign body, normal acuity, no infiltrate.","Remove the foreign body, topical antibiotic ointment, oral analgesia, no patch in contact lens wearers, and recheck in 24 hours. Never send home topical anesthetic."]
+  ]},
+ {t:"Traumatic hyphema — graded by how much blood fills the anterior chamber", n:"The risks are rebleeding (days 2–5) and pressure spikes.",
+  rows:[
+   ["ok","Grade I — less than one third","Layered blood in the inferior chamber.","Upright rest with the head elevated 30–45°, rigid shield, no NSAIDs or aspirin, daily pressure checks and ophthalmology review. Topical steroid and cycloplegic per ophthalmology."],
+   ["mod","Grade II–III — one third to near total","More extensive layering.","Same measures with closer monitoring; higher risk of pressure rise and corneal blood staining. Consider admission."],
+   ["sev","Grade IV — total (‘eight-ball’)","Complete filling with dark clotted blood.","High risk of pressure elevation, optic nerve damage, and corneal staining. Surgical washout is often needed. Admit."],
+   ["sev","Any grade with sickle cell trait or disease","Sickled cells obstruct the trabecular meshwork at lower pressures and tolerate them poorly.","Lower threshold for intervention. <strong>Avoid carbonic anhydrase inhibitors</strong> (acetazolamide) and hyperosmotics, which promote sickling. Ophthalmology urgently."]
+  ]},
+ {t:"Orbital compartment syndrome — a bedside surgical emergency", n:"Do not wait for imaging or for ophthalmology to arrive if vision is failing.",
+  rows:[
+   ["sev","Proptosis, tense orbit, pressure above 40, reduced vision, RAPD","Retrobulbar hemorrhage compressing the optic nerve and its blood supply.","<strong>Lateral canthotomy and inferior cantholysis immediately.</strong> Vision loss becomes irreversible within 60–120 minutes. Then imaging and ophthalmology."]
+  ]}
+],
+mgmt:[
+ "<strong>Open globe:</strong> shield, NPO, antiemetics, analgesia, tetanus, IV antibiotics, and surgical repair — typically within 24 hours. No topical drops, no pressure on the eye.",
+ "<strong>Corneal abrasion:</strong> topical antibiotic (erythromycin ointment; use a fluoroquinolone in contact lens wearers to cover Pseudomonas), oral analgesia, cycloplegic for large painful abrasions. Patching is no longer recommended and is contraindicated in contact lens wearers. Recheck in 24 hours if large or central.",
+ "<strong>Orbital floor fracture:</strong> most are managed conservatively with nasal decongestants, avoidance of nose blowing, and antibiotics if there is sinus disease. Urgent surgery for the white-eyed blowout in a child with entrapment, bradycardia, and vomiting — this is a true emergency.",
+ "<strong>Lid laceration:</strong> involvement of the lid margin, the medial canthus (canalicular system), or the levator needs oculoplastic repair, not simple suturing in the emergency department.",
+ "Tetanus status and antibiotic prophylaxis per the wound. Document the mechanism precisely.",
+ "Protective eyewear counseling at discharge — the same patients present again."
+],
+pearls:[
+ "A normal visual acuity does not exclude an intraocular foreign body. The history of the mechanism does more work than the exam here.",
+ "Never check pressure or use a lid speculum on an eye you think may be open.",
+ "Antiemetics are a sight-saving prescription in suspected open globe, because vomiting can extrude intraocular contents.",
+ "A subconjunctival hemorrhage with no posterior limit after blunt trauma is an occult rupture until CT and ophthalmology say otherwise.",
+ "In a child with a blowout fracture, the eye can look almost normal — the trapdoor mechanism gives minimal bruising but severe entrapment."
+]
+},
+
+{
+id:"eye-chemical", tag:"Ophthalmology", sub:"On call", name:"Chemical eye injury",
+one:"Irrigate before you do anything else — no history, no acuity, no consult first.",
+flags:[
+ "Alkali burns penetrate far deeper than acid and carry the worse prognosis. Lye, ammonia, cement, lime, and oven cleaner are the common culprits.",
+ "<strong>A white, blanched eye is the dangerous one</strong>, not the angry red one — perilimbal blanching means the vessels are dead and the stem cells are gone.",
+ "Irrigate with at least 1–2 litres per eye and keep going until the pH normalizes to 7.0–7.4, rechecked 5 minutes after stopping.",
+ "Cement and lime leave retained particulate matter — sweep the fornices and evert the lids to remove it, or you are irrigating over an ongoing source.",
+ "Do not attempt to neutralize an acid with a base or vice versa — the exothermic reaction causes further injury."
+],
+ddx:[
+ {g:"Alkali (worse prognosis)", crit:true, i:["Lye / sodium hydroxide — drain cleaner","Ammonia — fertilizer, cleaning products","Lime and cement — construction, with retained particles","Magnesium hydroxide — sparklers, fireworks"]},
+ {g:"Acid", i:["Sulfuric acid — car batteries","Hydrofluoric acid — behaves like an alkali and penetrates deeply; also systemic hypocalcemia risk","Acetic, hydrochloric"]},
+ {g:"Other exposures", i:["Superglue — usually benign, mechanical","Pepper spray / capsaicin","Detergents and solvents","Thermal burn"]}
+],
+hx:[
+ "Take the history while irrigating, never before. Substance, concentration, time of exposure, duration, and whether any irrigation was already done.",
+ "Get the product name or container if available; industrial safety data sheets are useful.",
+ "Ask specifically about hydrofluoric acid exposure, which needs calcium gluconate and systemic monitoring.",
+ "Exam after irrigation: acuity, pH, degree of corneal clouding, extent of perilimbal blanching in clock hours, epithelial defect size with fluorescein, and intraocular pressure."
+],
+wu:{
+ labs:["None routinely. Serum calcium and magnesium with ECG monitoring for significant hydrofluoric acid exposure."],
+ img:["Not routinely indicated."],
+ other:["pH testing with litmus paper in the lower fornix — before irrigation if instantly available, and repeatedly during and after.","Recheck pH 5–10 minutes after stopping irrigation; it commonly drifts back up and you resume."]
+},
+strat:[
+ {t:"Roper-Hall grading — by corneal clarity and limbal blanching", n:"Limbal ischemia predicts outcome better than anything else, because it reflects loss of the stem cells that resurface the cornea.",
+  rows:[
+   ["ok","Grade I","Corneal epithelial damage only, no limbal ischemia.","Excellent prognosis. Topical antibiotic, lubrication, cycloplegic, analgesia, ophthalmology follow-up."],
+   ["mod","Grade II","Cornea hazy but iris details visible, under one third (under 3 clock hours) limbal ischemia.","Good prognosis. Topical steroid and antibiotic, cycloplegic, ascorbate and citrate drops, close ophthalmology follow-up."],
+   ["sev","Grade III","Total epithelial loss, stromal haze obscuring iris details, one third to one half (3–6 clock hours) limbal ischemia.","Guarded prognosis. Admission usually warranted, intensive topical therapy, monitor pressure closely."],
+   ["sev","Grade IV","Opaque cornea, more than one half (over 6 clock hours) limbal ischemia — the white eye.","Poor prognosis with high risk of melt, perforation, and permanent scarring. Ophthalmology immediately; may need amniotic membrane, limbal stem cell transplant, or tectonic grafting."]
+  ]},
+ {t:"Irrigation endpoint", n:"",
+  rows:[
+   ["sev","pH still outside 7.0–7.4","Ongoing chemical injury.","Keep irrigating. Use a Morgan lens or IV tubing with normal saline or lactated Ringer's, topical anesthetic for tolerance, lids everted, fornices swept. Volume matters more than any specific solution."],
+   ["ok","pH 7.0–7.4 on recheck 5 minutes after stopping","Irrigation complete.","Now do the full exam, grade the injury, and treat. Recheck pH again before discharge."]
+  ]}
+],
+mgmt:[
+ "<strong>Irrigate immediately</strong> with normal saline or lactated Ringer's — 1–2 litres per eye minimum, continued until the pH is 7.0–7.4 and stays there. Topical anesthetic makes this tolerable. Evert the lids and sweep the fornices for particulate matter.",
+ "Debride necrotic epithelium and remove retained particles — they continue releasing chemical.",
+ "Topical antibiotic (erythromycin ointment or a fluoroquinolone) for prophylaxis, and a cycloplegic such as cyclopentolate for pain from ciliary spasm.",
+ "Topical steroid in the first 7–10 days reduces inflammation, but beyond that window it impairs stromal healing and increases melt risk — this is an ophthalmology decision.",
+ "Ascorbate (topical and oral) and citrate drops are used in moderate to severe burns to support collagen synthesis and reduce melt.",
+ "Monitor and treat intraocular pressure — it commonly rises, and acetazolamide or topical agents may be needed.",
+ "<strong>Hydrofluoric acid:</strong> irrigate, then calcium gluconate 1% drops or gel, check serum calcium and magnesium, and monitor the ECG for systemic toxicity.",
+ "All but the mildest cases get ophthalmology review the same day, and grade III–IV should be seen immediately."
+],
+pearls:[
+ "The single strongest determinant of outcome is how fast irrigation started, not what you do afterwards.",
+ "Do not stop irrigating because the eye looks better — go by the pH.",
+ "A white quiet-looking eye after an alkali splash is a grade IV injury, not a mild one. Redness requires perfusion.",
+ "Superglue in the eye is almost always benign — the lids can be separated once the glue softens, and the cornea rarely suffers.",
+ "Always examine both eyes and both sets of fornices; splashes are rarely as unilateral as the patient thinks."
+]
+},
+
+{
+id:"eye-flashes", tag:"Ophthalmology", sub:"On call", name:"Flashes and floaters",
+one:"Most are posterior vitreous detachment, but you are looking for the minority with a retinal tear.",
+flags:[
+ "A curtain or shadow across the field, or loss of peripheral vision — retinal detachment. Same-day ophthalmology.",
+ "A sudden shower of many new floaters, or floaters described as smoke, soot, or spiderwebs — likely vitreous hemorrhage or pigment (tobacco dust), which means a tear.",
+ "Flashes that persist and worsen after the initial onset suggest ongoing vitreoretinal traction.",
+ "Any new floaters with reduced acuity or a RAPD is not a benign vitreous detachment.",
+ "New floaters plus pain, photophobia, and cells means uveitis or endophthalmitis instead — a different pathway entirely."
+],
+ddx:[
+ {g:"Sight-threatening", crit:true, i:["Retinal tear","Rhegmatogenous retinal detachment","Vitreous hemorrhage","Posterior uveitis or vitritis","Endophthalmitis (if recent surgery or injection)"]},
+ {g:"Common and benign", i:["Posterior vitreous detachment — by far the most common","Long-standing vitreous floaters","Weiss ring"]},
+ {g:"Mimics", i:["Migraine with visual aura — bilateral, builds over minutes, zigzag, resolves under an hour","Occipital pathology","Photopsias from optic nerve disease"]}
+],
+hx:[
+ "Onset, and whether the floaters are one or two versus a shower of many.",
+ "Any field loss or curtain — ask them to describe which part of the vision, and check with confrontation.",
+ "Flashes: typically brief, arc-shaped, in the temporal periphery, worse in the dark, in a vitreous detachment.",
+ "Risk factors: myopia (the strongest), age over 50, prior cataract surgery, prior detachment in either eye, family history, trauma, lattice degeneration.",
+ "Exam: acuity, pupils for a RAPD, confrontation fields, and a <strong>dilated fundus exam with scleral depression</strong> — the peripheral retina is where tears live and you cannot see it undilated."
+],
+wu:{
+ labs:["None."],
+ img:["B-scan ultrasound when the fundus view is obscured by vitreous hemorrhage or dense cataract — it detects detachment and can suggest a tear.","Optical coherence tomography if macular involvement is in question, particularly whether the macula is on or off."],
+ other:["A dilated exam by someone who can perform scleral depression is the test. There is no substitute and no blood test.","Document whether the macula is attached — it determines surgical urgency."]
+},
+strat:[
+ {t:"Risk of a retinal tear behind the symptoms", n:"About 10–15% of acute symptomatic posterior vitreous detachments harbor a retinal tear at presentation.",
+  rows:[
+   ["ok","Few floaters, no flashes, no field loss, clean dilated exam","Uncomplicated posterior vitreous detachment.","Reassure and educate. Return immediately for a shower of floaters, worsening flashes, or any curtain. Repeat dilated exam in 4–6 weeks, since some tears appear later."],
+   ["mod","Flashes plus new floaters, dilated exam shows no tear","Symptomatic posterior vitreous detachment.","Ophthalmology within 24–72 hours for a dilated exam with scleral depression. Re-examine at 4–6 weeks."],
+   ["sev","Pigment or red cells in the anterior vitreous, or vitreous hemorrhage","Tobacco dust (Shafer's sign) — strongly associated with a retinal tear.","Same-day ophthalmology. Treat as a tear until the periphery has been fully examined."],
+   ["sev","Field loss, curtain, or a visible detachment","Rhegmatogenous retinal detachment.","Urgent vitreoretinal referral. Macula-on is a surgical emergency, generally repaired within 24 hours to save central vision."]
+  ]},
+ {t:"Macula on or off — this drives the timing of surgery", n:"",
+  rows:[
+   ["sev","Macula on — central acuity still good","The detachment has not yet reached the fovea.","Emergency. Repair typically within 24 hours, because once the macula detaches the visual prognosis drops substantially. Position the patient as the surgeon directs."],
+   ["mod","Macula off — central acuity already reduced","The fovea is already detached.","Still urgent but the clock is less absolute; repair usually within about a week. Final acuity correlates with how long the macula has been off."]
+  ]}
+],
+mgmt:[
+ "<strong>Retinal tear without detachment:</strong> laser retinopexy or cryotherapy, usually within 24–72 hours, which prevents progression in the large majority.",
+ "<strong>Retinal detachment:</strong> surgical repair — pneumatic retinopexy, scleral buckle, or vitrectomy depending on the configuration. Vitreoretinal surgeon decides.",
+ "<strong>Uncomplicated posterior vitreous detachment:</strong> no treatment. The education is the intervention — give explicit return precautions, in writing, and arrange the repeat dilated exam at 4–6 weeks.",
+ "<strong>Vitreous hemorrhage with no view:</strong> B-scan, head elevation, avoid anticoagulants where clinically possible, and serial ultrasound. Vitrectomy if it does not clear or a detachment is found.",
+ "Advise against heavy lifting and strenuous activity until the retina has been cleared.",
+ "Examine the fellow eye — bilateral pathology and bilateral risk factors are common, and a detachment in one eye substantially raises risk in the other."
+],
+pearls:[
+ "The most useful question is whether there is a curtain, and the most useful sign is pigment in the anterior vitreous.",
+ "Flashes in a vitreous detachment are monocular, brief, and peripheral. Migraine aura is binocular, builds and marches, and has positive colored or zigzag phenomena.",
+ "A high myope with new floaters deserves a lower threshold for urgent referral at every step.",
+ "Cataract surgery raises the lifetime risk of detachment, so a recent pseudophake with new floaters needs a careful periphery.",
+ "'It's just floaters' should never be said before a dilated peripheral exam has been done."
+]
+},
+
+{
+id:"eye-orbit", tag:"Ophthalmology", sub:"On call", name:"Orbital and periorbital infection",
+one:"Preseptal or orbital — the answer is in the motility, the proptosis, and the vision, not the redness.",
+flags:[
+ "Any of proptosis, pain with eye movement, restricted motility, diplopia, reduced acuity, or a RAPD means <strong>orbital</strong> cellulitis. Admit for IV antibiotics and get a CT.",
+ "Orbital cellulitis with a rapidly worsening exam suggests a subperiosteal or orbital abscess needing drainage.",
+ "Cranial nerve palsies, bilateral findings, or involvement of V1 and V2 sensation — cavernous sinus thrombosis. Imaging of the sinuses and cavernous sinus, and neurosurgical and ID involvement.",
+ "Black eschar on the palate or nasal mucosa in a diabetic or immunocompromised patient — invasive fungal (mucormycosis). This is life-threatening and needs urgent surgical debridement and amphotericin.",
+ "In children, orbital cellulitis is usually an extension of ethmoid sinusitis and can progress within hours."
+],
+ddx:[
+ {g:"Infectious", crit:true, i:["Preseptal (periorbital) cellulitis","Orbital (postseptal) cellulitis","Subperiosteal abscess","Orbital abscess","Cavernous sinus thrombosis","Invasive fungal sinusitis — mucormycosis, aspergillosis","Dacryocystitis, dacryoadenitis","Infected chalazion or hordeolum"]},
+ {g:"Non-infectious mimics", i:["Thyroid eye disease — usually bilateral, lid retraction rather than ptosis","Idiopathic orbital inflammation (orbital pseudotumor)","Allergic or contact periorbital edema","Insect bite, angioedema","Orbital tumor or lymphoma","Ruptured dermoid cyst","Retrobulbar hemorrhage"]}
+],
+hx:[
+ "Recent sinusitis, upper respiratory infection, dental infection, trauma, insect bite, or skin infection — the portal of entry.",
+ "Fever, malaise, and rate of progression. Orbital disease moves fast.",
+ "Diabetes, immunosuppression, recent chemotherapy, transplant — the population at risk for fungal disease.",
+ "Ask directly about double vision and pain on looking around, which are the discriminating symptoms.",
+ "Exam: acuity, pupils for a RAPD, <strong>full motility in all directions</strong>, proptosis (measure with an exophthalmometer if you can, or look from above and below), color vision, intraocular pressure, resistance to retropulsion, and sinus tenderness. Examine the nose and palate in at-risk patients."
+],
+wu:{
+ labs:["CBC with differential, CRP, blood cultures before antibiotics.","Glucose and HbA1c, and a blood gas if ketoacidosis is possible in the fungal scenario.","Swab any drainage; culture abscess material at surgery.","Thyroid function if the picture suggests thyroid eye disease."],
+ img:["<strong>CT orbits and sinuses with contrast, thin cuts</strong> — for anyone with orbital signs, failure to improve on oral antibiotics, or an uncertain exam. It defines abscess, sinus source, and orbital involvement.","MRI with contrast for suspected cavernous sinus thrombosis, intracranial extension, or fungal invasion.","Do not delay imaging in a child who cannot be adequately examined."],
+ other:["Serial vision and motility checks — every 4 hours in admitted orbital cellulitis. Deterioration is the indication to drain.","ENT involvement early when sinusitis is the source; ophthalmology throughout."]
+},
+strat:[
+ {t:"Preseptal versus orbital — the discriminator is what is happening behind the septum", n:"Redness and swelling of the lids occur in both and do not distinguish them.",
+  rows:[
+   ["ok","Preseptal","Lid swelling and erythema with <strong>normal</strong> acuity, pupils, motility, and no proptosis or pain on eye movement.","Usually outpatient oral antibiotics covering staph and strep — amoxicillin-clavulanate, or clindamycin or trimethoprim-sulfamethoxazole if MRSA is a concern. Review in 24–48 hours; worsening means image and reassess."],
+   ["sev","Orbital","Any of proptosis, pain or restriction on eye movement, diplopia, reduced acuity, RAPD, or chemosis.","Admit. IV antibiotics — commonly vancomycin plus ceftriaxone or ampicillin-sulbactam, adding metronidazole for anaerobic or dental sources. CT orbits and sinuses. Ophthalmology and ENT. Serial vision checks."],
+   ["sev","Abscess or failure to improve at 24–48 hours","Subperiosteal or orbital abscess on CT, or worsening vision or motility on treatment.","Surgical drainage with ENT and oculoplastics. Small medial subperiosteal abscesses in young children sometimes resolve on antibiotics alone, but that decision belongs to the surgical team."],
+   ["sev","Immunocompromised or diabetic with orbital signs","Consider invasive fungal disease — look for eschar, disproportionate pain, cranial neuropathies.","Emergent ENT for nasal endoscopy and biopsy, liposomal amphotericin B, aggressive correction of acidosis and hyperglycemia, and surgical debridement. Mortality is high and depends on speed."]
+  ]}
+],
+mgmt:[
+ "<strong>Preseptal:</strong> oral antibiotics with staph and strep cover, warm compresses, and explicit return precautions. Reassess at 24–48 hours.",
+ "<strong>Orbital:</strong> admit, IV vancomycin plus ceftriaxone (or ampicillin-sulbactam), with metronidazole added for dental or anaerobic sources. Nasal decongestants and intranasal steroid where sinusitis is the source. Duration typically 7–10 days IV then oral, guided by response.",
+ "Serial visual acuity, color vision, pupil, and motility checks — document them on a schedule, because the decision to operate is made on the trend.",
+ "Surgical drainage for abscess, for failure to improve within 24–48 hours, or for any visual deterioration.",
+ "Treat the sinus source with ENT — antibiotics alone will not clear an obstructed sinus.",
+ "<strong>Mucormycosis:</strong> liposomal amphotericin B, urgent surgical debridement, and correction of the underlying immunosuppression or ketoacidosis. Do not wait for culture confirmation.",
+ "Thyroid eye disease and orbital pseudotumor are treated with steroids and are not antibiotic problems — get the diagnosis right before reaching for steroids in an infected orbit."
+],
+pearls:[
+ "Lid swelling that is impressive but has normal motility and vision is preseptal, however dramatic it looks.",
+ "Pain on eye movement is the single most useful bedside discriminator, and it is easy to forget to ask.",
+ "In a child too swollen to examine, image rather than guess.",
+ "Proptosis that is non-axial (displaced up, down, or sideways) points to a mass or abscess rather than diffuse cellulitis.",
+ "Bilateral orbital signs should make you think thyroid eye disease, cavernous sinus thrombosis, or lymphoma rather than simple cellulitis."
+]
+},
+
+{
+id:"eye-diplopia", tag:"Ophthalmology", sub:"On call", name:"Diplopia",
+one:"Monocular or binocular first — monocular is an optical problem, binocular is a neurologic or orbital one.",
+flags:[
+ "A painful third nerve palsy with a dilated pupil is a posterior communicating artery aneurysm until imaging says otherwise — emergent CT angiography or MR angiography.",
+ "Diplopia with headache, altered consciousness, or other cranial nerve involvement — intracranial pathology.",
+ "Variable diplopia with ptosis that worsens through the day and with fatigue — myasthenia gravis. Ask about swallowing and breathing, because a crisis is the risk.",
+ "Diplopia after trauma with restricted upgaze and infraorbital numbness — orbital floor fracture with entrapment. In a child with a white eye plus bradycardia and vomiting, this is a surgical emergency.",
+ "Multiple cranial neuropathies plus proptosis and chemosis — cavernous sinus pathology."
+],
+ddx:[
+ {g:"Monocular (persists with the other eye covered)", i:["Uncorrected refractive error or astigmatism","Cataract","Corneal irregularity, dry eye, keratoconus","Dislocated lens or iris defect","Almost never neurologic"]},
+ {g:"Cranial nerve palsies", crit:true, i:["Third nerve — ptosis, eye down and out, pupil involvement suggests compression","Fourth nerve — vertical diplopia worse on downgaze and head tilt","Sixth nerve — horizontal diplopia worse at distance and on lateral gaze; a false localizing sign in raised ICP","Microvascular palsy in diabetes and hypertension — pupil-sparing third, isolated, resolves over months"]},
+ {g:"Neuromuscular junction and muscle", i:["Myasthenia gravis — variable, fatigable, with ptosis","Thyroid eye disease — restrictive, often inferior rectus first","Chronic progressive external ophthalmoplegia"]},
+ {g:"Orbital and mechanical", i:["Orbital fracture with entrapment","Orbital mass, inflammation, or cellulitis","Post-surgical or post-traumatic restriction"]},
+ {g:"Central", i:["Brainstem stroke","Internuclear ophthalmoplegia — MS in the young, stroke in the old","Multiple sclerosis","Wernicke encephalopathy — give thiamine","Raised intracranial pressure"]}
+],
+hx:[
+ "Cover each eye in turn. If the double vision disappears when either eye is covered, it is binocular and neurologic or orbital. If it persists in one eye alone, it is monocular and optical.",
+ "Horizontal, vertical, or oblique separation, and whether it varies with direction of gaze or head position.",
+ "Constant or variable, and whether it fatigues through the day.",
+ "Associated pain, headache, ptosis, proptosis, weakness, swallowing or speech difficulty, recent trauma.",
+ "Exam: acuity, pupils (size, reactivity, anisocoria), lid position and fatigability, full motility with cover testing, forced duction if restriction is suspected, proptosis, corneal sensation, and a fundus exam for papilledema."
+],
+wu:{
+ labs:["Glucose, HbA1c, blood pressure — the microvascular risk factors.","ESR and CRP in anyone over 50 with a new palsy, since giant cell arteritis can present this way.","Acetylcholine receptor and MuSK antibodies if myasthenia is suspected; thyroid function and TSH receptor antibodies for thyroid eye disease.","B12 and thiamine where nutritional causes are plausible."],
+ img:["<strong>Urgent CT angiography or MR angiography for any third nerve palsy with pupil involvement</strong>, and for painful third nerve palsies regardless of pupil.","MRI brain and orbits for most non-microvascular palsies, internuclear ophthalmoplegia, or multiple cranial neuropathies.","CT orbits for trauma, proptosis, or suspected restriction.","Consider MR venography if raised ICP or cavernous sinus thrombosis is possible."],
+ other:["Ice pack test and fatigability testing at the bedside for suspected myasthenia; a 2-minute ice pack over a ptotic lid that improves ptosis is suggestive.","Forced duction testing distinguishes restriction from weakness and is done by ophthalmology."]
+},
+strat:[
+ {t:"The first question — cover one eye", n:"",
+  rows:[
+   ["ok","Monocular — persists with the fellow eye covered","Optical: refractive error, cataract, corneal or lens irregularity.","Pinhole often resolves it. Routine ophthalmology referral. Not a neurologic workup."],
+   ["sev","Binocular — resolves when either eye is covered","Ocular misalignment: nerve palsy, neuromuscular, restrictive, or central.","Work through the pattern below. Neuroimaging threshold is low."]
+  ]},
+ {t:"Third nerve palsy — the pupil decides the urgency", n:"Pupillomotor fibers run superficially and are hit early by compression, spared in ischemia.",
+  rows:[
+   ["sev","Pupil-involving (dilated, sluggish)","Compressive — posterior communicating artery aneurysm, tumor, uncal herniation.","<strong>Emergent</strong> CT angiography or MR angiography. Neurosurgery. Do not observe."],
+   ["mod","Pupil-sparing, painful","Can still be compressive; pain does not exclude it.","Image urgently. Many centers image all third nerve palsies regardless of pupil."],
+   ["mod","Pupil-sparing, painless, vasculopathic patient over 50","Microvascular ischemic palsy.","Control glucose and blood pressure, check ESR and CRP, and observe with follow-up. Expect resolution within 3 months. <strong>If it has not improved by 3 months, image.</strong>"]
+  ]},
+ {t:"Sixth nerve palsy in context", n:"The most common palsy and the least localizing.",
+  rows:[
+   ["mod","Isolated, vasculopathic patient","Microvascular.","Observe with risk factor control; recheck at 3 months and image if not resolving."],
+   ["sev","Bilateral, or with headache, papilledema, or other signs","Raised intracranial pressure — a classic false localizing sign — or brainstem or skull base pathology.","Neuroimaging including venography, then lumbar puncture with opening pressure if imaging is clear."],
+   ["sev","In a child","Far more likely to be pathological.","Image. Posterior fossa tumor is the concern."]
+  ]}
+],
+mgmt:[
+ "<strong>Compressive third nerve palsy:</strong> emergent vascular imaging and neurosurgical involvement.",
+ "<strong>Microvascular palsy:</strong> optimize diabetes, blood pressure, and lipids. Occlusion therapy (patching one eye) or prism for symptomatic relief while it recovers. Reassess at 3 months and image if it has not improved.",
+ "<strong>Myasthenia gravis:</strong> pyridostigmine, with immunosuppression as directed by neurology. Screen for thymoma with CT chest. Ask about bulbar and respiratory symptoms at every encounter and monitor forced vital capacity if there is any concern.",
+ "<strong>Thyroid eye disease:</strong> stabilize thyroid function, stop smoking (the strongest modifiable factor), lubricate, and involve oculoplastics. Steroids or teprotumumab for active moderate-to-severe disease. Urgent decompression for optic neuropathy.",
+ "<strong>Orbital fracture with entrapment:</strong> surgical release, urgently in the pediatric white-eyed blowout.",
+ "Symptomatic relief while awaiting resolution: occlusion of one eye, Fresnel prisms, or temporary patching. Advise not to drive while diplopic.",
+ "Any new diplopia with headache and papilledema goes down the raised intracranial pressure pathway, not the ophthalmology one."
+],
+pearls:[
+ "The cover test costs nothing and splits the differential in half. Do it before you order anything.",
+ "A pupil-sparing third nerve palsy in a young patient without vascular risk factors should still be imaged — the vasculopathic exception applies to older patients.",
+ "Sixth nerve palsy is the great pretender in raised intracranial pressure; always look at the discs.",
+ "Fatigability and variability point to myasthenia more reliably than any single exam finding, and the ice pack test takes two minutes.",
+ "Vertical diplopia that improves with head tilt to one side is a fourth nerve palsy — ask about old photographs showing a long-standing head tilt."
+]
+},
+
+{
+id:"eye-papilledema", tag:"Ophthalmology", sub:"On call", name:"Optic disc swelling",
+one:"Bilateral swelling means raised intracranial pressure until proven otherwise; unilateral means look at the nerve itself.",
+flags:[
+ "Bilateral disc swelling with headache, transient visual obscurations, pulsatile tinnitus, or diplopia — raised intracranial pressure. Image, then measure the opening pressure.",
+ "Rapidly progressive vision loss with disc swelling in a patient over 50 — arteritic AION. Steroids now.",
+ "Disc swelling with a RAPD and reduced color vision is optic neuropathy, not simple papilledema — true papilledema usually preserves acuity early.",
+ "Do not perform a lumbar puncture before imaging in suspected raised intracranial pressure.",
+ "Fulminant idiopathic intracranial hypertension with rapid visual field loss needs urgent surgical intervention, not just acetazolamide."
+],
+ddx:[
+ {g:"Raised intracranial pressure (bilateral)", crit:true, i:["Idiopathic intracranial hypertension","Space-occupying lesion","Cerebral venous sinus thrombosis","Hydrocephalus","Malignant hypertension","Meningitis, carcinomatous meningitis"]},
+ {g:"Optic neuropathy (usually unilateral)", i:["Anterior ischemic optic neuropathy — arteritic and non-arteritic","Optic neuritis","Compressive optic neuropathy","Infiltrative — lymphoma, leukemia, sarcoid","Infectious — syphilis, Lyme, cat scratch"]},
+ {g:"Pseudopapilledema — not true swelling", i:["Optic disc drusen","Crowded small hyperopic disc","Myelinated nerve fibers","Tilted disc"]},
+ {g:"Other", i:["Central retinal vein occlusion","Diabetic papillopathy","Uveitis with disc edema","Hypotony"]}
+],
+hx:[
+ "Headache character and whether it is worse lying flat or on waking; transient visual obscurations lasting seconds with position change are classic for raised pressure.",
+ "Pulsatile tinnitus, diplopia (sixth nerve), nausea and vomiting.",
+ "Weight gain, and the drug history that matters: tetracyclines, vitamin A and retinoids, oral contraceptives, lithium, and steroid withdrawal.",
+ "Vascular risk factors, age over 50, and giant cell arteritis symptoms.",
+ "Exam: acuity, color vision, pupils for a RAPD, <strong>formal visual fields</strong> (the field is what you follow, not the acuity), blind spot enlargement, motility for sixth nerve palsy, blood pressure, and a dilated fundus exam with attention to spontaneous venous pulsation."
+],
+wu:{
+ labs:["ESR, CRP, platelets in anyone over 50.","CBC, glucose, lipids.","Consider syphilis, Lyme, ACE, and autoimmune serologies for infiltrative or inflammatory causes."],
+ img:["<strong>MRI brain with contrast and MR venography</strong> — venography matters because cerebral venous sinus thrombosis mimics idiopathic intracranial hypertension and is missed on plain MRI.","CT head first if emergent or MRI is unavailable.","Optical coherence tomography of the nerve quantifies swelling and gives an objective baseline to follow.","B-scan or autofluorescence to identify disc drusen and settle pseudopapilledema."],
+ other:["<strong>Lumbar puncture with opening pressure, after imaging.</strong> The patient must be in the lateral decubitus position with legs extended and relaxed — a flexed or tense patient gives a falsely high number.","Formal perimetry at baseline and repeatedly — visual field loss is what drives escalation in idiopathic intracranial hypertension."]
+},
+strat:[
+ {t:"Opening pressure on lumbar puncture", n:"Measured in the lateral decubitus position with the patient relaxed and legs extended. Normal adult is up to about 25 cm H2O.",
+  rows:[
+   ["ok","Under 25 cm H2O","Normal. With bilateral disc elevation, reconsider pseudopapilledema (drusen, crowded disc).","B-scan or autofluorescence for drusen. No treatment for raised pressure."],
+   ["mod","25–30 cm H2O","Borderline; can be normal, particularly in the obese.","Correlate with symptoms, fields, and imaging. Repeat or monitor rather than commit to treatment on the number alone."],
+   ["sev","Above 30 cm H2O with normal CSF constituents and normal imaging","Idiopathic intracranial hypertension by the modified Dandy criteria.","Acetazolamide, weight management, stop the offending drug, and serial perimetry. Neurology and ophthalmology co-manage."]
+  ]},
+ {t:"Idiopathic intracranial hypertension — treatment follows the visual field, not the headache", n:"",
+  rows:[
+   ["ok","Good vision, minimal field loss","Mild disease.","Acetazolamide 500 mg twice daily titrated up as tolerated (up to 4 g daily in trials), weight loss of 5–10%, and stop tetracyclines, retinoids, and other precipitants. Repeat fields every 4–6 weeks initially."],
+   ["mod","Progressive field loss on treatment","Escalating disease.","Maximize medical therapy, add topiramate or furosemide, and involve neurosurgery and neuro-ophthalmology early for procedural options."],
+   ["sev","Fulminant — rapid severe vision loss over days","Sight-threatening.","Urgent intervention: optic nerve sheath fenestration, CSF shunting, or venous sinus stenting where a stenosis is found. Do not rely on acetazolamide alone. Admission."]
+  ]},
+ {t:"Unilateral disc swelling — a different differential", n:"",
+  rows:[
+   ["sev","Over 50, sudden painless loss, pallid swollen disc","Arteritic AION from giant cell arteritis.","ESR, CRP, platelets immediately, methylprednisolone 1 g IV daily for 3 days, temporal artery biopsy within 1–2 weeks."],
+   ["mod","Over 50, altitudinal field loss, crowded fellow disc","Non-arteritic AION.","No proven treatment. Control vascular risk factors, avoid nocturnal hypotension, review PDE5 inhibitor use, and treat sleep apnea."],
+   ["mod","Young, painful on eye movement, RAPD, reduced color vision","Optic neuritis.","MRI brain and orbits with contrast. IV methylprednisolone speeds recovery; neurology for MS risk assessment."]
+  ]}
+],
+mgmt:[
+ "<strong>Idiopathic intracranial hypertension:</strong> acetazolamide, weight loss, and removal of precipitating drugs, with serial formal visual fields as the measure of success. Surgical options for progressive or fulminant disease.",
+ "<strong>Giant cell arteritis:</strong> high-dose steroids immediately, biopsy within 1–2 weeks, tocilizumab as a steroid-sparing agent, plus aspirin, gastric protection, and bone protection.",
+ "<strong>Cerebral venous sinus thrombosis:</strong> anticoagulate, even in the presence of hemorrhagic infarction, and involve neurology.",
+ "<strong>Space-occupying lesion or hydrocephalus:</strong> neurosurgery, and treat the raised pressure on their advice.",
+ "<strong>Malignant hypertension:</strong> controlled blood pressure reduction, avoiding rapid drops — see the blood pressure script.",
+ "Pseudopapilledema needs no treatment, but it does need documentation with imaging so the next clinician does not repeat the workup.",
+ "Whatever the cause, formal perimetry at baseline and on a schedule. Acuity is a late and insensitive marker in papilledema."
+],
+pearls:[
+ "In true papilledema, acuity is often normal early — reassuring vision does not mean a reassuring situation.",
+ "Spontaneous venous pulsation, when present, argues against raised intracranial pressure, but its absence is not diagnostic since it is absent in a fifth of normal people.",
+ "Always order MR venography, not just MRI, when you are considering idiopathic intracranial hypertension.",
+ "Ask every patient about tetracyclines and vitamin A derivatives — acne treatment is a common and reversible cause.",
+ "Disc drusen are the classic mimic and are why a patient gets an unnecessary lumbar puncture; ultrasound settles it quickly."
+]
+},
+
+{
+id:"eye-anisocoria", tag:"Ophthalmology", sub:"On call", name:"Anisocoria",
+one:"Decide which pupil is abnormal by checking whether the difference is greater in light or in dark.",
+flags:[
+ "Anisocoria with ptosis and a down-and-out eye, especially with pain — third nerve palsy from an aneurysm. Emergent vessel imaging.",
+ "Ptosis with a smaller pupil plus acute neck or face pain — Horner syndrome from carotid dissection. Urgent imaging of the neck vessels.",
+ "Horner syndrome in a child — rule out neuroblastoma.",
+ "Sudden anisocoria with altered consciousness and a blown pupil — herniation. This is a neurosurgical emergency.",
+ "A dilated pupil in an otherwise entirely well patient with no ptosis and no motility problem is usually pharmacologic or a tonic pupil, not an aneurysm."
+],
+ddx:[
+ {g:"Larger pupil is abnormal (worse in bright light)", crit:true, i:["Third nerve palsy — with ptosis and motility deficit","Adie's tonic pupil — young women, poor light reaction, slow tonic near response, often with absent reflexes","Pharmacologic dilation — anticholinergics, scopolamine patch, nebulized ipratropium, plant alkaloids","Traumatic iris sphincter damage","Acute angle closure — mid-dilated, painful, hard eye"]},
+ {g:"Smaller pupil is abnormal (worse in dim light)", crit:true, i:["Horner syndrome — ptosis, miosis, anhidrosis; carotid dissection, apical lung tumor, neuroblastoma in children","Pharmacologic constriction — pilocarpine, opioids","Iritis with posterior synechiae","Argyll Robertson pupil — neurosyphilis"]},
+ {g:"Physiologic", i:["Simple physiologic anisocoria — present in up to 20% of people, difference usually under 1 mm and equal in light and dark, reactions normal","Long-standing, confirmed by old photographs"]}
+],
+hx:[
+ "How long — old photographs or a driver's licence settle physiologic anisocoria in seconds.",
+ "Any ptosis, diplopia, pain, headache, neck pain, or facial sweating change.",
+ "Drops, patches, nebulizers, and occupational exposures. A scopolamine patch touched then rubbed into the eye is a classic cause of a unilateral dilated pupil.",
+ "Trauma, prior eye surgery, and prior episodes.",
+ "Exam: measure both pupils in bright light and in dark, note which difference is greater, check reaction to light and near, look for ptosis and its laterality, check motility, and slit lamp for iris damage or synechiae."
+],
+wu:{
+ labs:["Syphilis serology if the pupil findings suggest it.","Otherwise directed by the suspected cause."],
+ img:["<strong>Horner syndrome:</strong> CT or MR angiography of the head and neck including the carotids — acute Horner with pain is a dissection until excluded. Chest imaging for an apical tumor if the lesion appears preganglionic.","<strong>Third nerve palsy with a dilated pupil:</strong> emergent CT angiography or MR angiography.","MRI brain for central causes.","Children with Horner syndrome: imaging of the neck, chest, and abdomen plus urinary catecholamines for neuroblastoma."],
+ other:["<strong>Apraclonidine 0.5%</strong> reverses the anisocoria in Horner syndrome (the denervated pupil dilates) — a practical confirmatory test, though it can be falsely negative in the first days.","<strong>Pilocarpine 0.1%</strong> constricts an Adie's tonic pupil (denervation supersensitivity) but not a normal one. <strong>Pilocarpine 1%</strong> constricts a third nerve palsy pupil but not a pharmacologically blocked one — that is how you identify the scopolamine patch."]
+},
+strat:[
+ {t:"Light or dark — which pupil is the abnormal one", n:"Compare the size difference under bright illumination against the difference in a dark room.",
+  rows:[
+   ["ok","Difference equal in light and dark, both react normally","Physiologic anisocoria.","No workup needed. Confirm with old photographs and reassure."],
+   ["sev","Difference greater in bright light — the larger pupil is abnormal","Third nerve palsy, tonic pupil, pharmacologic dilation, iris trauma.","Check for ptosis and motility deficit. Present means emergent vessel imaging. Absent, in a well patient, points to tonic or pharmacologic — use the pilocarpine tests."],
+   ["sev","Difference greater in dim light — the smaller pupil is abnormal","Horner syndrome, iritis, pharmacologic miosis.","Look for ptosis on the same side. Confirm with apraclonidine, then image the carotid urgently if acute or painful."]
+  ]},
+ {t:"Horner syndrome — where is the lesion", n:"The localization determines how urgently and what you image.",
+  rows:[
+   ["sev","Acute, with head, neck, or face pain","Carotid dissection until excluded.","Emergency vessel imaging of the head and neck. Antithrombotic therapy with neurology and stroke."],
+   ["mod","With arm pain, hand weakness, or a smoking history","Preganglionic — apical lung (Pancoast) tumor, brachial plexus lesion.","Chest imaging and oncology pathway."],
+   ["sev","In a child","Neuroblastoma must be excluded.","Imaging of neck, chest, and abdomen plus urinary catecholamines. Pediatric oncology."],
+   ["ok","Long-standing and stable, no pain, known cause","Old or congenital (which may show iris heterochromia).","Document and reassure; no acute imaging."]
+  ]}
+],
+mgmt:[
+ "Treatment is entirely of the cause — the pupil itself needs nothing.",
+ "<strong>Carotid dissection:</strong> antithrombotic therapy, usually antiplatelet or anticoagulation as directed by stroke neurology, and blood pressure control.",
+ "<strong>Third nerve palsy from aneurysm:</strong> neurosurgical or endovascular treatment.",
+ "<strong>Adie's tonic pupil:</strong> reassurance. Low-dose pilocarpine for photophobia or reading difficulty if symptomatic. Check reflexes — Holmes-Adie syndrome pairs it with areflexia.",
+ "<strong>Pharmacologic dilation:</strong> reassurance and removal of the agent; it resolves over hours to days. Document the exposure so the next clinician does not image.",
+ "<strong>Iritis with synechiae:</strong> topical steroid and cycloplegic under ophthalmology, which also breaks the synechiae.",
+ "Document pupil sizes in light and dark in millimeters at every assessment — a change over time is more informative than a single measurement."
+],
+pearls:[
+ "Old photographs are the cheapest, fastest diagnostic test in anisocoria, and patients carry them on their phones.",
+ "An isolated dilated pupil with no ptosis and completely normal eye movements is very unlikely to be an aneurysm.",
+ "Pharmacologic dilation is common in healthcare workers and in anyone using a scopolamine patch or nebulized ipratropium with a poorly fitting mask.",
+ "A tonic pupil reacts far better to near than to light — look for light-near dissociation.",
+ "Apraclonidine can be falsely negative in the first 36–48 hours of a Horner syndrome, so a negative test early does not exclude it."
+]
+},
+
+{
+id:"eye-postop", tag:"Ophthalmology", sub:"On call", name:"Postoperative eye problems",
+one:"Pain and vision loss after intraocular surgery is endophthalmitis until an ophthalmologist proves otherwise.",
+flags:[
+ "Increasing pain, worsening vision, hypopyon, or increasing redness in the days after cataract surgery or an intravitreal injection — acute endophthalmitis. Same-hour ophthalmology; this needs a tap and intravitreal antibiotics.",
+ "Most acute postoperative endophthalmitis presents within 1 to 6 days of surgery; a more indolent presentation weeks later suggests Propionibacterium or fungal infection.",
+ "Sudden severe pain with a hard eye after surgery — pressure spike, which can threaten the nerve within hours.",
+ "A flat or shallow anterior chamber with a wound leak means the eye is not sealed — risk of infection and suprachoroidal hemorrhage.",
+ "Flashes, floaters, or a curtain after any intraocular surgery — retinal detachment, whose risk is raised for years afterwards."
+],
+ddx:[
+ {g:"Sight-threatening", crit:true, i:["Acute postoperative endophthalmitis","Toxic anterior segment syndrome (TASS) — within 12–48 hours, diffuse limbus-to-limbus corneal edema, usually sterile","Intraocular pressure spike","Wound leak with shallow chamber","Suprachoroidal hemorrhage","Retinal detachment","Dislocated intraocular lens"]},
+ {g:"Expected or benign", i:["Mild foreign body sensation and grittiness","Subconjunctival hemorrhage","Transient blurring from ointment or corneal edema","Floaters after vitrectomy or injection","Dry eye, exacerbated post-operatively"]},
+ {g:"Later complications", i:["Cystoid macular edema — blurring at 4–6 weeks","Posterior capsule opacification — gradual blurring months to years later","Chronic low-grade (Propionibacterium acnes) endophthalmitis","Corneal decompensation"]}
+],
+hx:[
+ "Exactly what operation or procedure, by whom, and on what date — the interval narrows the differential more than anything else.",
+ "Pain: increasing pain after an initially comfortable eye is the warning. Post-operative eyes should get better day by day.",
+ "Vision trajectory: improving then worsening is the pattern that matters.",
+ "Drop compliance and what drops they are actually using, including steroids, and whether they have been tapered.",
+ "Exam: acuity, pressure, lids and wound integrity, conjunctival injection, corneal clarity, anterior chamber cells and hypopyon, red reflex, and a dilated exam where possible. Seidel test the wound if a leak is suspected."
+],
+wu:{
+ labs:["Vitreous and aqueous tap for Gram stain and culture — done by ophthalmology at the time of intravitreal antibiotic injection, not separately.","Blood cultures if endogenous endophthalmitis is suspected (an unwell patient, injection drug use, indwelling line, candidemia)."],
+ img:["B-scan ultrasound to assess vitritis, retinal detachment, or a dropped lens fragment when the view is poor.","Optical coherence tomography for cystoid macular edema.","CT if trauma or an orbital process is suspected."],
+ other:["Intraocular pressure at every postoperative assessment.","Endogenous endophthalmitis in a systemically unwell patient warrants a full sepsis workup and often echocardiography."]
+},
+strat:[
+ {t:"Timing after surgery narrows it sharply", n:"",
+  rows:[
+   ["sev","Hours to 48 hours: severe diffuse corneal edema, limbus to limbus, often painless, with marked anterior chamber reaction","Toxic anterior segment syndrome — a sterile inflammatory reaction to something introduced at surgery.","Intensive topical steroids. Distinguishing it from infection is an ophthalmology decision; when in doubt they treat as endophthalmitis."],
+   ["sev","1–6 days: increasing pain, decreasing vision, hypopyon","Acute bacterial endophthalmitis, usually coagulase-negative staphylococci.","Emergency. Vitreous tap and intravitreal antibiotics (typically vancomycin plus ceftazidime). Vitrectomy if vision is light perception only, following the Endophthalmitis Vitrectomy Study."],
+   ["mod","Days: pain with a hard eye","Pressure spike from retained viscoelastic, steroid response, or inflammation.","Measure the pressure. Topical and oral pressure-lowering agents; ophthalmology same day."],
+   ["mod","4–6 weeks: painless gradual central blurring","Cystoid macular edema (Irvine-Gass).","Topical NSAID and steroid; OCT confirms. Good prognosis in most."],
+   ["mod","Weeks to months: low-grade recurrent inflammation, partially steroid-responsive","Chronic Propionibacterium acnes endophthalmitis, often with a capsular plaque.","Ophthalmology; may need capsulectomy, intraocular antibiotics, or lens exchange."],
+   ["ok","Any time: gritty, watery, mildly red, vision stable or improving","Ocular surface disease or expected healing.","Lubricate, continue the prescribed drops, routine review. Not an emergency."]
+  ]},
+ {t:"After an intravitreal injection specifically", n:"Injections are common in retina clinic, and patients present to whoever is nearest.",
+  rows:[
+   ["ok","Mild discomfort, subconjunctival hemorrhage, floaters, day 0–1","Expected after injection.","Reassure, lubricate, return precautions in writing."],
+   ["sev","Pain and vision loss at 1–6 days","Post-injection endophthalmitis — roughly 1 in 2,000–5,000 injections.","Emergency ophthalmology, tap and inject."],
+   ["sev","Immediate complete vision loss right after the injection","Central retinal artery occlusion from a pressure spike.","Check the pressure immediately. Ophthalmology emergently; paracentesis may be needed."]
+  ]}
+],
+mgmt:[
+ "<strong>Acute endophthalmitis:</strong> immediate vitreous tap and intravitreal antibiotics — vancomycin plus ceftazidime (amikacin if cephalosporin-allergic). Vitrectomy if acuity is light perception only. Systemic antibiotics add little in postoperative cases but are used in endogenous disease.",
+ "<strong>TASS:</strong> intensive topical steroids, close monitoring of pressure and corneal clarity. It responds to steroids, which is part of how it is distinguished from infection over the first 24 hours.",
+ "<strong>Pressure spike:</strong> topical beta-blocker, alpha agonist, and carbonic anhydrase inhibitor, plus oral acetazolamide if needed. Paracentesis by ophthalmology for very high pressures.",
+ "<strong>Wound leak:</strong> ophthalmology for resuturing or a bandage contact lens; add antibiotic prophylaxis and avoid pressure on the eye.",
+ "<strong>Cystoid macular edema:</strong> topical NSAID plus steroid, with escalation to periocular or intravitreal steroid if it persists.",
+ "Continue prescribed postoperative drops unless ophthalmology stops them, and never stop a postoperative steroid abruptly without asking.",
+ "Discharge instructions for any intraocular procedure should name the three symptoms that mean return immediately: increasing pain, decreasing vision, increasing redness."
+],
+pearls:[
+ "A post-operative eye should be getting better every day. Any reversal of that trend is pathology until proven otherwise.",
+ "Hypopyon after recent surgery is endophthalmitis until an ophthalmologist says otherwise — do not attribute it to uveitis.",
+ "Pain is not universal in endophthalmitis; around a quarter of patients are relatively comfortable, so painless vision loss does not exclude it.",
+ "Never start or stop topical steroids in a post-operative eye without speaking to the surgeon.",
+ "Ask what drops the patient is actually taking, not what was prescribed — non-adherence and confusion between bottles are common and consequential."
+]
+}
+);
+
 /* ---------- first five minutes ---------- */
 const FIRST = {
 "chest-pain":["ECG within 10 minutes. Repeat at 15–30 min if pain persists.","hs-troponin now and at 1–3 h. Aspirin 325 mg chewed unless dissection is suspected.","Check BP in both arms. A differential or tearing pain means CT angiogram before any anticoagulation.","STEMI or new LBBB with concordance: activate the cath lab, do not wait for troponin.","Two IVs, monitor, pads if unstable. Nitroglycerin only after you have excluded RV infarct."],
@@ -2626,8 +3280,800 @@ const HPI = {
 /* mod phrases that are past/present-tense verbs — rendered "It <phrase>." not "It is <phrase>." */
 const HPI_VERBAL = new Set(["occurred while standing","occurred while seated","occurred while supine","occurred during exertion","occurred on standing up","occurred after urination, coughing, or defecation","responds transiently to antipyretics","spikes at a consistent time of day","responds to fluid bolus","terminated with vagal maneuvers","persists despite rate control","improved after rest and repeat measurement","improved after analgesia or bladder emptying","improved with fluids","improved with fluid restriction","improved after treatment","improved with iron","improves with reorientation","fluctuates through the day","wakes from sleep","continues with fasting","stops with fasting","occurs at night","migrated from another location","stopped spontaneously","continuing to fall","persists despite fluids"]);
 
+/* ---------- ophthalmology: first five minutes ---------- */
+Object.assign(FIRST, {
+"eye-vision-loss":["Acuity in each eye separately, with pinhole. Even 'counting fingers' is a number worth recording.","Swinging flashlight test for a RAPD — this single finding splits optic nerve and retina from everything else.","Over 50? Send ESR, CRP, and platelets now, and ask about jaw claudication and scalp tenderness.","Check the pressure if there is any pain or redness.","Dilated fundus exam. If you suspect retinal artery occlusion, start the stroke pathway, not an outpatient referral."],
+"eye-red-eye":["Acuity first — any reduction moves this out of the conjunctivitis category.","Measure the intraocular pressure unless you suspect an open globe.","Fluorescein and cobalt blue on every painful red eye: look for a dendrite, an ulcer, or an abrasion.","Contact lens wearer with an infiltrate: stop lenses, no steroid, ophthalmology today.","Check the pupil shape and look for ciliary flush and hypopyon."],
+"eye-trauma":["Look for open globe signs before touching the eye: peaked pupil, shallow chamber, uveal prolapse, 360° subconjunctival hemorrhage.","If open globe is possible — stop. Rigid shield, NPO, antiemetic, analgesia, tetanus, IV antibiotics, ophthalmology. No drops, no pressure check.","Document acuity in both eyes and check for a RAPD.","Ask the mechanism. Metal on metal or grinding means CT orbits for an intraocular foreign body.","Proptosis with a tense orbit and failing vision — lateral canthotomy and cantholysis at the bedside, now."],
+"eye-chemical":["Irrigate immediately. Do not take a history first.","Topical anesthetic, lids everted, fornices swept, 1–2 litres of saline or lactated Ringer's per eye.","Check pH in the lower fornix and keep irrigating until it is 7.0–7.4.","Recheck the pH 5 minutes after stopping — it commonly drifts back and you resume.","Then grade it: corneal clarity and clock hours of limbal blanching. A white eye is the bad one."],
+"eye-flashes":["Ask the one question that matters: is there a curtain or shadow in any part of the vision?","Acuity, pupils for a RAPD, and confrontation fields.","Dilate and examine the periphery with scleral depression — the tear will not be visible any other way.","Pigment or red cells in the anterior vitreous means a tear until proven otherwise.","If detached, establish whether the macula is on or off — that sets the surgical clock."],
+"eye-orbit":["Test eye movements and ask about pain on looking around. That is the preseptal-versus-orbital discriminator.","Acuity, colour vision, and pupils for a RAPD.","Look for proptosis from above and check resistance to retropulsion.","Orbital signs mean admit, blood cultures, IV antibiotics, and CT orbits and sinuses with contrast.","Diabetic or immunocompromised? Look in the nose and at the palate for eschar and call ENT."],
+"eye-diplopia":["Cover one eye. If the diplopia goes away with either eye covered it is binocular and neurologic; if it persists it is optical.","Check the pupil in any third nerve palsy — a dilated pupil means emergent vessel imaging.","Look for ptosis and test for fatigability; ice pack test if myasthenia is possible.","Over 50 with a new palsy: ESR and CRP.","Fundus exam for papilledema — a sixth nerve palsy can be a false localizing sign."],
+"eye-papilledema":["Acuity, colour vision, and pupils. Preserved acuity is normal early in papilledema and is not reassuring.","Bilateral swelling: ask about positional headache, transient obscurations, pulsatile tinnitus, and diplopia.","Check blood pressure — malignant hypertension is a cause you can treat immediately.","Over 50 with unilateral pallid swelling: ESR, CRP, platelets, and steroids for giant cell arteritis.","Image before any lumbar puncture, and order MR venography, not just MRI."],
+"eye-anisocoria":["Measure both pupils in bright light and again in the dark. Whichever difference is bigger tells you which pupil is abnormal.","Look for ptosis and check eye movements.","Bigger difference in light plus ptosis and a motility deficit — third nerve palsy, image the vessels emergently.","Bigger difference in the dark plus ptosis — Horner syndrome; if acute or painful, image the carotids urgently.","Ask about drops, patches, and nebulizers, and look at an old photograph on their phone."],
+"eye-postop":["What operation, and how many days ago? The interval drives the differential.","Increasing pain, decreasing vision, or increasing redness after intraocular surgery — treat as endophthalmitis and call ophthalmology now.","Check the intraocular pressure.","Look for hypopyon, corneal edema, and wound integrity with a Seidel test.","Ask what drops they are actually using, and do not stop a post-op steroid without speaking to the surgeon."]
+});
+
+/* ---------- ophthalmology: HPI builders ---------- */
+Object.assign(HPI, {
+"eye-vision-loss":{cc:"vision loss", subj:"The vision loss", locSite:true,
+ quality:["painless","painful","complete","partial","like a curtain","central blur","peripheral loss"],
+ location:["right eye","left eye","both eyes"], locPrep:true, locFront:false,
+ mod:["persistent","transient and now resolved","worsening","fluctuating","worse in bright light"],
+ assoc:["flashes","floaters","eye pain","pain on eye movement","headache","jaw claudication","scalp tenderness","diplopia","red eye","nausea"],
+ neg:["eye pain","trauma","headache","jaw claudication","flashes or floaters","red eye","neurologic symptoms"],
+ risk:["hypertension","diabetes","hyperlipidemia","atrial fibrillation","smoking","known glaucoma","high myopia","prior retinal detachment","prior cataract surgery","carotid disease","giant cell arteritis or polymyalgia"]},
+
+"eye-red-eye":{cc:"redness", subj:"The redness", locSite:true,
+ quality:["itchy","gritty","painful","deeply aching","photophobic"],
+ location:["right eye","left eye","both eyes"], locPrep:true, locFront:false,
+ mod:["worse in bright light","worse in the morning","unchanged by lubricants","worse with contact lens wear"],
+ assoc:["watery discharge","purulent discharge","stringy discharge","reduced vision","photophobia","halos around lights","foreign body sensation","lid swelling","preauricular node"],
+ neg:["reduced vision","photophobia","discharge","trauma","contact lens use","cold sores or shingles","prior similar episodes"],
+ risk:["contact lens wear","sleeping in lenses","recent eye surgery or injection","prior herpes simplex keratitis","autoimmune disease","dry eye","recent upper respiratory infection","immunosuppression"]},
+
+"eye-trauma":{cc:"an injury", subj:"The injury", locSite:true,
+ quality:["blunt","sharp or penetrating","high-velocity","chemical","thermal"],
+ location:["right eye","left eye","both eyes"], locPrep:true, locFront:false,
+ mod:["worsening","stable since the injury","improving"],
+ assoc:["reduced vision","pain","photophobia","diplopia","foreign body sensation","bleeding","lid laceration","numbness of the cheek"],
+ neg:["reduced vision","diplopia","foreign body sensation","loss of consciousness","use of eye protection"],
+ risk:["metal-on-metal work or grinding","no eye protection worn","prior eye surgery","anticoagulation","prior injury to the same eye"]},
+
+"eye-chemical":{cc:"a chemical exposure", subj:"The exposure", locSite:true,
+ quality:["alkali","acid","unknown agent","detergent or solvent","irritant spray"],
+ location:["right eye","left eye","both eyes"], locPrep:true, locFront:false,
+ mod:["irrigated at the scene","not irrigated before arrival","still symptomatic after irrigation"],
+ assoc:["pain","reduced vision","tearing","blepharospasm","lid burns","facial burns"],
+ neg:["reduced vision","facial or airway involvement","retained particles","prior eye disease"],
+ risk:["occupational exposure","no eye protection worn","cement or lime exposure","hydrofluoric acid exposure"]},
+
+"eye-flashes":{cc:"flashes and floaters", subj:"The symptoms", qLead:"are described as", locSite:true,
+ quality:["a few new floaters","a shower of many floaters","persistent flashes","described as smoke or soot"],
+ location:["right eye","left eye","both eyes"], locPrep:true, locFront:false,
+ mod:["worse in the dark","worse with eye movement","unchanged since onset","progressing"],
+ assoc:["a curtain or shadow","peripheral field loss","reduced central vision","eye pain","photophobia"],
+ neg:["curtain or shadow","field loss","reduced vision","pain","trauma","recent surgery"],
+ risk:["high myopia","prior cataract surgery","prior retinal detachment in either eye","family history of detachment","lattice degeneration","recent trauma","age over 50"]},
+
+"eye-orbit":{cc:"periorbital swelling and redness", subj:"The swelling", locSite:true,
+ quality:["unilateral","bilateral","rapidly progressive","indurated"],
+ location:["right eye","left eye","both eyes"], locPrep:true, locFront:false,
+ mod:["worsening despite oral antibiotics","progressing over hours","stable"],
+ assoc:["fever","pain on eye movement","diplopia","proptosis","reduced vision","nasal congestion","facial pain","headache"],
+ neg:["fever","pain on eye movement","diplopia","reduced vision","trauma","insect bite","dental pain"],
+ risk:["recent sinusitis","recent upper respiratory infection","dental infection","recent trauma or insect bite","diabetes","immunosuppression","recent orbital or sinus surgery"]},
+
+"eye-diplopia":{cc:"double vision", subj:"The diplopia",
+ quality:["binocular","monocular","horizontal","vertical","oblique"],
+ location:[],
+ mod:["worse at distance","worse at near","worse in one direction of gaze","better with head tilt","worse at the end of the day","constant"],
+ assoc:["ptosis","eye pain","headache","proptosis","weakness","difficulty swallowing","slurred speech","facial numbness"],
+ neg:["ptosis","headache","pain","trauma","weakness","swallowing or speech difficulty","bladder or bowel symptoms"],
+ risk:["diabetes","hypertension","known thyroid disease","myasthenia gravis","multiple sclerosis","recent trauma","smoking","known aneurysm"]},
+
+"eye-papilledema":{cc:"optic disc swelling", subj:"The disc swelling",
+ quality:["bilateral","unilateral","pallid","hyperemic"],
+ location:[],
+ mod:["worsening on serial exams","stable","improving with treatment"],
+ assoc:["headache worse lying flat","transient visual obscurations","pulsatile tinnitus","diplopia","nausea or vomiting","reduced colour vision","field loss"],
+ neg:["headache","transient obscurations","pulsatile tinnitus","diplopia","reduced vision","jaw claudication"],
+ risk:["obesity or recent weight gain","tetracycline use","vitamin A or retinoid use","oral contraceptive use","recent steroid withdrawal","known malignancy","prothrombotic state","hypertension"]},
+
+"eye-anisocoria":{cc:"unequal pupils", subj:"The anisocoria",
+ quality:["greater in bright light","greater in dim light","equal in light and dark","long-standing","most marked with the right pupil larger","most marked with the left pupil larger"],
+ location:[],
+ mod:["new","unchanged from old photographs","fluctuating"],
+ assoc:["ptosis","diplopia","eye pain","headache","neck or face pain","reduced sweating on one side","blurred near vision"],
+ neg:["ptosis","diplopia","headache","neck pain","trauma","eye drops or patches","reduced vision"],
+ risk:["recent scopolamine patch or nebulizer use","carotid disease","smoking","known aneurysm","recent trauma","prior eye surgery","diabetes"]},
+
+"eye-postop":{cc:"a postoperative problem", subj:"The eye", locSite:true,
+ quality:["painful","painless","increasingly red","blurred"],
+ location:["right eye","left eye"], locPrep:true, locFront:false,
+ mod:["worsening after an initial improvement","improving as expected","unchanged since surgery"],
+ assoc:["reduced vision","pain","redness","hypopyon","floaters","flashes","discharge","photophobia"],
+ neg:["pain","reduced vision","increasing redness","flashes or floaters","discharge","trauma"],
+ risk:["recent cataract surgery","recent intravitreal injection","recent vitrectomy or retinal surgery","recent glaucoma surgery","diabetes","immunosuppression","poor drop compliance"]}
+});
+
+/* ---------- ophthalmology: clinic ---------- */
+DATA.push(
+{
+id:"eye-gradual-loss", tag:"Ophthalmology", sub:"Clinic", name:"Gradual vision loss",
+one:"Painless, slow, and bilateral usually means media, macula, or nerve — the pinhole and the OCT sort most of it.",
+flags:[
+ "If the pinhole fully corrects it, the problem is refractive or media, not neural.",
+ "Unilateral gradual loss with a RAPD is optic nerve disease, not cataract — do not attribute it to the lens.",
+ "Progressive loss with a normal exam and normal OCT should prompt neuroimaging for a compressive lesion, particularly with colour desaturation or a junctional field defect.",
+ "New central distortion (metamorphopsia) means macula until proven otherwise — get the OCT the same visit.",
+ "Rapidly progressive loss over weeks in a young patient raises inflammatory, infiltrative, and hereditary causes."
+],
+ddx:[
+ {g:"Media", i:["Cataract — nuclear sclerotic, cortical, posterior subcapsular (glare and near vision worse)","Posterior capsule opacification after cataract surgery","Corneal dystrophy or scarring, Fuchs endothelial dystrophy","Uncorrected refractive error, presbyopia"]},
+ {g:"Macula", crit:true, i:["Age-related macular degeneration","Diabetic macular edema","Epiretinal membrane","Macular hole","Central serous chorioretinopathy","Hydroxychloroquine or other drug toxicity"]},
+ {g:"Optic nerve and pathway", crit:true, i:["Glaucoma — peripheral first, central late","Compressive lesion — pituitary adenoma, meningioma","Nutritional or toxic optic neuropathy (B12, thiamine, ethambutol, amiodarone)","Hereditary optic neuropathy"]},
+ {g:"Retina", i:["Retinitis pigmentosa and other dystrophies","Chronic retinal detachment","Vascular occlusion with chronic edema"]}
+],
+hx:[
+ "One eye or both, and how long — patients often notice a long-standing unilateral loss only when they cover the good eye.",
+ "Distance versus near, glare and haloes at night, difficulty reading, distortion of straight lines, missing patches.",
+ "Ask about the Amsler grid if they have one, and about driving difficulty at night.",
+ "Drugs that matter: hydroxychloroquine (and cumulative dose and duration), ethambutol, amiodarone, tamoxifen, topiramate.",
+ "Exam: best corrected acuity with pinhole, pupils for a RAPD, colour vision, Amsler, confrontation and then formal fields, slit lamp for lens and cornea, intraocular pressure, dilated macula and disc exam."
+],
+wu:{
+ labs:["B12, folate, thiamine, and a nutritional screen in suspected toxic or nutritional optic neuropathy.","Genetic testing for hereditary optic neuropathy or dystrophy, in consultation.","HbA1c if diabetic macular disease is suspected and control is unknown."],
+ img:["<strong>OCT macula</strong> — the single highest-yield test for unexplained central vision loss. It shows edema, fluid, membrane, hole, and atrophy.","<strong>OCT retinal nerve fibre layer and ganglion cell analysis</strong> for suspected glaucoma or optic neuropathy; ganglion cell thinning appears before field loss.","<strong>Formal visual fields (24-2 or 30-2)</strong> — essential for glaucoma and for any suspected chiasmal lesion; a bitemporal defect sends you to MRI.","Fundus photography for baseline documentation and to track change.","Fluorescein angiography if choroidal neovascularization or vascular leakage is suspected; OCT angiography is a non-invasive alternative.","<strong>MRI brain and orbits with contrast</strong> for unexplained optic neuropathy, a junctional or bitemporal field defect, or progressive loss with a normal eye exam.","Corneal topography and specular microscopy for corneal causes; biometry if cataract surgery is being planned."],
+ other:["Hydroxychloroquine screening: baseline exam within the first year, then annually after 5 years, with OCT plus 10-2 visual fields (and multifocal ERG or fundus autofluorescence where available). Risk rises above 5 mg/kg/day of real body weight and with renal impairment and tamoxifen use.","Electrophysiology (ERG, VEP) for dystrophies and unexplained loss with a normal structural workup."]
+},
+strat:[
+ {t:"The pinhole is the first triage step", n:"It takes seconds and tells you which branch to work.",
+  rows:[
+   ["ok","Pinhole corrects fully","Refractive error or mild media opacity.","Refraction and glasses. No further workup unless the refraction has shifted unusually fast — a myopic shift suggests nuclear cataract or hyperglycemia."],
+   ["mod","Pinhole improves partially","Media opacity such as cataract, or mixed disease.","Slit lamp grading of the cataract, but still examine the macula and nerve — do not assume the cataract explains all of it."],
+   ["sev","Pinhole does not improve it","Macular, retinal, or optic nerve disease.","OCT macula and nerve, formal fields, dilated exam. Consider MRI if the eye looks normal."]
+  ]},
+ {t:"Cataract — when to refer for surgery", n:"The decision is functional, not a number on the chart.",
+  rows:[
+   ["ok","Vision meets the patient's needs","Early lens changes.","Update the refraction, optimize lighting, and review annually. Surgery is not indicated on appearance alone."],
+   ["mod","Interfering with driving, reading, work, or falls risk","Visually significant cataract.","Refer for surgical evaluation with biometry. Discuss refractive targets and lens options. Note posterior subcapsular cataracts cause disproportionate glare and near blur at good Snellen acuity."],
+   ["sev","Dense cataract preventing fundus view, or lens-induced glaucoma or uveitis","Hypermature or intumescent lens.","Prompt surgical referral — this is no longer elective."]
+  ]}
+],
+mgmt:[
+ "<strong>Cataract:</strong> the treatment is surgery, timed by functional impairment. Before referral, document best corrected acuity, glare testing if available, and the state of the macula, because macular disease limits the visual outcome and should be discussed in advance.",
+ "<strong>Posterior capsule opacification:</strong> YAG laser capsulotomy — a clinic procedure, minutes, with immediate improvement.",
+ "<strong>Refractive error and presbyopia:</strong> refraction and spectacles. Explain that reading glasses do not weaken the eyes.",
+ "<strong>Epiretinal membrane and macular hole:</strong> vitreoretinal referral; surgery for symptomatic membranes and for most full-thickness holes.",
+ "<strong>Toxic or nutritional optic neuropathy:</strong> stop the offending drug, replace the deficiency, and involve the prescriber — ethambutol and amiodarone need a conversation, not just cessation.",
+ "<strong>Hydroxychloroquine toxicity:</strong> stop the drug in consultation with rheumatology. The damage does not reverse, which is the point of screening.",
+ "Low-vision referral for anyone whose acuity limits daily function — magnifiers, lighting, and rehabilitation change independence more than any further testing."
+],
+pearls:[
+ "A myopic shift in an older patient is often a nuclear cataract, and in a diabetic it may be hyperglycemia — check the glucose before changing the glasses.",
+ "Posterior subcapsular cataracts cause glare and near blur out of proportion to the Snellen acuity, and are associated with steroid use and diabetes.",
+ "Glaucoma takes peripheral vision first, so a patient with good central acuity can still have advanced disease. The field test is not optional.",
+ "If the eye exam is normal and the vision is not, the problem is behind the eye. Order the MRI rather than repeating the refraction.",
+ "Always check acuity in each eye separately at every clinic visit — long-standing unilateral loss is discovered this way."
+]
+},
+
+{
+id:"eye-diabetic", tag:"Ophthalmology", sub:"Clinic", name:"Diabetic eye disease",
+one:"Screening finds it, OCT grades the macula, and the treatment splits between anti-VEGF and laser.",
+flags:[
+ "Sudden vision loss in a diabetic — vitreous hemorrhage or tractional detachment from proliferative disease. Urgent referral.",
+ "New vessels on the disc or elsewhere define proliferative disease and demand treatment regardless of acuity.",
+ "Neovascularization of the iris or angle means neovascular glaucoma is coming — urgent, sight- and eye-threatening.",
+ "Rapid tightening of glycemic control can transiently worsen retinopathy — anticipate it rather than being surprised.",
+ "Pregnancy accelerates retinopathy; these patients need examination each trimester."
+],
+ddx:[
+ {g:"Diabetic disease", crit:true, i:["Non-proliferative diabetic retinopathy — mild, moderate, severe","Proliferative diabetic retinopathy","Diabetic macular edema — centre-involving or not","Tractional retinal detachment","Neovascular glaucoma"]},
+ {g:"Coexisting and mimicking", i:["Hypertensive retinopathy","Retinal vein occlusion","Radiation retinopathy","Ocular ischemic syndrome","Macular telangiectasia"]},
+ {g:"Other diabetic ocular problems", i:["Cataract, often earlier and faster","Fluctuating refraction with glycemic swings","Cranial nerve palsies — pupil-sparing third, sixth","Increased risk of infection and slower corneal healing"]}
+],
+hx:[
+ "Type and duration of diabetes, most recent HbA1c, and how quickly control has changed recently.",
+ "Blood pressure, renal function, lipids — the systemic drivers of progression. Nephropathy and retinopathy track together.",
+ "Prior laser, injections, or vitrectomy, and in which eye.",
+ "Symptoms: blurring, distortion, floaters, and any sudden change.",
+ "Exam: acuity, intraocular pressure, <strong>undilated iris and angle examination for rubeosis before dilating</strong>, then dilated fundus exam with attention to the disc, macula, and periphery."
+],
+wu:{
+ labs:["HbA1c, renal function, lipid profile, blood pressure — these drive both prognosis and the conversation with the primary team.","Pregnancy status where relevant, since it changes screening frequency."],
+ img:["<strong>OCT macula</strong> at every visit where edema is suspected — it defines whether the edema involves the centre, which decides treatment.","<strong>Fundus photography</strong> for grading and documentation, and for telemedicine screening programs.","<strong>Fluorescein angiography</strong> to identify non-perfusion and neovascularization and to guide laser; OCT angiography is a non-invasive alternative for macular perfusion.","<strong>B-scan ultrasound</strong> when vitreous hemorrhage prevents a view — you are looking for tractional detachment.","Widefield imaging where available, since peripheral non-perfusion is easily missed."],
+ other:["Screening intervals: type 1 from 5 years after diagnosis then annually; type 2 at diagnosis then annually; pregnancy each trimester and for a year postpartum. More frequently at every step once retinopathy is present.","Document grading explicitly in the note so the next clinician can see progression."]
+},
+strat:[
+ {t:"Retinopathy grade and what it triggers", n:"Grading is by what you see on dilated exam and photographs.",
+  rows:[
+   ["ok","Mild non-proliferative","Microaneurysms only.","Optimize glycemia, blood pressure, and lipids. Recheck in 12 months."],
+   ["mod","Moderate non-proliferative","More than microaneurysms but less than severe.","Recheck in 6–12 months. Systemic optimization is the treatment."],
+   ["sev","Severe non-proliferative","The 4-2-1 rule: severe hemorrhages in 4 quadrants, venous beading in 2, or intraretinal microvascular abnormalities in 1.","High risk of progression to proliferative disease within a year. Recheck in 3–4 months; consider early panretinal photocoagulation or anti-VEGF, especially if follow-up is unreliable or the other eye is already lost."],
+   ["sev","Proliferative","New vessels at the disc or elsewhere, vitreous or preretinal hemorrhage.","<strong>Panretinal photocoagulation</strong>, or anti-VEGF where adherence to follow-up is reliable. Vitrectomy for non-clearing hemorrhage or tractional detachment threatening the macula."]
+  ]},
+ {t:"Diabetic macular edema — the OCT decides", n:"",
+  rows:[
+   ["ok","Non-centre-involving, good acuity","Edema outside the central subfield.","Observe with OCT, or focal/grid laser for persistent leakage. Systemic optimization."],
+   ["sev","Centre-involving with reduced acuity","Fluid in the central subfield affecting vision.","<strong>Intravitreal anti-VEGF</strong> is first-line — a loading course then treat-and-extend. Steroid implant (dexamethasone or fluocinolone) as second-line or in pseudophakic eyes, or where injection frequency is impractical; watch for cataract and pressure rise."],
+   ["mod","Centre-involving with good acuity (20/25 or better)","Fluid present but vision preserved.","Observation with close OCT follow-up is a reasonable strategy, treating if acuity drops — this reflects the Protocol V finding that outcomes were similar."]
+  ]}
+],
+mgmt:[
+ "<strong>Systemic control is the treatment that changes the disease.</strong> Every 1% reduction in HbA1c meaningfully reduces microvascular progression. Blood pressure and lipid control matter almost as much. Write to the primary team with your findings rather than only documenting them.",
+ "<strong>Anti-VEGF</strong> (aflibercept, ranibizumab, bevacizumab) for centre-involving macular edema and as an option in proliferative disease. Counsel that this is a course of repeated injections, not a single treatment, and that missed appointments cost vision.",
+ "<strong>Panretinal photocoagulation</strong> for proliferative disease — durable, does not depend on follow-up adherence, but costs peripheral field and night vision. Discuss that trade-off explicitly.",
+ "<strong>Vitrectomy</strong> for non-clearing vitreous hemorrhage, tractional detachment involving the macula, or dense premacular hemorrhage.",
+ "<strong>Neovascular glaucoma:</strong> urgent anti-VEGF plus panretinal photocoagulation plus pressure-lowering; glaucoma surgery often needed.",
+ "Smoking cessation, and screen for coexisting nephropathy and neuropathy — the eye finding is a marker of systemic disease.",
+ "Set and document the recall interval at every visit. Loss to follow-up is the single most common reason a diabetic patient goes blind."
+],
+pearls:[
+ "Check the iris for rubeosis before you dilate — it is much harder to see afterwards.",
+ "Acuity is a poor guide to retinopathy severity. A patient with 20/20 vision can have proliferative disease needing urgent laser.",
+ "The macula and the periphery are separate problems with separate treatments; a patient can need both injections and laser.",
+ "In type 2 diabetes, retinopathy may be present at diagnosis, because the disease preceded the diagnosis by years.",
+ "Anti-VEGF works only while it is being given. A patient who stops attending loses what was gained, which is why panretinal photocoagulation still has a role."
+]
+},
+
+{
+id:"eye-glaucoma", tag:"Ophthalmology", sub:"Clinic", name:"Glaucoma and ocular hypertension",
+one:"Pressure, nerve, and field — you need all three, and the field is what tells you whether you are winning.",
+flags:[
+ "Vertical cup-to-disc asymmetry over 0.2 between the eyes, a notch in the rim, or a disc hemorrhage — all point to glaucomatous damage regardless of the pressure.",
+ "Normal pressure does not exclude glaucoma. Normal-tension glaucoma is common and is diagnosed on nerve and field.",
+ "A narrow or occludable angle on gonioscopy means this patient is at risk of an acute attack — consider prophylactic laser iridotomy.",
+ "Rapidly progressive field loss, or advanced disease at presentation in a young patient, needs urgent specialist involvement and aggressive targets.",
+ "Ask about steroid use in any form — inhaled, topical skin, nasal, or joint injection — as steroid-induced pressure rise is common and reversible."
+],
+ddx:[
+ {g:"Primary", i:["Primary open-angle glaucoma","Normal-tension glaucoma","Primary angle-closure suspect, primary angle closure, and primary angle-closure glaucoma","Ocular hypertension — raised pressure with normal nerve and field"]},
+ {g:"Secondary", crit:true, i:["Pseudoexfoliation glaucoma — higher pressures, faster progression","Pigment dispersion glaucoma — young myopes, pressure spikes after exercise","Steroid-induced","Neovascular — diabetes, vein occlusion, ocular ischemia","Uveitic","Traumatic angle recession","Lens-related"]},
+ {g:"Mimics — a large cup that is not glaucoma", i:["Physiologic large cup, particularly in large discs","Optic disc anomalies and colobomas","Compressive optic neuropathy — pallor out of proportion to cupping","Prior ischemic optic neuropathy"]}
+],
+hx:[
+ "Glaucoma is asymptomatic until late. Ask instead about family history, which is one of the strongest risk factors.",
+ "Steroid exposure of any route, ocular trauma, previous eye surgery, and prior refractive surgery (which alters pressure readings).",
+ "Systemic vascular disease, migraine, Raynaud's, and nocturnal hypotension — relevant to normal-tension glaucoma.",
+ "Adherence: ask specifically how many drops they take and whether they ever run out. Non-adherence is the usual reason for progression.",
+ "Exam: acuity, pupils for a RAPD, intraocular pressure with time of day noted, <strong>gonioscopy</strong> to define the angle, central corneal thickness, and a careful stereoscopic disc exam documenting cup-to-disc ratio, rim notching, and disc hemorrhages."
+],
+wu:{
+ labs:["Not routinely indicated. Consider a vascular and autoimmune workup in atypical normal-tension disease."],
+ img:["<strong>OCT retinal nerve fibre layer and ganglion cell complex</strong> — detects structural loss before field loss, and is the tool for tracking progression in early disease.","<strong>Automated perimetry (24-2, and 10-2 in advanced disease)</strong> — the functional measure and the basis for treatment escalation. At least two reliable baselines.","<strong>Gonioscopy</strong> — the test that distinguishes open from narrow angle and is frequently skipped. Anterior segment OCT or ultrasound biomicroscopy supplements it.","<strong>Pachymetry</strong> for central corneal thickness, which corrects pressure interpretation and is itself a risk factor.","Disc photography for baseline comparison, particularly for documenting hemorrhages.","MRI if the disc pallor exceeds the cupping, if the field defect respects the vertical midline, or if the patient is young with atypical loss."],
+ other:["Diurnal pressure measurement when the pressure does not fit the damage.","Target pressure: set it explicitly, typically a 20–30% reduction from baseline, and revise it if progression continues."]
+},
+strat:[
+ {t:"Ocular hypertension versus glaucoma", n:"The distinction is the optic nerve and the visual field, not the pressure.",
+  rows:[
+   ["ok","Raised pressure, normal nerve, normal field","Ocular hypertension.","Treatment is optional and risk-based. The Ocular Hypertension Treatment Study showed treating reduced 5-year conversion to glaucoma from about 9.5% to 4.4%. Treat if the pressure is high (over about 24–26), the cornea is thin, the cup is large, or there are other risk factors. Otherwise monitor."],
+   ["mod","Normal pressure, glaucomatous nerve and field","Normal-tension glaucoma.","Still treat by lowering pressure — the Collaborative Normal-Tension Glaucoma Study showed a 30% reduction slows progression. Also address nocturnal hypotension and review antihypertensive timing."],
+   ["sev","Raised pressure with nerve and field damage","Primary open-angle glaucoma.","Set a target pressure 20–30% below baseline and treat. Escalate if the field progresses."]
+  ]},
+ {t:"Severity by visual field, which sets the target and the follow-up interval", n:"",
+  rows:[
+   ["ok","Early — mean deviation better than −6 dB","Field loss not affecting fixation.","Target roughly 20% reduction. First-line treatment, review in 3–6 months, field every 6–12 months."],
+   ["mod","Moderate — mean deviation −6 to −12 dB","Established loss.","Target roughly 30% reduction. More frequent fields (every 6 months) and a lower threshold to add therapy."],
+   ["sev","Advanced — worse than −12 dB, or loss threatening fixation","High risk of functional blindness.","Target 30% or more. 10-2 fields. Consider surgery earlier. Discuss driving and falls risk, and refer for low-vision support."]
+  ]},
+ {t:"Angle status on gonioscopy", n:"",
+  rows:[
+   ["ok","Open angle","Trabecular meshwork visible.","Treat medically as above."],
+   ["mod","Occludable or narrow angle without damage","Primary angle-closure suspect.","Consider laser peripheral iridotomy, particularly before pharmacologic dilation, with hyperopia, or with a family history. Counsel on symptoms of an acute attack and which systemic drugs to avoid."],
+   ["sev","Angle closure with raised pressure or synechiae","Primary angle closure or angle-closure glaucoma.","Laser peripheral iridotomy, and increasingly early lens extraction, which the EAGLE trial supported as more effective than iridotomy alone in eyes with cataract."]
+  ]}
+],
+mgmt:[
+ "<strong>First-line medical therapy: a prostaglandin analogue</strong> (latanoprost, bimatoprost, travoprost) once at night — the most effective single agent, roughly 25–33% reduction. Side effects to warn about: lash growth, iris and periocular pigmentation, and periorbital fat atrophy.",
+ "<strong>Second-line and adjuncts:</strong> beta-blocker (timolol — ask about asthma, COPD, bradycardia, and heart block), alpha agonist (brimonidine — avoid in young children), topical carbonic anhydrase inhibitor (dorzolamide, brinzolamide), and rho kinase inhibitors. Fixed combinations improve adherence.",
+ "<strong>Selective laser trabeculoplasty</strong> is a reasonable first-line alternative to drops — the LiGHT trial found it gave better pressure control at 3 years with fewer patients needing drops, and it removes adherence from the equation. Offer it early rather than as a last resort.",
+ "<strong>Surgery</strong> — trabeculectomy, tube shunt, or minimally invasive glaucoma surgery — for progression despite maximal tolerated therapy, or where the target cannot be reached.",
+ "Teach drop technique and punctal occlusion, and check the bottle count against the prescription date at follow-up. Adherence is the main modifiable variable.",
+ "Treat the secondary cause where there is one: stop the steroid, treat the uveitis, panretinal photocoagulation and anti-VEGF for neovascular disease.",
+ "Screen first-degree relatives — the risk in siblings is several-fold higher and screening is simple."
+],
+pearls:[
+ "Thin corneas underestimate the true pressure and are an independent risk factor; thick corneas do the opposite. Pachymetry changes how you read every subsequent measurement.",
+ "A disc hemorrhage is a marker of ongoing damage and often precedes field loss — it should prompt escalation, not reassurance.",
+ "Gonioscopy is the most commonly skipped essential test in glaucoma. Without it you cannot know which disease you are treating.",
+ "Pseudoexfoliation is easy to miss unless you dilate and look for flakes on the anterior lens capsule and pupil margin. It progresses faster and needs closer follow-up.",
+ "Glaucoma drops are systemically absorbed. Timolol can cause bradycardia, bronchospasm, and fatigue that the patient will never connect to their eye drops."
+]
+},
+
+{
+id:"eye-amd", tag:"Ophthalmology", sub:"Clinic", name:"Age-related macular degeneration",
+one:"Dry or wet — OCT answers it, and only one of them has an urgent treatment.",
+flags:[
+ "New distortion, a new central blind spot, or a sudden drop in central acuity — treat as wet AMD and get an OCT the same day or next.",
+ "Wet AMD treated within days to weeks does far better than treatment delayed by months. Delay is the main cause of poor outcome.",
+ "Sudden severe loss with subretinal blood in an anticoagulated patient — submacular hemorrhage, urgent retinal referral.",
+ "Bilateral disease is the norm; when one eye converts to wet, the fellow eye needs monitoring and Amsler grid instruction.",
+ "AMD does not cause total blindness — peripheral vision is preserved. Say so, because patients assume otherwise and the fear is significant."
+],
+ddx:[
+ {g:"AMD", crit:true, i:["Early and intermediate dry AMD — drusen and pigmentary change","Geographic atrophy (advanced dry)","Neovascular (wet) AMD — choroidal neovascularization","Polypoidal choroidal vasculopathy","Retinal angiomatous proliferation"]},
+ {g:"Mimics", i:["Central serous chorioretinopathy — younger, steroid exposure, type A personality","Macular dystrophy (Stargardt, pattern dystrophy)","Myopic degeneration with choroidal neovascularization","Drug toxicity — hydroxychloroquine, pentosan polysulfate","Diabetic maculopathy","Epiretinal membrane, macular hole"]}
+],
+hx:[
+ "Onset and speed — gradual over years suggests dry, days to weeks suggests conversion to wet.",
+ "Distortion of straight lines, difficulty reading, a central grey or missing patch, difficulty recognizing faces.",
+ "Smoking, which is the strongest modifiable risk factor, and family history, which is the strongest non-modifiable one.",
+ "Diet, existing supplement use, and cardiovascular risk factors.",
+ "Exam: acuity, Amsler grid each eye separately, and a dilated macular exam looking for drusen, pigment change, hemorrhage, exudate, and subretinal fluid."
+],
+wu:{
+ labs:["None routinely. Genetic testing is not recommended for routine clinical management."],
+ img:["<strong>OCT macula</strong> — the core test. It distinguishes dry from wet by showing intraretinal or subretinal fluid, and it is what treatment decisions are tracked on.","<strong>OCT angiography</strong> — non-invasive detection of choroidal neovascular membranes, increasingly replacing routine angiography.","<strong>Fluorescein angiography</strong> to confirm and characterize a neovascular membrane, and indocyanine green angiography where polypoidal disease is suspected.","<strong>Fundus autofluorescence</strong> to map and monitor geographic atrophy.","Fundus photography for baseline and progression."],
+ other:["Home monitoring: Amsler grid daily, one eye at a time, with written instructions to present immediately on any new distortion. Home OCT and preferential hyperacuity perimetry are available in some settings.","Set follow-up intervals by stage, and give explicit return precautions rather than relying on the next routine appointment."]
+},
+strat:[
+ {t:"Stage, and what each stage needs", n:"",
+  rows:[
+   ["ok","Early AMD","Medium drusen (63–125 microns), no pigment change.","No supplement benefit shown at this stage. Stop smoking, eat a diet rich in leafy greens and fish, and review in 12 months with Amsler instruction."],
+   ["mod","Intermediate AMD","Large drusen (over 125 microns) or pigmentary abnormality.","<strong>AREDS2 supplement</strong> — vitamin C, vitamin E, zinc, copper, lutein, and zeaxanthin — reduces progression to advanced disease by about 25% over 5 years. Note beta-carotene was removed because it raised lung cancer risk in smokers. Review every 6–12 months."],
+   ["sev","Advanced dry — geographic atrophy","Sharply demarcated atrophy, often sparing the fovea until late.","Supplements for the fellow eye. Complement inhibitors (pegcetacoplan, avacincaptad) slow lesion growth modestly but have not shown functional visual benefit and carry a risk of conversion to wet AMD — a specialist discussion. Low-vision rehabilitation."],
+   ["sev","Advanced wet — neovascular","Intraretinal or subretinal fluid, hemorrhage, or exudate on OCT.","<strong>Intravitreal anti-VEGF, started urgently.</strong> Aflibercept, ranibizumab, bevacizumab, or faricimab — a loading phase of monthly injections then treat-and-extend. Vision gained is largely preserved only with continued treatment."]
+  ]}
+],
+mgmt:[
+ "<strong>Wet AMD:</strong> anti-VEGF without delay. Typical regimen is three monthly loading injections then treat-and-extend guided by OCT. Faricimab and higher-dose aflibercept allow longer intervals in many patients.",
+ "<strong>Intermediate and advanced dry AMD:</strong> AREDS2 formulation daily. Confirm the patient is taking the AREDS2 version and not a generic multivitamin, which does not have the evidence.",
+ "<strong>Smoking cessation</strong> is the single most effective modifiable intervention and roughly doubles risk if continued. Treat it as a prescription, with referral.",
+ "Amsler grid daily with written return precautions, and check they can demonstrate using it one eye at a time.",
+ "<strong>Low-vision rehabilitation</strong> for anyone with advanced disease — magnifiers, high-contrast lighting, reading aids, and occupational therapy. This changes daily function more than any additional imaging.",
+ "Address falls risk, driving, and depression, which is substantially more common in AMD and routinely unaddressed.",
+ "Reassure explicitly that AMD does not cause complete blindness, since the peripheral retina is spared."
+],
+pearls:[
+ "New metamorphopsia is wet AMD until OCT says otherwise, and it is the symptom to teach patients to report.",
+ "Drusen are not treated. Fluid is treated. The OCT distinction drives everything.",
+ "Check the fellow eye at every visit — patients compensate so well that unilateral conversion goes unnoticed.",
+ "Beta-carotene was removed from AREDS2 because of lung cancer risk in smokers and former smokers; an old AREDS formulation in a smoker is a genuine harm.",
+ "Central serous chorioretinopathy is the classic mimic in a younger patient — ask about steroid use of any route, including skin creams and inhalers."
+]
+},
+
+{
+id:"eye-surface", tag:"Ophthalmology", sub:"Clinic", name:"Dry eye and ocular surface",
+one:"Most red, gritty, watery eyes in clinic are surface disease, and the commonest cause of tearing is dryness.",
+flags:[
+ "Severe dry eye with dryness of the mouth, joint pain, or fatigue — Sjögren syndrome. Send serology and involve rheumatology.",
+ "Corneal staining that worsens despite treatment, or a persistent epithelial defect, risks melt and needs specialist care.",
+ "Unilateral chronic redness or persistent discharge should raise the possibility of a lid malignancy or a retained foreign body.",
+ "Reduced corneal sensation with surface breakdown is neurotrophic keratopathy, which behaves differently and needs specific management.",
+ "Ask about isotretinoin, antihistamines, anticholinergics, and antidepressants — common and reversible contributors."
+],
+ddx:[
+ {g:"Dry eye", i:["Evaporative — meibomian gland dysfunction, the most common form","Aqueous deficient — Sjögren and non-Sjögren","Mixed"]},
+ {g:"Lid and lash disease", i:["Blepharitis, anterior and posterior","Demodex infestation — cylindrical dandruff at the lash base","Chalazion, hordeolum","Entropion, ectropion, lagophthalmos","Floppy eyelid syndrome — think obstructive sleep apnea"]},
+ {g:"Other surface disease", crit:true, i:["Allergic conjunctivitis and atopic disease","Ocular rosacea","Mucous membrane pemphigoid — scarring, symblepharon, sight-threatening","Limbal stem cell deficiency","Neurotrophic keratopathy","Medication toxicity, especially preserved drops and glaucoma medications"]},
+ {g:"Causes of tearing specifically", i:["Reflex tearing from dryness — the paradox that confuses patients","Nasolacrimal duct obstruction","Punctal stenosis","Lid malposition","Trichiasis"]}
+],
+hx:[
+ "Burning, grittiness, fluctuating vision that clears on blinking, worse at the end of the day and with screens.",
+ "Screen time, contact lens wear, environment (air conditioning, wind, low humidity), and CPAP use.",
+ "Systemic disease: rheumatoid arthritis, Sjögren, thyroid disease, rosacea, graft-versus-host disease.",
+ "Full drug list including topical drops and their preservatives — benzalkonium chloride toxicity is a common iatrogenic cause.",
+ "Exam: tear break-up time with fluorescein, corneal and conjunctival staining pattern (lissamine green for conjunctiva), tear meniscus height, lid margin and meibomian gland expression, lash base for Demodex, lid position and closure, and corneal sensation."
+],
+wu:{
+ labs:["Sjögren workup if indicated: anti-Ro (SSA), anti-La (SSB), ANA, rheumatoid factor. Note anti-Ro and anti-La are negative in a substantial proportion, so consider minor salivary gland biopsy through rheumatology if suspicion remains.","Thyroid function where lid retraction or proptosis is present."],
+ img:["Not usually needed for diagnosis.","Meibography where available, to document gland dropout and to motivate treatment adherence.","Anterior segment OCT for tear meniscus measurement in specialist settings."],
+ other:["<strong>Schirmer test</strong> — under 5 mm in 5 minutes suggests aqueous deficiency.","<strong>Tear break-up time</strong> — under 10 seconds suggests evaporative disease; under 5 seconds is definitely abnormal.","Tear osmolarity and matrix metalloproteinase-9 testing are available and support the diagnosis but rarely change initial management.","Standardized symptom questionnaire (OSDI) at baseline and follow-up, since symptoms and signs correlate poorly and you need something to track."]
+},
+strat:[
+ {t:"A stepwise approach, escalating only if the previous step fails", n:"Most patients are managed at steps 1 and 2.",
+  rows:[
+   ["ok","Step 1 — mild","Symptoms without significant staining.","Education and expectation setting. Preservative-free artificial tears up to 4 times daily, warm compresses and lid hygiene, omega-3 discussion, environmental changes, screen breaks (the 20-20-20 rule), review the drug list, and consider stopping preserved drops."],
+   ["mod","Step 2 — moderate","Persistent symptoms, punctate staining.","Preservative-free tears more frequently plus a night ointment or gel. <strong>Topical ciclosporin 0.05%</strong> or lifitegrast — counsel that ciclosporin takes 3 months to work and stings initially, or patients abandon it. Punctal plugs. Oral doxycycline 50–100 mg daily or azithromycin for meibomian gland dysfunction and rosacea. Short pulse of topical steroid for flares, with pressure monitoring."],
+   ["sev","Step 3 — severe","Marked staining, filaments, functional impairment.","Autologous serum drops, therapeutic contact lenses, and specialist referral. Treat any underlying systemic disease."],
+   ["sev","Step 4 — refractory","Persistent epithelial defect, scarring, melt risk.","Amniotic membrane, tarsorrhaphy, scleral lenses, systemic immunosuppression. Cornea specialist."]
+  ]},
+ {t:"Watering eye — separate the two mechanisms before treating", n:"",
+  rows:[
+   ["ok","Watering with grittiness, fluctuating vision, poor tear break-up","Reflex tearing from dry eye — the most common cause of a watery eye.","Treat the dryness. Lubricating will paradoxically reduce the watering, which needs explaining or the patient will not adhere."],
+   ["mod","Watering with a wet lid margin, sticky discharge, recurrent conjunctivitis","Nasolacrimal duct obstruction.","Syringing and probing to localize; dacryocystorhinostomy for confirmed obstruction. Urgent if there is acute dacryocystitis."],
+   ["mod","Watering with lid malposition or trichiasis","Mechanical — ectropion, entropion, punctal malposition, lashes touching the globe.","Oculoplastic referral for lid surgery; epilation or electrolysis for lashes as an interim."]
+  ]}
+],
+mgmt:[
+ "<strong>Set expectations at the first visit.</strong> Dry eye is chronic and managed, not cured. Patients who expect a cure abandon treatment and return worse.",
+ "<strong>Preservative-free</strong> artificial tears once the frequency exceeds about 4 times daily — benzalkonium chloride worsens surface disease at higher exposures.",
+ "<strong>Meibomian gland dysfunction:</strong> sustained warm compresses (a heat mask for 10 minutes, not a facecloth that cools in 30 seconds), lid massage and hygiene, and oral doxycycline or azithromycin for their anti-inflammatory effect. This is the most common cause and the most commonly under-treated.",
+ "<strong>Topical ciclosporin 0.05% twice daily</strong> for inflammatory dry eye, with explicit counselling that benefit takes up to 3 months and early stinging is expected.",
+ "<strong>Demodex blepharitis:</strong> tea tree oil–based lid cleansers or lotilaner ophthalmic solution.",
+ "Treat the rosacea, the thyroid disease, or the Sjögren syndrome — the surface will not settle while the driver is untreated.",
+ "Review every topical medication the patient uses, especially glaucoma drops, and switch to preservative-free formulations where the surface is compromised."
+],
+pearls:[
+ "A watery eye is usually a dry eye. Explaining that paradox at the first visit is what makes the patient use the drops.",
+ "Symptoms and signs correlate poorly — a patient with severe symptoms and a near-normal exam is not exaggerating, and one with heavy staining may feel little if the cornea is neurotrophic.",
+ "Meibomian gland dysfunction is treated with heat and time, and it fails mostly because the compress protocol is too brief.",
+ "Warn patients about the 3-month lag with ciclosporin or they will stop it at week two.",
+ "Floppy eyelid syndrome should prompt a question about snoring and daytime sleepiness — the association with obstructive sleep apnea is strong."
+]
+},
+
+{
+id:"eye-uveitis-clinic", tag:"Ophthalmology", sub:"Clinic", name:"Uveitis workup",
+one:"Anatomy first, then pattern, then a targeted workup — a shotgun panel on every patient is the wrong approach.",
+flags:[
+ "Bilateral, granulomatous, recurrent, or posterior uveitis needs a systemic workup. A first episode of unilateral non-granulomatous anterior uveitis in a well patient often does not.",
+ "Always test for syphilis and tuberculosis before starting systemic immunosuppression or high-dose steroids.",
+ "Hypopyon uveitis in a young patient suggests HLA-B27 disease or Behçet's; after surgery or injection it is endophthalmitis.",
+ "Retinitis in an immunocompromised patient — CMV, toxoplasmosis, or acute retinal necrosis. This is sight-threatening and urgent.",
+ "Uveitis in a child with juvenile idiopathic arthritis is typically asymptomatic and white — it is found by screening, not by complaints, and it scars silently."
+],
+ddx:[
+ {g:"Anterior uveitis (iritis, iridocyclitis)", i:["Idiopathic — the majority","HLA-B27 associated: ankylosing spondylitis, reactive arthritis, psoriatic arthritis, inflammatory bowel disease","Herpetic (HSV, VZV) — often with raised pressure and iris atrophy","Juvenile idiopathic arthritis–associated","Sarcoidosis","Traumatic","Drug-induced — rifabutin, cidofovir, bisphosphonates, checkpoint inhibitors"]},
+ {g:"Intermediate uveitis", i:["Pars planitis, idiopathic","Multiple sclerosis","Sarcoidosis","Lyme disease"]},
+ {g:"Posterior and panuveitis", crit:true, i:["Toxoplasmosis — the most common infectious posterior uveitis","CMV retinitis in immunosuppression","Acute retinal necrosis (VZV, HSV)","Syphilis — the great imitator, test everyone","Tuberculosis","Sarcoidosis","Behçet's disease","Vogt-Koyanagi-Harada","Birdshot chorioretinopathy","Sympathetic ophthalmia after penetrating injury or surgery"]},
+ {g:"Masquerade syndromes", crit:true, i:["Intraocular lymphoma — older patient, steroid-responsive then relapsing vitritis","Leukemia","Retinoblastoma in children","Retained intraocular foreign body","Retinal detachment"]}
+],
+hx:[
+ "Pattern: unilateral or bilateral, first episode or recurrent, sudden or insidious, and which part of the eye is inflamed.",
+ "Systemic review directed by the anatomy: back pain and morning stiffness, psoriasis, bowel symptoms, oral and genital ulcers, cough and breathlessness, rash, joint swelling, neurologic symptoms.",
+ "Exposure history: tuberculosis contacts and travel, sexual history for syphilis, cat and undercooked meat exposure for toxoplasmosis, tick exposure for Lyme, immunosuppression.",
+ "Prior episodes and what was used to treat them, including how the pressure behaved.",
+ "Exam: acuity, pressure, keratic precipitates (fine versus granulomatous mutton-fat), anterior chamber cells and flare graded by SUN criteria, posterior synechiae, iris nodules and atrophy, vitreous cells and haze, and a dilated exam for retinitis, vasculitis, choroiditis, and macular edema."
+],
+wu:{
+ labs:["<strong>Everyone: syphilis serology (treponemal and non-treponemal) and tuberculosis testing (interferon-gamma release assay or tuberculin skin test).</strong> Both are treatable, both mimic anything, and both are disastrous if missed before immunosuppression.","CBC, renal and liver function, ESR and CRP as a baseline before systemic therapy.","Targeted by pattern: HLA-B27 for acute unilateral recurrent anterior uveitis; ACE and lysozyme plus chest imaging for suspected sarcoid; ANA for children with JIA; toxoplasma serology, Lyme serology, HIV, and Bartonella where the picture fits.","Aqueous or vitreous PCR for herpes viruses and toxoplasma, and cytology for suspected lymphoma, in specialist hands."],
+ img:["<strong>OCT macula</strong> — cystoid macular edema is the main cause of vision loss in uveitis and drives treatment intensity.","<strong>Fluorescein angiography</strong> for retinal vasculitis, capillary non-perfusion, and disc leakage. <strong>Indocyanine green</strong> for choroidal disease such as birdshot and VKH.","<strong>Chest x-ray or CT chest</strong> for sarcoidosis and tuberculosis.","Sacroiliac imaging if spondyloarthropathy is suspected clinically.","MRI brain for intermediate uveitis with neurologic features, to assess for demyelination.","B-scan when the view is obscured."],
+ other:["Grade and document using SUN criteria so that change over time is interpretable by the next clinician.","In a first, unilateral, non-granulomatous anterior uveitis in an otherwise well adult, a full panel is low-yield — syphilis and tuberculosis testing plus a directed history is often appropriate. Recurrent, bilateral, granulomatous, or posterior disease earns the full workup."]
+},
+strat:[
+ {t:"Anatomic classification — this determines the workup and the treatment route", n:"SUN classification by the primary site of inflammation.",
+  rows:[
+   ["ok","Anterior — cells in the anterior chamber","Iritis or iridocyclitis. Pain, redness, photophobia.","Topical steroid (prednisolone acetate 1%) frequently, often hourly initially, plus cycloplegia. Monitor pressure. Workup only if recurrent, bilateral, or granulomatous."],
+   ["mod","Intermediate — vitreous cells and snowbanking","Pars planitis. Floaters, painless blur, often bilateral.","Investigate for MS, sarcoid, Lyme. Treatment is periocular or systemic steroid; topical drops do not reach here."],
+   ["sev","Posterior — retinitis, choroiditis, vasculitis","Sight-threatening; infectious causes must be excluded first.","Urgent specialist care. Do not start immunosuppression before excluding infection. Systemic or intravitreal therapy directed at cause."],
+   ["sev","Panuveitis — all compartments","Behçet's, VKH, sarcoid, syphilis, tuberculosis, lymphoma.","Full workup, specialist management, usually systemic immunosuppression once infection is excluded."]
+  ]},
+ {t:"Treatment escalation once infection is excluded", n:"",
+  rows:[
+   ["ok","Topical","Anterior disease only.","Prednisolone acetate 1% with a taper guided by cell count, plus cyclopentolate or homatropine for comfort and to break synechiae. Watch for steroid response and cataract."],
+   ["mod","Regional","Macular edema or unilateral posterior disease.","Periocular (sub-Tenon triamcinolone) or intravitreal steroid, including the dexamethasone implant. Cataract and pressure rise are the expected costs."],
+   ["sev","Systemic","Bilateral, sight-threatening, or steroid-dependent disease.","Oral prednisone 1 mg/kg then taper. <strong>Steroid-sparing agents</strong> if control needs more than 7.5–10 mg daily beyond 3 months: methotrexate, mycophenolate, azathioprine, or a biologic such as adalimumab. Co-manage with rheumatology, and screen for tuberculosis and hepatitis before biologics."]
+  ]}
+],
+mgmt:[
+ "<strong>Exclude infection before immunosuppressing.</strong> Syphilis and tuberculosis at minimum, plus viral PCR where the picture fits. Steroids given to an undiagnosed infectious uveitis cause blindness.",
+ "<strong>Anterior uveitis:</strong> prednisolone acetate 1% hourly initially, tapered slowly over weeks, plus a cycloplegic to relieve ciliary spasm and prevent or break posterior synechiae. Never stop steroids abruptly — rebound is common.",
+ "<strong>Herpetic uveitis:</strong> add oral antiviral (acyclovir or valacyclovir) alongside the steroid, and monitor pressure, which is often high.",
+ "<strong>Toxoplasmosis:</strong> treat sight-threatening lesions (near the fovea or disc, or heavy vitritis) with antimicrobials, adding steroid only after antimicrobial cover is established.",
+ "<strong>Steroid-sparing therapy</strong> once it is clear the patient cannot come off low-dose prednisone — long-term high-dose steroid causes more harm than the alternatives. Involve rheumatology early rather than after complications.",
+ "Monitor for the complications that actually take vision: cystoid macular edema, cataract, glaucoma (both from disease and from steroid), band keratopathy, and hypotony.",
+ "Children with juvenile idiopathic arthritis need scheduled screening slit-lamp exams by risk category — the eye is white and the child asymptomatic while damage accumulates."
+],
+pearls:[
+ "Test for syphilis in every uveitis patient. It is common enough, treatable, and presents in any pattern.",
+ "Raised pressure with anterior uveitis suggests herpetic disease or Posner-Schlossman rather than typical iritis, where the pressure is usually low.",
+ "An older patient with steroid-responsive vitritis that keeps relapsing should raise suspicion of intraocular lymphoma — masquerade syndromes are missed for months.",
+ "HLA-B27 uveitis is typically unilateral, recurrent, alternating between eyes, and may have a hypopyon; ask about back pain, which patients rarely volunteer.",
+ "Macular edema, not the inflammation itself, is what most often costs these patients their vision — get the OCT even when the eye looks quiet."
+]
+},
+
+{
+id:"eye-lids", tag:"Ophthalmology", sub:"Clinic", name:"Eyelid lesions and ptosis",
+one:"The question with any lid lesion is whether it is benign or malignant, and with ptosis whether it is neurologic.",
+flags:[
+ "Loss of lashes (madarosis), ulceration, induration, irregular borders, telangiectasia, or distortion of the lid margin — malignancy. Biopsy.",
+ "A recurrent chalazion in the same location is sebaceous cell carcinoma until biopsy proves otherwise. It masquerades as chronic blepharitis or a stubborn chalazion.",
+ "Ptosis with a dilated pupil and eye movement restriction — third nerve palsy. Ptosis with a constricted pupil — Horner syndrome. Both need urgent imaging.",
+ "Variable ptosis that worsens with fatigue — myasthenia gravis; ask about swallowing and breathing.",
+ "Sudden ptosis with pain is not cosmetic. Treat it as neurologic until proven otherwise."
+],
+ddx:[
+ {g:"Benign lid lesions", i:["Chalazion — blocked meibomian gland, firm, non-tender","Hordeolum (stye) — acute, tender, infected","Papilloma, seborrheic keratosis","Cyst of Zeis or Moll, epidermoid cyst","Xanthelasma — check the lipid profile","Molluscum contagiosum"]},
+ {g:"Malignant", crit:true, i:["Basal cell carcinoma — most common, typically lower lid and medial canthus, pearly with telangiectasia","Squamous cell carcinoma","Sebaceous cell carcinoma — masquerades as chalazion or blepharitis, upper lid, aggressive","Melanoma","Merkel cell carcinoma"]},
+ {g:"Ptosis — mechanism matters", crit:true, i:["Aponeurotic (involutional) — the common age-related form, high crease, good levator function","Neurogenic — third nerve palsy, Horner syndrome","Myogenic — myasthenia, chronic progressive external ophthalmoplegia, myotonic dystrophy","Mechanical — lid mass, scarring, dermatochalasis","Congenital","Pseudoptosis — dermatochalasis, contralateral lid retraction, enophthalmos, brow ptosis"]}
+],
+hx:[
+ "Duration, growth rate, bleeding, ulceration, and any prior similar lesion or skin cancer.",
+ "For ptosis: onset, variability through the day, diplopia, prior eyelid or cataract surgery (a known cause of aponeurotic ptosis), contact lens wear, and old photographs to date it.",
+ "Sun exposure history and prior skin malignancy.",
+ "Ask about dry eye symptoms before considering any lid surgery, since lifting a lid worsens exposure.",
+ "Exam: measure <strong>margin reflex distance 1</strong>, <strong>levator function</strong> (lid excursion from downgaze to upgaze with the brow held), and the <strong>lid crease position</strong>. Check for lagophthalmos, Bell's phenomenon, corneal staining, and pupil and motility. Palpate preauricular and submandibular nodes for any suspicious lesion. Evert the lid."
+],
+wu:{
+ labs:["Lipid profile for xanthelasma.","Acetylcholine receptor and MuSK antibodies where myasthenia is suspected; thyroid function for lid retraction."],
+ img:["<strong>MRI or CT orbits</strong> for a mass, suspected orbital extension, or neurogenic ptosis.","<strong>Urgent CT or MR angiography</strong> for third nerve palsy with pupil involvement; carotid imaging for Horner syndrome.","CT chest for suspected thymoma in myasthenia, and for Pancoast tumour in preganglionic Horner syndrome.","Imaging for nodal or perineural spread in confirmed malignancy, per oncology."],
+ other:["<strong>Biopsy any suspicious lesion.</strong> Incisional or full-thickness for suspected sebaceous carcinoma, including map biopsies, since it spreads pagetoid.","Visual fields with the lid taped and untaped to document functional impairment for ptosis or dermatochalasis surgery.","Ice pack test and fatigability testing at the bedside for myasthenia; photographs to document."]
+},
+strat:[
+ {t:"Benign or malignant — the features that should stop you from just excising it as a chalazion", n:"",
+  rows:[
+   ["ok","Mobile, well-defined, no lash loss, no ulceration, stable or resolving","Benign — chalazion, papilloma, cyst, xanthelasma.","Chalazion: warm compresses 10 minutes several times daily plus lid massage for 4–6 weeks; most resolve. Incision and curettage or intralesional triamcinolone if persistent. Treat the underlying blepharitis or it recurs."],
+   ["sev","Lash loss, ulceration, induration, telangiectasia, irregular margin, bleeding, or rapid growth","Malignancy until biopsy says otherwise.","Biopsy. Refer to oculoplastics. Mohs or wide excision with margin control and lid reconstruction."],
+   ["sev","Recurrent 'chalazion' at the same site, or chronic unilateral blepharitis that will not settle","Sebaceous cell carcinoma.","<strong>Send the tissue for histology at incision and curettage</strong> rather than discarding it, and request map biopsies. This is the classic missed diagnosis."]
+  ]},
+ {t:"Ptosis — levator function determines the operation", n:"Levator function is measured in millimetres of lid excursion with the brow immobilized.",
+  rows:[
+   ["ok","Good levator function (over 10 mm)","Usually aponeurotic or mechanical.","Levator advancement or posterior approach (Müller muscle conjunctival resection, often after a phenylephrine test). Good outcomes."],
+   ["mod","Fair levator function (5–10 mm)","Partial myogenic or long-standing congenital.","Levator resection, with expectations set accordingly."],
+   ["sev","Poor levator function (under 5 mm)","Congenital, severe myogenic disease.","Frontalis suspension, using the brow to lift the lid. Higher risk of exposure keratopathy."],
+   ["sev","Any ptosis with abnormal pupil or motility, or variability","Neurologic or neuromuscular.","Do not operate. Image and investigate — third nerve palsy, Horner syndrome, or myasthenia."]
+  ]}
+],
+mgmt:[
+ "<strong>Chalazion:</strong> sustained warm compresses and lid hygiene for 4–6 weeks, treating the underlying meibomian gland dysfunction. Incision and curettage or intralesional steroid for persistent lesions. Antibiotics are not usually needed — this is obstruction, not infection.",
+ "<strong>Hordeolum:</strong> warm compresses; topical antibiotic if there is associated conjunctivitis, oral antibiotic only if there is spreading preseptal cellulitis.",
+ "<strong>Blepharitis:</strong> lid hygiene as a long-term daily routine, plus oral doxycycline or azithromycin for the posterior form. Explain this is control, not cure.",
+ "<strong>Malignancy:</strong> biopsy, then oculoplastic and oncologic management. Mohs surgery for most basal and squamous cell carcinomas in this region, with reconstruction.",
+ "<strong>Aponeurotic ptosis:</strong> surgical repair once the diagnosis is secure and dry eye is optimized. Document fields with the lid taped for functional justification.",
+ "<strong>Neurogenic or myogenic ptosis:</strong> treat the cause. Myasthenia gets pyridostigmine and neurology; do not operate on a lid whose position varies.",
+ "Sun protection and skin surveillance counselling for anyone with a lid malignancy — they are at risk of more."
+],
+pearls:[
+ "Send every chalazion you curette for histology if it has recurred at the same site. Sebaceous carcinoma is the diagnosis nobody wants to have missed.",
+ "Ptosis that improves with an ice pack is myasthenia until proven otherwise, and the test takes two minutes.",
+ "Cataract surgery is a common cause of aponeurotic ptosis, so ask about recent eye surgery when the ptosis seems to have come from nowhere.",
+ "Check Bell's phenomenon and corneal sensation before any ptosis surgery — lifting the lid on an eye that does not protect itself causes exposure keratopathy.",
+ "Xanthelasma is a marker of dyslipidemia and cardiovascular risk in a substantial minority; check the lipids rather than just removing it."
+]
+},
+
+{
+id:"eye-pediatric", tag:"Ophthalmology", sub:"Clinic", name:"Pediatric: strabismus and reduced vision",
+one:"In children the question is always whether the visual system is developing, because the window for treatment closes.",
+flags:[
+ "<strong>Leukocoria — a white pupillary reflex — is retinoblastoma until proven otherwise.</strong> Same-week referral, no exceptions, including when it was only seen in a photograph.",
+ "New-onset strabismus in an older child, or any strabismus with a headache or papilledema, is neurologic until imaged.",
+ "A constant, unilateral squint is far more likely to be amblyogenic than an intermittent alternating one.",
+ "Nystagmus presenting in infancy needs a workup — it may signal bilateral visual deprivation or neurologic disease.",
+ "Absent or asymmetric red reflex at any well-child check warrants urgent referral."
+],
+ddx:[
+ {g:"Strabismus", i:["Esotropia — infantile, accommodative (with hyperopia), partially accommodative","Exotropia — intermittent (most common) or constant","Vertical deviations, including fourth nerve palsy with head tilt","Restrictive and paralytic causes","Pseudostrabismus from prominent epicanthal folds — the eyes are straight on corneal reflex testing"]},
+ {g:"Amblyopia by mechanism", crit:true, i:["Strabismic","Refractive — anisometropic or high bilateral ametropia","Deprivational — cataract, ptosis, corneal opacity (the most severe and most urgent)"]},
+ {g:"Serious causes of reduced vision", crit:true, i:["Retinoblastoma","Congenital cataract","Congenital glaucoma — tearing, photophobia, corneal enlargement and clouding","Optic nerve hypoplasia — ask about midline defects and endocrine status","Retinopathy of prematurity","Inherited retinal dystrophy, Leber congenital amaurosis","Cortical visual impairment"]}
+],
+hx:[
+ "Birth history: gestational age, birth weight, oxygen exposure, neonatal course — the retinopathy of prematurity screening criteria.",
+ "When was the squint first noticed, is it constant or intermittent, one eye or alternating, worse when tired or unwell.",
+ "Family history of squint, amblyopia, high refractive error, childhood glaucoma, retinoblastoma, or genetic eye disease.",
+ "Developmental milestones and whether the child fixes on and follows faces.",
+ "Exam: age-appropriate acuity (Teller cards, Cardiff, Kay pictures, LogMAR by school age), <strong>red reflex in both eyes together</strong>, corneal light reflex (Hirschberg), <strong>cover-uncover and alternate cover testing</strong>, ocular motility, <strong>cycloplegic refraction</strong> (essential — children accommodate and will hide hyperopia otherwise), and a dilated fundus exam."
+],
+wu:{
+ labs:["Genetic testing and counselling for retinoblastoma (RB1) and inherited dystrophies, through specialist services.","Endocrine evaluation for optic nerve hypoplasia, since hypopituitarism can be life-threatening and is easily missed.","TORCH screen for congenital cataract or chorioretinitis as indicated."],
+ img:["<strong>MRI brain and orbits</strong> for suspected retinoblastoma (avoid CT because of radiation in a child with a cancer predisposition syndrome), optic nerve hypoplasia, or neurologic strabismus.","<strong>B-scan ultrasound</strong> for leukocoria and to assess for calcification in retinoblastoma.","Examination under anaesthesia when the child cannot be adequately examined — this is a normal part of pediatric practice, not a failure.","Retinal imaging (RetCam) for documentation and for retinopathy of prematurity screening."],
+ other:["<strong>Cycloplegic refraction is the essential test</strong> in any child with strabismus or reduced vision. Accommodative esotropia is fully treatable with glasses alone and is missed without it.","Retinopathy of prematurity screening: infants under about 31 weeks gestational age or under about 1500 g, first exam at 4–6 weeks of age or 31 weeks postmenstrual, then at intervals set by findings.","Document acuity in each eye separately at every visit — this is how amblyopia is detected and tracked."]
+},
+strat:[
+ {t:"Amblyopia — treatment works, and it works better the earlier it starts", n:"The visual system remains plastic through roughly age 7–8, with declining but real benefit after.",
+  rows:[
+   ["sev","Deprivational — cataract, ptosis covering the axis, corneal opacity","The most severe and most time-critical form.","Surgery urgently — a dense congenital cataract needs removal within the first weeks of life, followed by optical correction and aggressive amblyopia therapy. Delay costs vision permanently."],
+   ["mod","Refractive — anisometropia or high bilateral error","Often the whole problem.","<strong>Glasses first, alone, for at least 12–18 weeks.</strong> Refractive adaptation resolves a substantial share of amblyopia without any patching, and patching before this step is unnecessary."],
+   ["mod","Strabismic or residual after glasses","Amblyopia persisting after refractive correction.","Patching the better eye 2–6 hours daily, or atropine penalization, which is equally effective and often better tolerated. Monitor the patched eye. Continue to visual maturity and watch for regression after stopping."],
+   ["ok","Equal vision, straight eyes, normal refraction for age","Normal development.","Routine screening at the recommended intervals."]
+  ]},
+ {t:"Strabismus — the pattern points to the treatment", n:"",
+  rows:[
+   ["mod","Esotropia that straightens with hyperopic glasses","Accommodative esotropia.","Full cycloplegic hyperopic correction — this is the treatment, and it works. Bifocals for a high accommodative convergence ratio. No surgery unless a non-accommodative component persists."],
+   ["mod","Constant infantile esotropia, large angle, onset under 6 months","Infantile esotropia.","Correct any significant refractive error, treat amblyopia first, then surgical alignment, typically before age 2 to support binocularity."],
+   ["ok","Intermittent exotropia, well-controlled, good vision","The most common childhood exotropia.","Observation with monitoring of control and acuity. Surgery if control deteriorates, the deviation becomes constant, or there is diplopia or social impact."],
+   ["sev","New strabismus in an older child, or with headache, papilledema, or neurologic signs","Acquired and potentially neurologic.","Image. Sixth nerve palsy in a child raises concern for posterior fossa tumour and raised intracranial pressure."]
+  ]}
+],
+mgmt:[
+ "<strong>Glasses are the first treatment for most pediatric vision problems</strong>, prescribed on cycloplegic refraction. Give refractive adaptation 12–18 weeks before adding patching.",
+ "<strong>Amblyopia therapy:</strong> patching 2–6 hours daily or atropine 1% to the better eye on weekends — the PEDIG trials found these comparable. Adherence is the limiting factor, so involve the school and give written instructions.",
+ "<strong>Congenital cataract:</strong> surgery within the first weeks for dense unilateral cases, with immediate optical correction and intensive amblyopia therapy. This is among the most time-critical operations in ophthalmology.",
+ "<strong>Retinoblastoma:</strong> urgent referral to a specialist center. Treatment may include chemotherapy, focal therapy, intra-arterial chemotherapy, or enucleation, with genetic counselling for the family and screening of siblings.",
+ "<strong>Strabismus surgery</strong> for deviations not corrected by glasses, after amblyopia is treated — operating first on an amblyopic eye wastes the opportunity.",
+ "<strong>Congenital glaucoma:</strong> surgical, not medical — goniotomy or trabeculotomy. Suspect it with the triad of tearing, photophobia, and blepharospasm.",
+ "Arrange vision screening for siblings where there is a familial condition, and make sure the school knows about any visual impairment."
+],
+pearls:[
+ "A parent reporting a white reflex in a phone photograph is a real finding — photograph leukocoria is how many retinoblastomas are detected.",
+ "Cycloplegic refraction is not optional in children. Without it, accommodative esotropia is missed and children are sent to surgery who needed glasses.",
+ "Intermittent exotropia seen mostly when the child is tired is usually observed, not operated on immediately.",
+ "Pseudostrabismus from epicanthal folds is common and reassuring, but confirm with corneal reflexes and cover testing rather than by eye.",
+ "Amblyopia treatment is worth attempting beyond age 7 — the response is smaller but real, and age alone is not a reason to refuse treatment."
+]
+}
+);
+
+/* clinic: first five minutes */
+Object.assign(FIRST, {
+"eye-gradual-loss":["Best corrected acuity each eye, then pinhole. Full correction means refractive or media.","Pupils for a RAPD — present means optic nerve, not cataract.","Amsler grid each eye separately for distortion.","OCT macula and nerve; formal visual fields if glaucoma or a chiasmal lesion is possible.","Normal eye exam with abnormal vision means MRI, not another refraction."],
+"eye-diabetic":["Acuity, pressure, and look at the iris for rubeosis <strong>before</strong> you dilate.","Dilated exam: grade the retinopathy and look specifically for new vessels at the disc.","OCT macula if there is any blurring or visible thickening — it decides whether to treat.","Proliferative disease or centre-involving edema: refer for laser or anti-VEGF now.","Document the grade, set the recall interval, and write to the primary team about HbA1c and blood pressure."],
+"eye-glaucoma":["Pressure, with the time of day recorded.","Gonioscopy — open or narrow changes the entire diagnosis, and it is the test most often skipped.","Stereoscopic disc exam: cup-to-disc ratio, rim notching, and look for a disc hemorrhage.","OCT nerve fibre layer and ganglion cell, plus formal visual fields.","Pachymetry, then set an explicit target pressure 20–30% below baseline and write it in the note."],
+"eye-amd":["Acuity and Amsler grid, each eye separately.","Dilated macular exam: drusen, pigment change, hemorrhage, exudate.","OCT macula — fluid means wet, and wet means urgent anti-VEGF referral.","New distortion is wet AMD until OCT says otherwise. Do not defer it to the next routine visit.","Intermediate or advanced dry: AREDS2, smoking cessation, and Amsler instruction with written return precautions."],
+"eye-surface":["Fluorescein: tear break-up time and the staining pattern. Under 10 seconds is abnormal.","Express the meibomian glands and look at the lash bases for Demodex.","Check lid position, closure, and corneal sensation.","Review every drop they use — preservatives are a common iatrogenic cause.","Start preservative-free tears plus heat and lid hygiene, and set the expectation that this is managed, not cured."],
+"eye-uveitis-clinic":["Classify by anatomy first: anterior, intermediate, posterior, or pan.","Pressure — high with anterior uveitis suggests herpetic disease.","OCT macula, because macular edema is what costs vision.","Send syphilis serology and a TB test on everyone before any immunosuppression.","Start topical steroid and cycloplegia for anterior disease; posterior disease needs infection excluded first."],
+"eye-lids":["Look for lash loss, ulceration, induration, and margin distortion — those mean biopsy, not compresses.","A chalazion recurring at the same site gets sent for histology.","For ptosis: measure margin reflex distance and levator function, and check the pupil and motility.","Abnormal pupil or variable ptosis means image or investigate, not operate.","Palpate regional nodes for any suspicious lesion."],
+"eye-pediatric":["Red reflex in both eyes together. Absent, asymmetric, or white means urgent referral for retinoblastoma.","Acuity each eye separately, using an age-appropriate test.","Corneal light reflex and cover-uncover testing to confirm true strabismus.","<strong>Cycloplegic refraction</strong> — without it you will miss accommodative esotropia.","Glasses first for 12–18 weeks before patching, and treat amblyopia before considering surgery."]
+});
+
+/* clinic: HPI builders */
+Object.assign(HPI, {
+"eye-gradual-loss":{cc:"gradual vision loss", subj:"The vision loss", locSite:true,
+ quality:["painless","progressive","blurred","distorted","worse at night","worse with glare"],
+ location:["right eye","left eye","both eyes"],
+ mod:["worse for distance","worse for near","improving with new glasses","unchanged by glasses"],
+ assoc:["glare or haloes","distortion of straight lines","difficulty reading","difficulty driving at night","a central missing patch","colour desaturation"],
+ neg:["pain","redness","flashes or floaters","distortion","headache","diplopia"],
+ risk:["diabetes","hypertension","smoking","family history of macular degeneration","family history of glaucoma","hydroxychloroquine use","high myopia","prior eye surgery"]},
+
+"eye-diabetic":{cc:"diabetic eye disease", subj:"The retinopathy", qLead:"is", locSite:true,
+ quality:["asymptomatic, found on screening","accompanied by blurred vision","accompanied by distortion","accompanied by floaters"],
+ location:["right eye","left eye","both eyes"],
+ mod:["stable since last review","progressing","improved after treatment"],
+ assoc:["blurred vision","distortion","floaters","sudden vision loss","fluctuating vision"],
+ neg:["sudden vision loss","floaters","pain","redness"],
+ risk:["type 1 diabetes","type 2 diabetes","poor glycemic control","hypertension","diabetic nephropathy","pregnancy","prior laser treatment","prior intravitreal injections","smoking"]},
+
+"eye-glaucoma":{cc:"glaucoma", subj:"The glaucoma", locSite:true,
+ quality:["newly diagnosed","established and stable","progressing","suspected"],
+ location:["right eye","left eye","both eyes"],
+ mod:["controlled on current drops","uncontrolled despite treatment","worse since drops were stopped"],
+ assoc:["peripheral field loss","difficulty driving","haloes around lights","eye ache","no symptoms at all"],
+ neg:["pain","haloes","field loss","blurred vision","steroid use"],
+ risk:["family history of glaucoma","high myopia","diabetes","steroid use of any route","prior ocular trauma","African or Caribbean ancestry","pseudoexfoliation","migraine or Raynaud's"]},
+
+"eye-amd":{cc:"macular degeneration", subj:"The macular disease", locSite:true,
+ quality:["dry","wet","newly distorted","gradually worsening"],
+ location:["right eye","left eye","both eyes"],
+ mod:["stable","worsening over weeks","improved after injections"],
+ assoc:["distortion of straight lines","a central grey patch","difficulty reading","difficulty recognizing faces","reduced contrast"],
+ neg:["pain","redness","flashes or floaters","field loss","sudden change"],
+ risk:["smoking","family history of macular degeneration","hypertension","already taking AREDS2","prior anti-VEGF injections","high cardiovascular risk"]},
+
+"eye-surface":{cc:"ocular surface irritation", subj:"The irritation", locSite:true,
+ quality:["gritty","burning","itchy","watery","worse at the end of the day"],
+ location:["right eye","left eye","both eyes"],
+ mod:["worse with screen use","worse in air conditioning or wind","better with lubricants","worse in the morning"],
+ assoc:["watering","fluctuating vision that clears on blinking","redness","crusting of the lids","discharge","photophobia"],
+ neg:["reduced vision","pain","discharge","contact lens use","dry mouth or joint pain"],
+ risk:["prolonged screen use","contact lens wear","rosacea","rheumatoid arthritis or Sjögren syndrome","thyroid disease","isotretinoin or antihistamine use","preserved glaucoma drops","CPAP use"]},
+
+"eye-uveitis-clinic":{cc:"uveitis", subj:"The inflammation", locSite:true,
+ quality:["anterior","intermediate","posterior","granulomatous","non-granulomatous","recurrent"],
+ location:["right eye","left eye","both eyes"],
+ mod:["responding to topical steroid","recurring on steroid taper","steroid-dependent","first episode"],
+ assoc:["pain","photophobia","redness","blurred vision","floaters","back pain or morning stiffness","mouth or genital ulcers","rash","joint swelling","bowel symptoms"],
+ neg:["pain","floaters","rash","joint symptoms","bowel symptoms","recent travel","tuberculosis contact"],
+ risk:["known HLA-B27 disease","ankylosing spondylitis","inflammatory bowel disease","psoriasis","sarcoidosis","prior herpes zoster or simplex","immunosuppression","tuberculosis exposure","cat exposure"]},
+
+"eye-lids":{cc:"an eyelid problem", subj:"The lesion", locSite:true,
+ quality:["a firm painless lump","a tender red lump","an ulcerated lesion","drooping of the lid","a pigmented lesion"],
+ location:["right upper lid","right lower lid","left upper lid","left lower lid"],
+ mod:["enlarging","stable","recurrent at the same site","worse at the end of the day"],
+ assoc:["lash loss","bleeding or crusting","discharge","irritation","reduced field of vision from the lid","double vision"],
+ neg:["pain","lash loss","bleeding","vision change","diplopia","variability through the day"],
+ risk:["prior skin cancer","significant sun exposure","chronic blepharitis","recent cataract or eyelid surgery","contact lens wear","known myasthenia or thyroid disease"]},
+
+"eye-pediatric":{cc:"a pediatric eye concern", subj:"The problem", locSite:true,
+ quality:["an eye turn inward","an eye turn outward","a vertical eye turn","reduced vision","a white pupil reflex","abnormal head posture"],
+ location:["right eye","left eye","both eyes","alternating"],
+ mod:["constant","intermittent","worse when tired or unwell","noticed in photographs"],
+ assoc:["head tilt","squinting or eye closure in bright light","tearing","photophobia","nystagmus","developmental delay"],
+ neg:["headache","trauma","tearing or photophobia","developmental delay","prematurity"],
+ risk:["prematurity or low birth weight","family history of squint or amblyopia","family history of retinoblastoma","known genetic or syndromic diagnosis","significant hyperopia","developmental delay"]}
+});
+
+/* ---------- ophthalmic drops formulary ---------- */
+const DROPS = [
+/* --- glaucoma --- */
+{n:"Latanoprost 0.005%", c:"Prostaglandin analogue", ind:["Open-angle glaucoma","Ocular hypertension"],
+ d:"1 drop in the affected eye(s) once nightly",
+ note:"First-line and the most effective single agent — roughly 25–33% pressure reduction. Nocturnal dosing is more effective than morning. Warn about lash growth, iris and periocular skin darkening, and periorbital fat atrophy (deepening of the lid sulcus), which are cosmetically significant and partly irreversible."},
+{n:"Bimatoprost 0.01% / Travoprost 0.004%", c:"Prostaglandin analogue", ind:["Open-angle glaucoma","Ocular hypertension"],
+ d:"1 drop once nightly",
+ note:"Alternatives to latanoprost with similar efficacy; bimatoprost is marginally more potent and marginally more hyperemic. Avoid prostaglandins in active uveitis and in aphakic or pseudophakic patients at risk of cystoid macular edema."},
+{n:"Timolol 0.25% / 0.5%", c:"Beta-blocker", ind:["Open-angle glaucoma","Ocular hypertension","Acute angle closure (as part of the combination)"],
+ d:"1 drop once or twice daily; gel-forming solution once each morning",
+ note:"<strong>Systemically absorbed.</strong> Ask about asthma, COPD, bradycardia, heart block, and decompensated heart failure before prescribing — bronchospasm and bradycardia are real and are rarely connected by the patient to their eye drops. Teach punctal occlusion. Avoid evening dosing, which adds little and may worsen nocturnal hypotension."},
+{n:"Brimonidine 0.1% / 0.15%", c:"Alpha-2 agonist", ind:["Open-angle glaucoma","Ocular hypertension","Adjunct in acute angle closure"],
+ d:"1 drop two to three times daily",
+ note:"<strong>Contraindicated in infants and young children</strong> — it crosses the blood-brain barrier and causes apnea, bradycardia, and CNS depression. Allergic follicular conjunctivitis is common with long-term use. Avoid with MAO inhibitors."},
+{n:"Apraclonidine 0.5% / 1%", c:"Alpha-2 agonist", ind:["Acute pressure spikes","Post-laser prophylaxis","Diagnostic test for Horner syndrome"],
+ d:"1 drop; for pressure spikes, one or three times daily short-term",
+ note:"Tachyphylaxis limits long-term use. As a diagnostic test, it reverses the anisocoria of Horner syndrome — the denervated pupil dilates — but can be falsely negative in the first 36–48 hours."},
+{n:"Dorzolamide 2% / Brinzolamide 1%", c:"Topical carbonic anhydrase inhibitor", ind:["Open-angle glaucoma","Ocular hypertension","Adjunct in acute angle closure"],
+ d:"1 drop two to three times daily",
+ note:"Sulfonamide-derived — ask about severe sulfa reactions, though true cross-reactivity is uncommon. Dorzolamide stings; brinzolamide is better tolerated but blurs transiently. Avoid in severe renal impairment."},
+{n:"Netarsudil 0.02%", c:"Rho kinase inhibitor", ind:["Open-angle glaucoma","Ocular hypertension"],
+ d:"1 drop once nightly",
+ note:"Newer agent, useful as an add-on. Conjunctival hyperemia is very common and cornea verticillata (whorl keratopathy) occurs but is reversible and visually insignificant."},
+{n:"Pilocarpine 1% / 2%", c:"Muscarinic agonist (miotic)", ind:["Acute angle-closure glaucoma","Before or after laser peripheral iridotomy"],
+ d:"Acute attack: 1 drop every 15 minutes for two doses, then four times daily",
+ note:"<strong>Often fails when the pressure is above about 40</strong>, because the pressure-ischemic iris sphincter will not respond — lower the pressure medically first, then re-dose. Causes brow ache, myopic shift, and dim vision. Avoid in inflammatory or neovascular angle closure."},
+{n:"Fixed combinations", c:"Combination glaucoma drops", ind:["Glaucoma requiring more than one agent"],
+ d:"Dorzolamide-timolol twice daily; brimonidine-timolol twice daily; latanoprost-timolol once nightly",
+ note:"Fewer bottles and fewer drops improves adherence, which is usually the limiting factor in glaucoma control. The beta-blocker cautions still apply to every combination containing timolol."},
+
+/* --- steroids --- */
+{n:"Prednisolone acetate 1%", c:"Topical corticosteroid (strong)", ind:["Anterior uveitis","Post-operative inflammation","Keratitis with ophthalmology supervision","Severe allergic disease"],
+ d:"Anterior uveitis: 1 drop hourly while awake initially, then tapered slowly over weeks by cell count",
+ note:"<strong>Shake the bottle</strong> — it is a suspension and under-shaking under-doses the patient. Monitor intraocular pressure at every visit; steroid response causes glaucoma. Never start in an undiagnosed red eye, and never in epithelial herpes simplex keratitis. Do not stop abruptly — rebound inflammation is common."},
+{n:"Difluprednate 0.05%", c:"Topical corticosteroid (very strong)", ind:["Severe uveitis","Post-operative inflammation","Refractory macular edema"],
+ d:"1 drop two to four times daily",
+ note:"More potent than prednisolone and an emulsion, so no shaking required. Higher and faster rate of pressure elevation — check pressure frequently."},
+{n:"Loteprednol 0.5% / Fluorometholone 0.1%", c:"Topical corticosteroid (ester, lower pressure risk)", ind:["Mild to moderate surface inflammation","Dry eye flares","Allergic keratoconjunctivitis","Long-term low-dose use"],
+ d:"1 drop two to four times daily",
+ note:"Lower propensity to raise pressure, which makes them the choice when steroid is needed for weeks rather than days. Still monitor pressure. Weaker anti-inflammatory effect than prednisolone acetate."},
+{n:"Dexamethasone 0.1%", c:"Topical corticosteroid (strong)", ind:["Post-operative inflammation","Uveitis","Often as a combination with an antibiotic"],
+ d:"1 drop four times daily, tapered",
+ note:"Commonly used post-operatively and in antibiotic-steroid combinations. Same pressure and infection cautions as any strong steroid."},
+
+/* --- NSAIDs --- */
+{n:"Ketorolac 0.5% / Bromfenac 0.09% / Nepafenac 0.1%", c:"Topical NSAID", ind:["Cystoid macular edema","Post-operative inflammation and pain","Prophylaxis of macular edema in diabetic patients having cataract surgery"],
+ d:"Ketorolac four times daily; bromfenac once or twice daily; nepafenac once to three times daily",
+ note:"Useful for macular edema and reduce steroid requirement. <strong>Corneal melt is the serious risk</strong>, particularly in dry eye, diabetes, rheumatoid disease, and after surgery — stop immediately for any epithelial defect. Do not use long-term without supervision."},
+
+/* --- antibiotics --- */
+{n:"Moxifloxacin 0.5%", c:"Fourth-generation fluoroquinolone", ind:["Bacterial keratitis","Bacterial conjunctivitis","Peri-operative and post-injection prophylaxis"],
+ d:"Conjunctivitis: 1 drop three times daily for 5–7 days. Keratitis: 1 drop hourly including overnight, per ophthalmology",
+ note:"Good gram-positive and gram-negative cover with intraocular penetration. For a contact lens–associated ulcer, Pseudomonas cover matters — this or ciprofloxacin, with ophthalmology directing frequency."},
+{n:"Ofloxacin 0.3% / Ciprofloxacin 0.3%", c:"Fluoroquinolone", ind:["Bacterial keratitis","Bacterial conjunctivitis","Corneal abrasion in a contact lens wearer"],
+ d:"Conjunctivitis: 1 drop four times daily. Keratitis: hourly initially",
+ note:"Ciprofloxacin gives excellent Pseudomonas cover but precipitates as white corneal deposits. Ofloxacin penetrates well and is less precipitating."},
+{n:"Erythromycin 0.5% ointment", c:"Macrolide ointment", ind:["Corneal abrasion","Blepharitis","Bacterial conjunctivitis","Exposure keratopathy"],
+ d:"Apply a ribbon to the lower fornix two to four times daily, or at night for lubrication",
+ note:"Cheap, soothing, and the default for an abrasion in a non–contact lens wearer. Blurs vision after application, so warn about driving. Does not cover Pseudomonas — not the choice for a lens wearer."},
+{n:"Polymyxin B–trimethoprim", c:"Combination antibacterial", ind:["Bacterial conjunctivitis","Blepharoconjunctivitis"],
+ d:"1 drop every 3–6 hours for 7–10 days",
+ note:"Broad cover without a fluoroquinolone, which preserves quinolones for keratitis. Reasonable first choice for simple bacterial conjunctivitis."},
+{n:"Azithromycin 1% / Tobramycin 0.3%", c:"Macrolide / aminoglycoside", ind:["Blepharitis and meibomian gland disease (azithromycin)","Gram-negative surface infection (tobramycin)"],
+ d:"Azithromycin twice daily for 2 days then once daily; tobramycin every 4 hours",
+ note:"Tobramycin is toxic to the corneal epithelium with prolonged use and delays healing — avoid for long courses. Azithromycin has a useful anti-inflammatory effect on the lid margin."},
+{n:"Fortified antibiotics", c:"Compounded high-concentration drops", ind:["Severe bacterial keratitis","Corneal ulcer not responding to a fluoroquinolone"],
+ d:"Fortified vancomycin 25–50 mg/mL plus fortified tobramycin or ceftazidime, alternating every 30–60 minutes including overnight",
+ note:"Compounded by pharmacy and directed by a cornea specialist after scraping and culture. This is an admission-level or intensive-follow-up treatment, not an outpatient prescription."},
+{n:"Natamycin 5%", c:"Topical antifungal", ind:["Fungal keratitis, particularly filamentous (Fusarium, Aspergillus)"],
+ d:"1 drop hourly initially, tapering over weeks",
+ note:"First-line for filamentous fungal keratitis and supported by the Mycotic Ulcer Treatment Trial over voriconazole. Suspect fungus after vegetative trauma or in a contact lens wearer with a feathery-edged infiltrate."},
+
+/* --- antivirals --- */
+{n:"Ganciclovir 0.15% gel", c:"Topical antiviral", ind:["Herpes simplex epithelial keratitis (dendritic ulcer)"],
+ d:"1 drop five times daily until the ulcer heals, then three times daily for 7 days",
+ note:"Better tolerated than trifluridine. <strong>Topical steroids are contraindicated in epithelial herpetic disease</strong> — they cause geographic ulceration. Stromal herpetic disease is different and does use steroid, but only under ophthalmology with antiviral cover."},
+{n:"Trifluridine 1%", c:"Topical antiviral", ind:["Herpes simplex epithelial keratitis"],
+ d:"1 drop nine times daily until healed, then five times daily for 7 days",
+ note:"Effective but epithelial toxicity limits duration — do not exceed about 21 days. Oral acyclovir or valacyclovir is often preferred instead."},
+
+/* --- cycloplegics and dilators --- */
+{n:"Tropicamide 1%", c:"Short-acting cycloplegic/mydriatic", ind:["Dilated fundus examination"],
+ d:"1 drop, repeated once after 5 minutes if needed; lasts 4–6 hours",
+ note:"The routine dilating drop, usually paired with phenylephrine 2.5%. Warn about blurred near vision and light sensitivity, and that driving may be affected. <strong>Check the anterior chamber depth before dilating a narrow-angle patient.</strong>"},
+{n:"Phenylephrine 2.5%", c:"Sympathomimetic mydriatic", ind:["Dilation, with tropicamide","Distinguishing episcleritis from scleritis"],
+ d:"1 drop; blanching in episcleritis is seen within 10–15 minutes",
+ note:"Use 2.5%, not 10%, which can cause hypertensive episodes. Avoid 10% entirely in cardiac disease, hypertension, and in infants."},
+{n:"Cyclopentolate 1%", c:"Intermediate cycloplegic", ind:["Anterior uveitis — comfort and prevention of synechiae","Cycloplegic refraction in children","Traumatic iritis"],
+ d:"1 drop two to three times daily for uveitis; lasts up to 24 hours",
+ note:"<strong>Cycloplegic refraction in children is essential</strong> — without it accommodative esotropia is missed. Causes transient behavioural changes and flushing in children; use 0.5% in infants."},
+{n:"Atropine 1%", c:"Long-acting cycloplegic", ind:["Severe uveitis","Amblyopia penalization of the better eye","Post-operative comfort in some procedures"],
+ d:"Uveitis: 1 drop once or twice daily. Amblyopia: 1 drop to the better eye on weekends or daily",
+ note:"Effect lasts 1–2 weeks. For amblyopia, atropine penalization is as effective as patching in the PEDIG trials and is often better tolerated. Warn about photophobia and near blur in the treated eye."},
+{n:"Homatropine 2% / 5%", c:"Intermediate cycloplegic", ind:["Uveitis","Corneal abrasion with significant ciliary spasm"],
+ d:"1 drop two to three times daily; lasts 1–3 days",
+ note:"A middle ground between cyclopentolate and atropine for comfort and synechia prevention."},
+
+/* --- anesthetics and diagnostics --- */
+{n:"Proparacaine 0.5% / Tetracaine 0.5%", c:"Topical anesthetic", ind:["Tonometry","Foreign body removal","Irrigation of a chemical injury","Corneal scraping"],
+ d:"1 drop, repeated as needed during the procedure; onset in 20 seconds, lasts 10–20 minutes",
+ note:"<strong>Never prescribe for home use.</strong> Repeated use causes epithelial toxicity, corneal melt, and ring infiltrates, and masks worsening disease. Also invalidates a Schirmer test measuring basal secretion if used first."},
+{n:"Fluorescein sodium strips", c:"Diagnostic dye", ind:["Corneal abrasion and ulcer","Dendritic ulcer","Seidel test for a wound leak","Tear break-up time","Applanation tonometry"],
+ d:"Moisten the strip with saline and touch to the inferior fornix; examine under cobalt blue light",
+ note:"<strong>Every painful red eye deserves fluorescein.</strong> Remove soft contact lenses first — the dye stains them permanently. A Seidel test shows aqueous streaming from a wound, but do not press on an eye you think may be open."},
+{n:"Lissamine green", c:"Diagnostic dye", ind:["Conjunctival staining in dry eye","Ocular surface disease assessment"],
+ d:"Applied as a moistened strip; stains devitalized conjunctival cells",
+ note:"Better than fluorescein for the conjunctiva and complements it in dry eye grading. Less irritating than rose bengal."},
+
+/* --- allergy --- */
+{n:"Olopatadine 0.1% / 0.2% / Ketotifen 0.025%", c:"Antihistamine and mast cell stabilizer", ind:["Allergic conjunctivitis","Seasonal and perennial ocular allergy"],
+ d:"Olopatadine 0.1% twice daily or 0.2% once daily; ketotifen twice daily",
+ note:"Dual action makes these first-line. Ketotifen is available over the counter. Itch is the symptom they treat — if there is no itch, reconsider the diagnosis. Cool compresses and allergen avoidance add real benefit."},
+{n:"Cromolyn sodium 4%", c:"Mast cell stabilizer", ind:["Chronic allergic conjunctivitis","Vernal keratoconjunctivitis"],
+ d:"1 drop four to six times daily",
+ note:"Prophylactic rather than rescue — takes days to weeks to work, so start before the season. Poor choice for acute symptoms."},
+
+/* --- ocular surface --- */
+{n:"Preservative-free artificial tears", c:"Lubricant", ind:["Dry eye of any cause","Exposure keratopathy","Recurrent erosion","Adjunct to almost every surface condition"],
+ d:"1 drop as often as needed; preservative-free once use exceeds about 4 times daily",
+ note:"Benzalkonium chloride in preserved drops worsens surface disease with frequent use — switch to preservative-free vials. Gels and ointments last longer and are better at night but blur vision."},
+{n:"Ciclosporin 0.05%", c:"Topical immunomodulator", ind:["Moderate to severe dry eye with an inflammatory component","Post-surgical dry eye"],
+ d:"1 drop twice daily",
+ note:"<strong>Counsel that it takes up to 3 months to work and stings at first</strong>, or the patient will abandon it at week two. That counselling is the difference between success and failure with this drug."},
+{n:"Lifitegrast 5%", c:"LFA-1 antagonist", ind:["Dry eye disease"],
+ d:"1 drop twice daily",
+ note:"Faster onset than ciclosporin, often within weeks. Dysgeusia (an unpleasant taste) is common and is the usual reason patients stop."},
+{n:"Autologous serum drops 20%", c:"Blood-derived lubricant", ind:["Severe dry eye","Persistent epithelial defect","Neurotrophic keratopathy","Graft-versus-host ocular disease"],
+ d:"1 drop four to eight times daily, per specialist protocol",
+ note:"Prepared from the patient's own serum and contain growth factors absent from artificial tears. Requires refrigeration, has a limited shelf life, and is a specialist prescription."}
+];
+
 /* ---------- drug vocabulary for the index ---------- */
-const DRUG_TERMS = ["acetylcysteine","adenosine","albuterol","albumin","alteplase","amiodarone","amoxicillin-clavulanate","ampicillin","ampicillin-sulbactam","andexanet","apixaban","argatroban","aspirin","atorvastatin","azithromycin","bicarbonate","bivalirudin","caplacizumab","calcitonin","calcium gluconate","cefazolin","cefepime","cefotaxime","ceftriaxone","cephalexin","clevidipine","clindamycin","clopidogrel","colchicine","dabigatran","denosumab","desmopressin","dexamethasone","dextrose","diazepam","digoxin","diltiazem","diphenhydramine","dobutamine","doxycycline","enoxaparin","epinephrine","erythromycin","esmolol","famotidine","fidaxomicin","fludrocortisone","fomepizole","fosphenytoin","furosemide","glucagon","haloperidol","heparin","hydralazine","hydrocortisone","ibuprofen","idarucizumab","insulin","ipratropium","isoproterenol","ketorolac","labetalol","lactulose","levetiracetam","levofloxacin","lidocaine","linezolid","lorazepam","magnesium","meropenem","methylprednisolone","metoclopramide","metoprolol","metronidazole","midazolam","midodrine","milrinone","naloxone","nicardipine","nifedipine","nimodipine","nitroglycerin","nitroprusside","norepinephrine","octreotide","pantoprazole","patiromer","phenobarbital","phentolamine","piperacillin-tazobactam","prasugrel","prednisolone","prednisone","procainamide","prochlorperazine","propofol","protamine","quetiapine","rifaximin","rivaroxaban","rosuvastatin","sodium zirconium cyclosilicate","spironolactone","sumatriptan","thiamine","ticagrelor","tolvaptan","tranexamic acid","trimethoprim-sulfamethoxazole","valproate","vancomycin","vasopressin","verapamil","vitamin k","warfarin","zoledronic acid"];
+const DRUG_TERMS = ["acetazolamide","acetylcysteine","acyclovir","adalimumab","adenosine","aflibercept","albumin","albuterol","alteplase","amikacin","amiodarone","amoxicillin-clavulanate","amphotericin","ampicillin","ampicillin-sulbactam","andexanet","apixaban","apraclonidine","argatroban","ascorbate","aspirin","atorvastatin","atropine","avacincaptad","azathioprine","azithromycin","bevacizumab","bezlotoxumab","bicarbonate","bimatoprost","bivalirudin","brimonidine","brinzolamide","calcitonin","calcium gluconate","caplacizumab","cefazolin","cefepime","cefotaxime","ceftazidime","ceftriaxone","cephalexin","ciclosporin","clevidipine","clindamycin","clopidogrel","colchicine","cyclopentolate","dabigatran","denosumab","desmopressin","dexamethasone","dextrose","diazepam","digoxin","diltiazem","diphenhydramine","dobutamine","dorzolamide","doxycycline","enoxaparin","epinephrine","erythromycin","esmolol","famciclovir","famotidine","faricimab","fidaxomicin","fludrocortisone","fluocinolone","fomepizole","fosphenytoin","furosemide","ganciclovir","glucagon","haloperidol","heparin","homatropine","hydralazine","hydrocortisone","ibuprofen","idarucizumab","insulin","ipratropium","isoproterenol","isotretinoin","ketorolac","labetalol","lactulose","latanoprost","levetiracetam","levofloxacin","lidocaine","lifitegrast","linezolid","lorazepam","lotilaner","magnesium","mannitol","meropenem","methotrexate","methylprednisolone","metoclopramide","metoprolol","metronidazole","midazolam","midodrine","milrinone","mycophenolate","naloxone","nicardipine","nifedipine","nimodipine","nitroglycerin","nitroprusside","norepinephrine","octreotide","pantoprazole","patiromer","pegcetacoplan","phenobarbital","phentolamine","pilocarpine","piperacillin-tazobactam","prasugrel","prednisolone","prednisone","procainamide","prochlorperazine","propofol","protamine","pyridostigmine","pyridoxine","quetiapine","ranibizumab","rifaximin","rivaroxaban","rosuvastatin","sodium zirconium cyclosilicate","spironolactone","sumatriptan","tenecteplase","teprotumumab","thiamine","ticagrelor","timolol","tocilizumab","tolvaptan","topiramate","tranexamic acid","travoprost","triamcinolone","trifluridine","trimethoprim-sulfamethoxazole","valacyclovir","valproate","vancomycin","vasopressin","verapamil","vitamin k","warfarin","zoledronic acid"];
 
 /* ---------- render ---------- */
 const listEl   = document.getElementById('list');
@@ -2637,6 +4083,8 @@ const chipsEl  = document.getElementById('chips');
 const discEl   = document.getElementById('disc');
 let activeTag = 'All';
 let mode = 'scripts';
+let eyeSub = 'All';
+let drugTab = 'All';
 
 const SECTIONS = [
   {key:'first',  label:'First 5 min'},
@@ -2683,10 +4131,76 @@ for (const d of DATA){
 }
 
 /* ---------- drug index ---------- */
+/* pull the dose phrase out of a sentence that mentions a drug */
+const DOSE_RE = /\d[\d.,\u2013\u2014-]*\s?(?:mg|g|mcg|micrograms?|units?|mL|L|mEq|%|PE\/kg)(?:\s?\/\s?kg)?(?:\s?\/\s?(?:kg|min|h|hr|hour|day))?(?:[^.;]{0,60}?(?:IV|IM|SC|PO|orally|intravenously|nebuli[sz]ed|topical|sublingual|inhaled|every\s?\d+(?:\u2013\d+)?\s?(?:h|hours|min|minutes)|(?:once|twice|three times|four times|five times)(?:\s(?:a day|daily|nightly))?|daily|nightly|hourly|bolus|load(?:ing)?|infusion|for \d+\s?(?:days?|weeks?|h|hours)))?/i;
+
+/* a percentage that is describing an effect size, not a concentration or a dose */
+const PCT_EFFECT = /(?:reduc|lower|drop|increase|risk|progression|about|roughly|approximately)\s[^.;]{0,30}$/i;
+
+function doseIn(text, term){
+  const plain = String(text).replace(/<[^>]+>/g, '');
+  const low = plain.toLowerCase();
+  const out = [];
+  let from = 0;
+  while (true){
+    const i = low.indexOf(term, from);
+    if (i === -1) break;
+    from = i + term.length;
+    let after = plain.slice(i + term.length, i + term.length + 190);
+    /* stop at the next drug name so we do not steal its dose */
+    let cut = after.length;
+    const afterLow = after.toLowerCase();
+    for (const other of DRUG_TERMS){
+      if (other === term) continue;
+      const k = afterLow.indexOf(other);
+      if (k !== -1 && k < cut) cut = k;
+    }
+    after = after.slice(0, cut);
+    const m = after.match(DOSE_RE);
+    if (!m) continue;
+    const at = after.indexOf(m[0]);
+    if (at > 45) continue;
+    const phrase = m[0].trim().replace(/[,;]$/, '');
+    /* mEq belongs to an electrolyte, not to whatever drug was named nearby */
+    if (/mEq/i.test(phrase) && !/potassium|calcium|magnesium|bicarbonate|sodium|chloride/i.test(term)) continue;
+    /* a percentage is only a concentration if it sits right beside the drug name */
+    if (/%/.test(phrase)){
+      const before = plain.slice(0, i + term.length) + after.slice(0, at);
+      if (at > 14 || PCT_EFFECT.test(before)) continue;
+    }
+    out.push(phrase);
+  }
+  /* tidy: drop prose that ran on past the dose, then collapse duplicates and prefixes */
+  const clean = out.map(x => {
+    let v = x;
+    if (v.includes(')') && !v.includes('(')) v = v.slice(0, v.indexOf(')'));
+    if (v.includes('(') && !v.includes(')')) v = v.slice(0, v.indexOf('('));
+    v = v.split(/\s(?:constricts|reverses|dilates|which|whereas|because|since|and then|then start)\b/)[0];
+    v = v.replace(/[\s,;(]+$/, '').trim();
+    if (v.length > 52) v = v.slice(0, 52).replace(/\s\S*$/, '') + '\u2026';
+    return v;
+  }).filter(v => /\d/.test(v));
+  const uniq = [...new Set(clean)].sort((a, b) => b.length - a.length);
+  const kept = [];
+  for (const v of uniq){
+    if (!kept.some(k => k.toLowerCase().startsWith(v.toLowerCase().replace(/\u2026$/, '')))) kept.push(v);
+  }
+  return kept.sort((a, b) => a.localeCompare(b));
+}
+
 const DRUGS = [];
 for (const term of DRUG_TERMS){
   const hits = INDEX.filter(r => r.hay.includes(term));
-  if (hits.length) DRUGS.push({term, hits});
+  if (!hits.length) continue;
+  const uses = [];
+  for (const h of hits){
+    const doses = doseIn(h.text, term);
+    const d = DATA.find(x => x.id === h.id);
+    uses.push({id:h.id, name:h.name, group:(d && d.tag === 'Ophthalmology') ? (d.sub || 'Eye') : 'Medicine',
+               section:h.section, doses, text:h.text});
+  }
+  const allDoses = [...new Set(uses.flatMap(u => u.doses))];
+  DRUGS.push({term, hits, uses, allDoses});
 }
 DRUGS.sort((a,b) => a.term.localeCompare(b.term));
 
@@ -2702,7 +4216,8 @@ function highlight(html, terms){
 }
 
 /* ---------- top-level views ---------- */
-const tags = ['All', ...Array.from(new Set(DATA.map(d => d.tag)))];
+const EYE = 'Ophthalmology';
+const tags = ['All', ...Array.from(new Set(DATA.filter(d => d.tag !== EYE).map(d => d.tag)))];
 chipsEl.innerHTML = tags.map(t =>
   `<button class="chip" data-tag="${t}" aria-pressed="${t === 'All'}">${t}</button>`
 ).join('');
@@ -2726,9 +4241,12 @@ function setMode(m){
   [...modesEl.children].forEach(c => c.setAttribute('aria-selected', c.dataset.mode === m));
   chipsEl.style.display = (m === 'scripts') ? '' : 'none';
   if (m !== 'hpi') hpiPick = null;
+  if (m !== 'eye') eyeSub = 'All';
+  if (m !== 'drugs') drugTab = 'All';
   searchEl.value = '';
   searchEl.placeholder = m === 'drugs' ? 'Search a drug name'
     : m === 'hpi' ? 'Search a chief complaint'
+    : m === 'eye' ? 'Search an eye symptom, sign, or drug'
     : 'Search a symptom, sign, or lab \u2014 e.g. hypoxia, K 6.4, confusion';
   closeDetail(true);
   render();
@@ -2753,7 +4271,20 @@ function render(){
 }
 
 function renderCards(){
-  const hits = DATA.filter(d => activeTag === 'All' || d.tag === activeTag);
+  if (mode === 'eye'){
+    const subs = ['All', 'On call', 'Clinic'];
+    const eyeHits = DATA.filter(d => d.tag === EYE && (eyeSub === 'All' || d.sub === eyeSub));
+    listEl.innerHTML =
+      `<div class="chips subchips">${subs.map(t =>
+        `<button class="chip" data-sub="${t}" aria-pressed="${t === eyeSub}">${t}</button>`).join('')}</div>` +
+      `<p class="count">${eyeHits.length} presentation${eyeHits.length === 1 ? '' : 's'}</p>` +
+      eyeHits.map(d => `<button class="card" data-id="${d.id}">
+        <span class="tag">${d.sub || ''}</span>
+        <h2>${d.name}</h2>
+      </button>`).join('');
+    return;
+  }
+  const hits = DATA.filter(d => d.tag !== EYE && (activeTag === 'All' || d.tag === activeTag));
   listEl.innerHTML =
     `<p class="count">${hits.length} presentation${hits.length === 1 ? '' : 's'}</p>` +
     hits.map(d => `<button class="card" data-id="${d.id}">
@@ -2764,14 +4295,15 @@ function renderCards(){
 
 /* line-level results: the matching bullet, not just the script */
 function renderLineResults(terms){
+  const inScope = d => (mode === 'eye')
+    ? (d.tag === EYE && (eyeSub === 'All' || d.sub === eyeSub))
+    : (d.tag !== EYE && (activeTag === 'All' || d.tag === activeTag));
   const pool = INDEX.filter(r => {
-    if (activeTag !== 'All'){
-      const d = DATA.find(x => x.id === r.id);
-      if (!d || d.tag !== activeTag) return false;
-    }
+    const d = DATA.find(x => x.id === r.id);
+    if (!d || !inScope(d)) return false;
     return terms.every(t => r.hay.includes(t));
   });
-  const scripts = DATA.filter(d => terms.every(t => haystack(d).includes(t)));
+  const scripts = DATA.filter(d => inScope(d) && terms.every(t => haystack(d).includes(t)));
 
   if (!pool.length && !scripts.length){
     listEl.innerHTML = `<div class="empty">Nothing matches that. Try a single symptom, a lab name, or a drug.</div>`;
@@ -2828,21 +4360,79 @@ function renderHPIView(terms){
 }
 
 /* drug index */
+function dropsHTML(terms){
+  const hits = DROPS.filter(x => !terms.length || terms.every(t =>
+    (x.n + ' ' + x.c + ' ' + x.ind.join(' ') + ' ' + x.d + ' ' + x.note).toLowerCase().includes(t)));
+  if (!hits.length) return `<div class="empty">No drop matches that.</div>`;
+  const byClass = {};
+  for (const x of hits) (byClass[x.c] = byClass[x.c] || []).push(x);
+  return `<p class="count">${hits.length} ophthalmic preparation${hits.length===1?'':'s'}</p>` +
+    hits.map(x => `<details class="drug drop">
+      <summary><span class="dname">${x.n}</span><span class="dclass">${x.c}</span></summary>
+      <div class="dbody">
+        <p class="dlabel">Indications</p>
+        <ul class="dindlist">${x.ind.map(i => `<li>${i}</li>`).join('')}</ul>
+        <p class="dlabel">Dosing</p>
+        <p class="dosetext">${x.d}</p>
+        <p class="dlabel">Notes and cautions</p>
+        <p class="dnote">${x.note}</p>
+      </div>
+    </details>`).join('');
+}
+
 function renderDrugs(terms){
-  const hits = DRUGS.filter(x => !terms.length || terms.every(t => x.term.includes(t)));
-  if (!hits.length){
-    listEl.innerHTML = `<div class="empty">No drug by that name in these scripts.</div>`;
+  const tabs = ['All', 'From scripts', 'Eye drops'];
+  const tabRow = `<div class="chips subchips">${tabs.map(t =>
+    `<button class="chip" data-drugtab="${t}" aria-pressed="${t === drugTab}">${t}</button>`).join('')}</div>`;
+  if (drugTab === 'Eye drops'){
+    listEl.innerHTML = tabRow + dropsHTML(terms);
     return;
   }
-  listEl.innerHTML =
-    `<p class="count">${hits.length} drug${hits.length===1?'':'s'} \u2014 every mention, pulled from the scripts themselves</p>` +
-    hits.map(x => `<details class="drug">
-      <summary><span class="dname">${x.term}</span><span class="dcount">${x.hits.length}</span></summary>
-      ${x.hits.map(h => `<button class="rline" data-id="${h.id}" data-sec="${h.section}">
-          <span class="rsec">${h.name} \u00b7 ${(SECTIONS.find(s=>s.key===h.section)||{}).label}</span>
-          <span class="rtext">${highlight(h.text, [x.term])}</span>
-        </button>`).join('')}
-    </details>`).join('');
+  const hits = DRUGS.filter(x => !terms.length || terms.every(t => x.term.includes(t)));
+  const dropsPart = (drugTab === 'All') ? dropsHTML(terms) : '';
+  if (!hits.length && drugTab !== 'All'){
+    listEl.innerHTML = tabRow + `<div class="empty">No drug by that name in these scripts.</div>`;
+    return;
+  }
+  if (!hits.length){
+    listEl.innerHTML = tabRow + dropsPart;
+    return;
+  }
+  listEl.innerHTML = tabRow +
+    (drugTab === 'All' ? dropsPart : '') +
+    `<p class="count">${hits.length} systemic drug${hits.length===1?'':'s'} \u2014 indications and doses as they appear in the scripts</p>` +
+    hits.map(x => {
+      const withDose = x.uses.filter(u => u.doses.length);
+      const seen = new Set();
+      const indications = x.uses.filter(u => { if (seen.has(u.id)) return false; seen.add(u.id); return true; });
+      const doseRows = [];
+      const done = new Set();
+      for (const u of withDose){
+        for (const dz of u.doses){
+          const key = u.id + '|' + dz;
+          if (done.has(key)) continue;
+          done.add(key);
+          doseRows.push(`<button class="doserow" data-id="${u.id}" data-sec="${u.section}">
+            <span class="dose">${dz}</span><span class="dfor">${u.name}</span></button>`);
+        }
+      }
+      return `<details class="drug">
+        <summary><span class="dname">${x.term}</span><span class="dcount">${x.hits.length}</span></summary>
+        <div class="dbody">
+          <p class="dlabel">Indications \u2014 where it is used here</p>
+          <div class="dind">${indications.map(u =>
+            `<button class="indchip" data-id="${u.id}">${u.name}<span class="indgrp">${u.group}</span></button>`).join('')}</div>
+          <p class="dlabel">Dosing as stated in those scripts</p>
+          ${doseRows.length ? `<div class="doses">${doseRows.join('')}</div>`
+            : `<p class="dnone">No dose is stated for this drug in the scripts \u2014 open a mention below for the context.</p>`}
+          <details class="dmentions"><summary>All ${x.hits.length} mention${x.hits.length===1?'':'s'}</summary>
+            ${x.hits.map(h => `<button class="rline" data-id="${h.id}" data-sec="${h.section}">
+              <span class="rsec">${h.name} \u00b7 ${(SECTIONS.find(s=>s.key===h.section)||{}).label}</span>
+              <span class="rtext">${highlight(h.text, [x.term])}</span></button>`).join('')}
+          </details>
+        </div>
+      </details>`;
+    }).join('');
 }
 
 /* ---------- detail ---------- */
@@ -2973,16 +4563,23 @@ function buildHPI(box){
     !/\b(on|at|after|during|without|only|by|per|than|despite)\b/.test(t);
 
   const locList = h.locPrep ? location.map(l => 'in the ' + l) : location;
+  const siteText = (h.locSite && location.length) ? ' involving the ' + joinList(location) : '';
   const sevWord = sev ? (/\/10/.test(sev) ? '' : sev) : '';
   const locFrontOK = (h.locFront !== false) && (d.id !== 'stroke');
   const front = copula
-    ? [...quality, ...(locFrontOK ? location : []), sevWord].filter(Boolean).filter(premodOK) : [];
-  const leftover = [...quality, ...locList, (copula && sevWord && !front.includes(sevWord) ? sevWord : '')]
+    ? [...quality, ...((locFrontOK && !h.locSite) ? location : []), sevWord].filter(Boolean).filter(premodOK) : [];
+  const leftover = [...quality, ...(h.locSite ? [] : locList), (copula && sevWord && !front.includes(sevWord) ? sevWord : '')]
     .filter(Boolean).filter(t => !front.includes(t) && !front.includes(t.replace(/^in the /,'')));
 
   // 1. opening — descriptors fold in front of the complaint where they read naturally
-  const ccPhrase = front.length ? `${front.join(', ')} ${h.cc.replace(/^(a|an) /,'')}` : h.cc;
-  let s1 = `${who} presents with ${ccPhrase}`;
+  let ccPhrase = h.cc;
+  if (front.length){
+    const bare = h.cc.replace(/^(a|an) /,'');
+    const hadArticle = bare !== h.cc;
+    const art = hadArticle ? (/^[aeiou]/i.test(front[0]) ? 'an ' : 'a ') : '';
+    ccPhrase = `${art}${front.join(', ')} ${bare}`;
+  }
+  let s1 = `${who} presents with ${ccPhrase}${siteText}`;
   if (onset) s1 += ` that began ${onset}`;
   if (course) s1 += onset ? ` and has been ${course}` : `, currently ${course}`;
   s1 += '.';
@@ -3138,6 +4735,15 @@ document.addEventListener('click', e => {
   if (card) return openDetail(card.dataset.id);
   const jump = e.target.closest('.jchip');
   if (jump) return goSection(jump.dataset.sec);
+  const drow = e.target.closest('.doserow, .indchip');
+  if (drow) return openDetail(drow.dataset.id, drow.dataset.sec || 'mgmt');
+  const sub = e.target.closest('.subchips .chip');
+  if (sub){
+    if (sub.dataset.drugtab) drugTab = sub.dataset.drugtab;
+    else eyeSub = sub.dataset.sub;
+    render();
+    return;
+  }
   const ccb = e.target.closest('.ccbtn');
   if (ccb){ hpiPick = ccb.dataset.cc; render(); window.scrollTo(0,0); return; }
   const goto = e.target.closest('.linkbtn');
