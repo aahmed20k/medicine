@@ -240,6 +240,19 @@ details.drug[open] > summary{border-bottom:1px solid var(--line)}
 .vbadge strong{color:var(--amber)}
 .vbadge.ok{background:var(--green-soft);border-color:#C4E0D5}
 .vbadge.ok strong{color:var(--green)}
+.revpanel{border-top:1px solid var(--line);padding:10px 0 4px}
+.revcount{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:6px 0 9px}
+.revbar{display:none;gap:4px;flex-wrap:wrap;align-items:center;margin-top:5px}
+body.review .revbar{display:flex}
+.revb{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:3px 7px;
+  border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--muted);cursor:pointer}
+.revb:hover{border-color:var(--blue);color:var(--blue)}
+.revb.clear{border-style:dashed}
+.revnote{font-size:11.5px;color:var(--muted);flex-basis:100%;margin-top:2px}
+body.review li[data-ref],body.review .tier[data-ref]{position:relative}
+.rev-wrong{background:var(--red-soft);border-radius:5px;padding:3px 6px}
+.rev-imprecise{background:var(--amber-soft);border-radius:5px;padding:3px 6px}
+.rev-edited{background:var(--blue-soft);border-radius:5px;padding:3px 6px}
 .setnote{font-size:12px;color:var(--muted);line-height:1.45;margin:0;padding:10px 0 12px;border-top:1px solid var(--line)}
 .renalflag{font-size:13px;line-height:1.45;background:var(--amber-soft);border:1px solid #EBDCBE;border-radius:7px;
   padding:8px 10px;margin:0 0 12px;color:var(--ink)}
@@ -424,6 +437,20 @@ body[data-theme="dark"] .chip[aria-pressed="true"]{background:#E6EDF3;border-col
       <input type="checkbox" id="set-phone"></label>
     <label class="setrow"><span><strong>Dark mode</strong><em>Low-light display.</em></span>
       <input type="checkbox" id="set-dark"></label>
+    <label class="setrow"><span><strong>Review mode</strong><em>Flag or rewrite any line. Changes are saved on this device and exported as a file to send back.</em></span>
+      <input type="checkbox" id="set-review"></label>
+    <div id="revpanel" class="revpanel" hidden>
+      <div class="hrow">
+        <div class="hfield wide"><label>Reviewer name</label><input id="rev-name" type="text" placeholder="Dr Ahmed"></div>
+        <div class="hfield wide"><label>Role</label><input id="rev-role" type="text" placeholder="PGY-3 / attending, cardiology"></div>
+      </div>
+      <p class="revcount" id="revcount">No flags yet.</p>
+      <div class="shelf">
+        <button class="hbtn" id="rev-export">Export review file</button>
+        <button class="hbtn" id="rev-report">Export readable report</button>
+        <button class="hbtn" id="rev-clear">Clear all flags</button>
+      </div>
+    </div>
     <p class="setnote">Single file, no network calls. Works offline once loaded. On iOS use Share then Add to Home Screen; on Android use the browser menu then Add to Home screen. Starred items and settings are stored on this device only.</p>
   </div>
   <nav class="modes" id="modes" role="tablist">
@@ -4383,7 +4410,45 @@ let mode = 'scripts';
 let eyeSub = 'All';
 let drugTab = 'All';
 let indPick = null;
-const SET = {concise:false, phone:false, dark:false};
+const SET = {concise:false, phone:false, dark:false, review:false};
+let REVIEWS = {};
+try { REVIEWS = JSON.parse(localStorage.getItem('ws-reviews') || '{}'); } catch(e){}
+function saveReviews(){
+  try { localStorage.setItem('ws-reviews', JSON.stringify(REVIEWS)); } catch(e){}
+  const el = document.getElementById('revcount');
+  if (el){
+    const n = Object.keys(REVIEWS).length;
+    el.textContent = n ? `${n} flagged item${n === 1 ? '' : 's'} saved on this device.` : 'No flags yet.';
+  }
+}
+/* find the original text behind a reference, so the export carries context */
+function refText(ref){
+  const parts = ref.split('.');
+  const kind = parts[parts.length - 2] === 'ddx' || parts[parts.length - 3] === 'ddx' ? 'ddx' : parts[parts.length - 2];
+  const idx = Number(parts[parts.length - 1]);
+  const id = parts[0].startsWith('eye') ? parts.slice(0, 2).join('.').replace('.', '-') : parts[0];
+  const d = DATA.find(x => ref.startsWith(x.id + '.'));
+  if (!d) return {script:'?', section:'?', text:'?'};
+  const sec = ref.slice(d.id.length + 1).split('.')[0];
+  const rest = ref.slice(d.id.length + 1).split('.').slice(1).map(Number);
+  let text = '';
+  try {
+    if (sec === 'first') text = (FIRST[d.id]||[])[rest[0]];
+    else if (sec === 'redflag') text = d.flags[rest[0]];
+    else if (sec === 'ddx') text = d.ddx[rest[0]].g + ': ' + d.ddx[rest[0]].i[rest[1]];
+    else if (sec === 'history') text = d.hx[rest[0]];
+    else if (sec === 'labs') text = d.wu.labs[rest[0]];
+    else if (sec === 'img') text = d.wu.img[rest[0]];
+    else if (sec === 'other') text = d.wu.other[rest[0]];
+    else if (sec === 'mgmt') text = d.mgmt[rest[0]];
+    else if (sec === 'pearl') text = d.pearls[rest[0]];
+    else if (sec === 'strat'){
+      const t = d.strat[rest[0]], r = t.rows[rest[1]];
+      text = `[${t.t}] ${r[1]} | ${r[2]} | ${r[3]}`;
+    }
+  } catch(e){}
+  return {script:d.name, section:sec, text:String(text || '').replace(/<[^>]+>/g, '')};
+}
 
 /* scripts whose doses and thresholds have been checked against external sources */
 const VERIFIED = {
@@ -4404,6 +4469,11 @@ function applySettings(){
   document.body.classList.toggle('concise', !!SET.concise);
   document.body.classList.toggle('phone', !!SET.phone);
   document.body.setAttribute('data-theme', SET.dark ? 'dark' : 'light');
+  document.body.classList.toggle('review', !!SET.review);
+  const rp = document.getElementById('revpanel');
+  if (rp){ if (SET.review) rp.removeAttribute('hidden'); else rp.setAttribute('hidden',''); }
+  const rv = document.getElementById('set-review');
+  if (rv) rv.checked = !!SET.review;
   const c = document.getElementById('set-concise'), ph = document.getElementById('set-phone'), dk = document.getElementById('set-dark');
   if (c) c.checked = !!SET.concise;
   if (ph) ph.checked = !!SET.phone;
@@ -4434,10 +4504,24 @@ function splitLead(text){
   }
   return [m[1], m[2]];
 }
-function bullets(items){
-  return `<ul>${items.map(i => {
+function revMark(ref){
+  if (!SET.review) return '';
+  const r = REVIEWS[ref];
+  return `<span class="revbar${r ? ' flagged ' + r.verdict : ''}">
+    <button class="revb" data-rev="wrong" data-ref="${ref}">Wrong</button>
+    <button class="revb" data-rev="imprecise" data-ref="${ref}">Imprecise</button>
+    <button class="revb" data-rev="edit" data-ref="${ref}">Edit</button>
+    ${r ? `<button class="revb clear" data-rev="clear" data-ref="${ref}">Clear</button>` : ''}
+    ${r ? `<span class="revnote">${r.verdict}${r.suggested ? ': ' + esc(r.suggested) : ''}${r.note ? ' \u2014 ' + esc(r.note) : ''}</span>` : ''}
+  </span>`;
+}
+
+function bullets(items, base){
+  return `<ul>${items.map((i, ix) => {
     const [lead, rest] = splitLead(i);
-    return `<li><span class="lead">${lead}</span>${rest ? `<span class="rest">${rest}</span>` : ''}</li>`;
+    const ref = base ? `${base}.${ix}` : '';
+    const r = ref && REVIEWS[ref];
+    return `<li${ref ? ` data-ref="${ref}"` : ''}${r ? ` class="rev-${r.verdict}"` : ''}><span class="lead">${lead}</span>${rest ? `<span class="rest">${rest}</span>` : ''}${revMark(ref)}</li>`;
   }).join('')}</ul>`;
 }
 
@@ -4714,7 +4798,6 @@ function renderHPIView(terms){
   const body = notesTab === 'A&P' ? apHTML(d) : notesTab === 'Consult' ? consultHTML(d) : hpiHTML(d);
   listEl.innerHTML = tabRow + `<button class="back" id="ccback">&larr; Change chief complaint</button>
     <h2 class="dtitle">${notesTab}: ${d.name}</h2>
-    <p class="dsub">Select applicable items. Omitted fields are excluded from the output.</p>
     <section class="blk">${body}</section>
     <p class="hpi-jump">Full workup: <button class="linkbtn" data-goto="${d.id}">Open ${d.name.toLowerCase()} script</button></p>`;
   listEl.querySelectorAll('.hpi').forEach(buildHPI);
@@ -4743,7 +4826,6 @@ function apHTML(d){
   const dx = d.ddx.flatMap(g => g.i.map(i => ({t:i, crit:!!g.crit})));
   const plan = d.mgmt.map(m => m.replace(/<[^>]+>/g, '').split(/[.;]/)[0].trim());
   return `<div class="ap" data-id="${d.id}">
-    <p class="hpi-intro">Select the working diagnosis and the plan items. Output is problem-based.</p>
     <div class="hrow">
       <div class="hfield wide"><label>Problem heading</label>
         <input class="apin" data-k="prob" type="text" value="${d.name}"></div>
@@ -4809,7 +4891,6 @@ function consultHTML(d){
   const asks = ["Come and see the patient","Advise on next step in management","Accept for transfer or admission",
     "Take to the lab or theatre","Advise on drug choice or dosing","Confirm the plan is reasonable"];
   return `<div class="cons" data-id="${d.id}">
-    <p class="hpi-intro">SBAR. Fill the four fields, select the ask, and read from the output.</p>
     <div class="hrow">
       <div class="hfield"><label>Your name</label><input class="csin" data-k="me" type="text" placeholder="Dr Ahmed"></div>
       <div class="hfield"><label>Service called</label><input class="csin" data-k="svc" type="text" placeholder="Cardiology"></div>
@@ -4881,7 +4962,6 @@ const EYE_EXAM_ROWS = [
 
 function eyeExamHTML(){
   return `<div class="eyeex">
-    <p class="hpi-intro">Defaults are normal findings. Edit only what differs, then copy.</p>
     <div class="hrow">
       <div class="hfield"><label>Dilated?</label>
         <select class="exin" data-k="dil"><option>Undilated</option><option>Dilated</option></select></div>
@@ -5027,11 +5107,17 @@ function renderDrugs(terms){
 
 /* ---------- detail ---------- */
 /* in concise mode, show the highest-priority items and offer the rest on demand */
-function capped(items, n, label){
-  if (!SET.concise || items.length <= n) return bullets(items);
-  return bullets(items.slice(0, n)) +
+function capped(items, n, label, base){
+  if (!SET.concise || items.length <= n) return bullets(items, base);
+  const restItems = items.slice(n).map((x, i) => x);
+  return bullets(items.slice(0, n), base) +
     `<button class="moreb" data-more="${label}">Show ${items.length - n} more</button>` +
-    `<div class="morebox" data-morebox="${label}" hidden>${bullets(items.slice(n))}</div>`;
+    `<div class="morebox" data-morebox="${label}" hidden>${
+      `<ul>${restItems.map((i, ix) => {
+        const [lead, rest] = splitLead(i);
+        const ref = base ? `${base}.${ix + n}` : '';
+        return `<li${ref ? ` data-ref="${ref}"` : ''}><span class="lead">${lead}</span>${rest ? `<span class="rest">${rest}</span>` : ''}${revMark(ref)}</li>`;
+      }).join('')}</ul>`}</div>`;
 }
 
 /* other scripts named inside this one */
@@ -5053,36 +5139,39 @@ function sectionHTML(d){
   const first = FIRST[d.id] || [];
   out.push(`<section class="blk sec-first" id="sec-first">
     <h3>First 5 minutes</h3>
-    <ol class="firstlist">${first.map(x => `<li>${x}</li>`).join('')}</ol>
-    <div class="flagbox"><h4>Red flags</h4>${bullets(d.flags)}</div>
+    <ol class="firstlist">${first.map((x, ix) => `<li data-ref="${d.id}.first.${ix}">${x}${revMark(`${d.id}.first.${ix}`)}</li>`).join('')}</ol>
+    <div class="flagbox"><h4>Red flags</h4>${bullets(d.flags, d.id + '.redflag')}</div>
   </section>`);
 
   const ddxGroups = SET.concise ? (d.ddx.filter(g => g.crit).length ? d.ddx.filter(g => g.crit) : d.ddx.slice(0, 2)) : d.ddx;
-  const ddx = ddxGroups.map(g => `<div class="grp${g.crit ? ' critical' : ''}"><h4>${g.g}</h4><ul>${(SET.concise ? g.i.slice(0, 6) : g.i).map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('') +
+  const ddx = ddxGroups.map((g, gi) => `<div class="grp${g.crit ? ' critical' : ''}"><h4>${g.g}</h4><ul>${(SET.concise ? g.i.slice(0, 6) : g.i).map((i, ii)=>`<li data-ref="${d.id}.ddx.${gi}.${ii}">${i}${revMark(`${d.id}.ddx.${gi}.${ii}`)}</li>`).join('')}</ul></div>`).join('') +
     (SET.concise && ddxGroups.length < d.ddx.length ? `<p class="dnone">Showing the can't-miss groups only.</p>` : '');
   out.push(fold('ddx','Differential', ddx));
-  out.push(fold('hx','Focused history and exam', capped(d.hx, 3, 'hx')));
+  out.push(fold('hx','Focused history and exam', capped(d.hx, 3, 'hx', d.id + '.history')));
 
   const wu = [
-    d.wu.labs && d.wu.labs.length ? `<div class="wu-sub"><h4>Labs</h4>${capped(d.wu.labs, 3, 'labs')}</div>` : '',
-    d.wu.img && d.wu.img.length ? `<div class="wu-sub"><h4>Imaging</h4>${capped(d.wu.img, 2, 'img')}</div>` : '',
-    (d.wu.other && d.wu.other.length && !SET.concise) ? `<div class="wu-sub"><h4>Scores and next steps</h4>${bullets(d.wu.other)}</div>` : ''
+    d.wu.labs && d.wu.labs.length ? `<div class="wu-sub"><h4>Labs</h4>${capped(d.wu.labs, 3, 'labs', d.id + '.labs')}</div>` : '',
+    d.wu.img && d.wu.img.length ? `<div class="wu-sub"><h4>Imaging</h4>${capped(d.wu.img, 2, 'img', d.id + '.img')}</div>` : '',
+    (d.wu.other && d.wu.other.length && !SET.concise) ? `<div class="wu-sub"><h4>Scores and next steps</h4>${bullets(d.wu.other, d.id + '.other')}</div>` : ''
   ].join('');
   out.push(fold('wu','Workup', wu));
 
   const calc = (SCORES[d.id]||[]).map(sc => calcHTML(sc)).join('') + (FORMULAS[d.id]||[]).map(f => formulaHTML(f)).join('');
-  const tables = (d.strat||[]).map(tb => `<div class="strat-table">
+  const tables = (d.strat||[]).map((tb, tbi) => `<div class="strat-table">
       <p class="strat-label">${tb.t}${tb.n ? ` <span class="strat-note">${tb.n}</span>` : ''}</p>
-      ${tb.rows.map(r => `<div class="tier s-${r[0]}">
+      ${tb.rows.map((r, ri) => {
+        const ref = `${d.id}.strat.${tbi}.${ri}`;
+        const rv = REVIEWS[ref];
+        return `<div class="tier s-${r[0]}${rv ? ' rev-' + rv.verdict : ''}" data-ref="${ref}">
         <div class="tname">${r[1]}</div>
         ${SET.concise ? '' : `<div class="tdef">${r[2]}</div>`}
-        <div class="tdo">${r[3]}</div>
-      </div>`).join('')}
+        <div class="tdo">${r[3]}</div>${revMark(ref)}
+      </div>`; }).join('')}
     </div>`).join('');
   out.push(fold('strat','Stratification', calc + tables));
 
-  out.push(fold('mgmt','Initial management', capped(d.mgmt, 4, 'mgmt'), true));
-  if (!SET.concise) out.push(fold('pearls','Pearls and pitfalls', bullets(d.pearls)));
+  out.push(fold('mgmt','Initial management', capped(d.mgmt, 4, 'mgmt', d.id + '.mgmt'), true));
+  if (!SET.concise) out.push(fold('pearls','Pearls and pitfalls', bullets(d.pearls, d.id + '.pearl')));
   const rel = related(d);
   if (rel.length) out.push(`<section class="blk"><h3>Related scripts</h3><div class="shelf">${
     rel.map(r => `<button class="shelfb" data-id="${r.id}">${r.name}</button>`).join('')}</div></section>`);
@@ -5108,7 +5197,6 @@ function hpiGroup(d, key, label, hint){
 function hpiHTML(d){
   const h = HPI[d.id];
   return `<div class="hpi" data-id="${d.id}">
-    <p class="hpi-intro">Select applicable items. Output generates below and remains editable.</p>
     <div class="hrow">
       <div class="hfield"><label>Age</label><input class="hin" data-k="age" type="text" placeholder="64"></div>
       <div class="hfield"><label>Sex</label>
@@ -5303,7 +5391,6 @@ function renderDetail(d){
   detailEl.innerHTML = `
     <button class="back" id="back">&larr; All presentations</button>
     <h2 class="dtitle">${d.name}</h2>
-    <p class="dsub">${d.one}</p>
     ${VERIFIED[d.id]
       ? `<p class="vbadge ok"><strong>Doses verified.</strong> ${VERIFIED[d.id]}</p>`
       : `<p class="vbadge"><strong>Doses not yet verified.</strong> Written from knowledge and not checked against an external source. Confirm before ordering.</p>`}
@@ -5350,6 +5437,29 @@ function closeDetail(quiet){
 }
 
 document.addEventListener('click', e => {
+  const revb = e.target.closest('.revb');
+  if (revb){
+    e.preventDefault(); e.stopPropagation();
+    const ref = revb.dataset.ref, act = revb.dataset.rev;
+    const cur = REVIEWS[ref] || {};
+    if (act === 'clear') delete REVIEWS[ref];
+    else if (act === 'edit'){
+      const c = refText(ref);
+      const sug = prompt('What should this line say?', cur.suggested || c.text);
+      if (sug === null) return;
+      const note = prompt('Source or reason (optional):', cur.note || '');
+      REVIEWS[ref] = {verdict:'edited', suggested:sug, note:note || ''};
+    } else {
+      const note = prompt(`Marking as ${act}. Source or reason (optional):`, cur.note || '');
+      if (note === null) return;
+      REVIEWS[ref] = {verdict:act, suggested:cur.suggested || '', note:note || ''};
+    }
+    saveReviews();
+    const openId = detailEl.classList.contains('open')
+      ? (DATA.find(x => ref.startsWith(x.id + '.')) || {}).id : null;
+    if (openId) openDetail(openId); else render();
+    return;
+  }
   const star = e.target.closest('.star');
   if (star){
     e.preventDefault();
@@ -5422,6 +5532,7 @@ document.addEventListener('click', e => {
   const hbtn = e.target.closest('.hbtn');
   if (hbtn){
     const box = hbtn.closest('.hpi, .ap, .cons, .eyeex');
+    if (!box) return;   /* review export buttons share this class and have their own handlers */
     const rebuild = () => {
       if (box.classList.contains('hpi')) buildHPI(box);
       else if (box.classList.contains('ap')) buildAP(box);
@@ -5456,13 +5567,67 @@ function goHome(){
   [...chipsEl.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.tag === 'All'));
   setMode('scripts');
 }
+function download(name, text, type){
+  try {
+    const blob = new Blob([text], {type: type || 'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  } catch(e){ alert('Download failed. Copy the text from the console instead.'); console.log(text); }
+}
+
+function reviewMeta(){
+  return {
+    reviewer: (document.getElementById('rev-name')||{}).value || '',
+    role: (document.getElementById('rev-role')||{}).value || '',
+    exported: new Date().toISOString()
+  };
+}
+
+document.getElementById('rev-export').addEventListener('click', () => {
+  const rows = Object.keys(REVIEWS).map(ref => {
+    const c = refText(ref);
+    return Object.assign({ref, script:c.script, section:c.section, original:c.text}, REVIEWS[ref]);
+  });
+  download('ward-review-' + new Date().toISOString().slice(0,10) + '.json',
+    JSON.stringify({meta: reviewMeta(), count: rows.length, findings: rows}, null, 2), 'application/json');
+});
+
+document.getElementById('rev-report').addEventListener('click', () => {
+  const m = reviewMeta();
+  const byScript = {};
+  Object.keys(REVIEWS).forEach(ref => {
+    const c = refText(ref);
+    (byScript[c.script] = byScript[c.script] || []).push({ref, c, r: REVIEWS[ref]});
+  });
+  let md = `# Review findings\n\nReviewer: ${m.reviewer || '(not given)'}\nRole: ${m.role || '(not given)'}\nExported: ${m.exported}\nItems flagged: ${Object.keys(REVIEWS).length}\n`;
+  Object.keys(byScript).sort().forEach(sc => {
+    md += `\n## ${sc}\n`;
+    byScript[sc].forEach(x => {
+      md += `\n- **${x.ref}** (${x.c.section}) \u2014 marked **${x.r.verdict}**\n`;
+      md += `  - Current: ${x.c.text}\n`;
+      if (x.r.suggested) md += `  - Should read: ${x.r.suggested}\n`;
+      if (x.r.note) md += `  - Note: ${x.r.note}\n`;
+    });
+  });
+  download('ward-review-' + new Date().toISOString().slice(0,10) + '.md', md, 'text/markdown');
+});
+
+document.getElementById('rev-clear').addEventListener('click', () => {
+  if (!confirm('Delete every flag saved on this device?')) return;
+  REVIEWS = {}; saveReviews(); render();
+  if (detailEl.classList.contains('open')) detailEl.innerHTML = detailEl.innerHTML;
+});
+
 const setBtn = document.getElementById('setbtn'), setPanel = document.getElementById('settings');
 setBtn.addEventListener('click', () => {
   const open = setPanel.hasAttribute('hidden');
   if (open) setPanel.removeAttribute('hidden'); else setPanel.setAttribute('hidden', '');
   setBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
-for (const [id, key] of [['set-concise','concise'], ['set-phone','phone'], ['set-dark','dark']]){
+for (const [id, key] of [['set-concise','concise'], ['set-phone','phone'], ['set-dark','dark'], ['set-review','review']]){
   document.getElementById(id).addEventListener('change', e => {
     SET[key] = e.target.checked;
     applySettings();
